@@ -148,14 +148,14 @@ export class Appearance extends React.Component<
         return (
           <span>
             <img src={lightThemeImage} alt="" />
-            <span className="theme-value-label">Light</span>
+            <span className="theme-value-label">浅色</span>
           </span>
         )
       case ApplicationTheme.Dark:
         return (
           <span>
             <img src={darkThemeImage} alt="" />
-            <span className="theme-value-label">Dark</span>
+            <span className="theme-value-label">深色</span>
           </span>
         )
       case ApplicationTheme.System:
@@ -170,7 +170,7 @@ export class Appearance extends React.Component<
               <img src={lightThemeImage} alt="" />
               <img src={darkThemeImage} alt="" />
             </span>
-            <span className="theme-value-label">System</span>
+            <span className="theme-value-label">跟随系统</span>
           </span>
         )
     }
@@ -180,7 +180,7 @@ export class Appearance extends React.Component<
     const selectedTheme = this.state.selectedTheme
 
     if (selectedTheme == null) {
-      return <Row>Loading system theme</Row>
+      return <Row>正在加载系统主题</Row>
     }
 
     const themes = [
@@ -191,7 +191,7 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section">
-        <h2 id="theme-heading">Theme</h2>
+        <h2 id="theme-heading">主题</h2>
 
         <RadioGroup<ApplicationTheme>
           ariaLabelledBy="theme-heading"
@@ -212,11 +212,11 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section formatting-section">
-        <h2 id="formatting-heading">Formatting</h2>
+        <h2 id="formatting-heading">格式</h2>
 
         <Row>
           <Select
-            label={__DARWIN__ ? 'Date Format' : 'Date format'}
+            label="日期格式"
             value={this.props.selectedDateFormat}
             onChange={this.onDateFormatChanged}
           >
@@ -228,7 +228,7 @@ export class Appearance extends React.Component<
           </Select>
 
           <Select
-            label={__DARWIN__ ? 'Time Format' : 'Time format'}
+            label="时间格式"
             value={this.props.selectedTimeFormat}
             onChange={this.onTimeFormatChanged}
           >
@@ -241,7 +241,7 @@ export class Appearance extends React.Component<
         </Row>
 
         <Select
-          label={__DARWIN__ ? 'Number Format' : 'Number format'}
+          label="数字格式"
           value={numberFormatToKey(this.props.selectedNumberFormat)}
           onChange={this.onNumberFormatChanged}
         >
@@ -257,7 +257,7 @@ export class Appearance extends React.Component<
 
         <Checkbox
           className="prefer-absolute-dates"
-          label="Prefer absolute dates over relative"
+          label="优先显示绝对日期而非相对日期"
           value={
             this.props.preferAbsoluteDates
               ? CheckboxValue.On
@@ -274,23 +274,23 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section">
-        <h2 id="miscellaneous-heading">Miscellaneous</h2>
+        <h2 id="miscellaneous-heading">其他</h2>
 
         <Select
           value={this.state.selectedTabSize.toString()}
-          label={__DARWIN__ ? 'Diff Tab Size' : 'Diff tab size'}
+          label="差异标签页宽度"
           onChange={this.onSelectedTabSizeChanged}
         >
           {availableTabSizes.map(n => (
             <option key={n} value={n}>
-              {n === tabSizeDefault ? `${n} (default)` : n}
+              {n === tabSizeDefault ? `${n}（默认）` : n}
             </option>
           ))}
         </Select>
 
         <Checkbox
           className="always-show-worktree-list"
-          label="Always show worktree list"
+          label="始终显示工作树列表"
           value={
             this.props.alwaysShowWorktreeList
               ? CheckboxValue.On

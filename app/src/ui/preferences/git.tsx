@@ -77,7 +77,7 @@ export class Git extends React.Component<IGitProps> {
     return (
       <>
         <Checkbox
-          label="Load Git hook environment variables from shell"
+          label="从 shell 加载 Git 钩子环境变量"
           ariaDescribedBy="git-hooks-env-description"
           value={
             this.props.enableGitHookEnv ? CheckboxValue.On : CheckboxValue.Off
@@ -85,18 +85,16 @@ export class Git extends React.Component<IGitProps> {
           onChange={this.onEnableGitHookEnvChanged}
         />
         <p id="git-hooks-env-description" className="settings-description">
-          When enabled, GitHub Desktop will attempt to load environment
-          variables from your shell when executing Git hooks. This is useful if
-          your Git hooks depend on environment variables set in your shell
-          configuration files, a common practice for version managers such as
-          nvm, rbenv, asdf, etc.
+          启用后，GitHub Desktop 在执行 Git 钩子时会尝试从您的 shell
+          加载环境变量。如果您的 Git 钩子依赖 shell 配置文件中设置的环境变量
+          （例如 nvm、rbenv、asdf 等版本管理器的常见做法），此功能会很有用。
         </p>
 
         {this.props.enableGitHookEnv && __WIN32__ && (
           <>
             <Select
               className="git-hook-shell-select"
-              label={'Shell to use when loading environment'}
+              label={'加载环境时使用的 Shell'}
               value={this.props.selectedShell}
               onChange={this.onSelectedShellChanged}
             >
@@ -114,7 +112,7 @@ export class Git extends React.Component<IGitProps> {
         {this.props.enableGitHookEnv && (
           <>
             <Checkbox
-              label="Cache Git hook environment variables"
+              label="缓存 Git 钩子环境变量"
               ariaDescribedBy="git-hooks-cache-description"
               onChange={this.onCacheGitHookEnvChanged}
               value={
@@ -128,8 +126,7 @@ export class Git extends React.Component<IGitProps> {
               id="git-hooks-cache-description"
               className="settings-description"
             >
-              Cache hook environment variables to improve performance. Disable
-              if your hooks rely on frequently changing environment variables.
+              缓存钩子环境变量以提升性能。如果您的钩子依赖频繁变化的环境变量，请禁用此选项。
             </div>
           </>
         )}
@@ -144,9 +141,9 @@ export class Git extends React.Component<IGitProps> {
           selectedIndex={this.selectedTabIndex}
           onTabClicked={this.onTabClicked}
         >
-          <span>Author</span>
-          <span>Default branch</span>
-          <span>Hooks</span>
+          <span>作者</span>
+          <span>默认分支</span>
+          <span>钩子</span>
         </TabBar>
         <div className="git-preferences-content">{this.renderCurrentTab()}</div>
       </DialogContent>
@@ -185,7 +182,7 @@ export class Git extends React.Component<IGitProps> {
     return (
       <div className="default-branch-component">
         <h2 id="default-branch-heading">
-          Default branch name for new repositories
+          新仓库的默认分支名称
         </h2>
 
         <RefNameTextBox
@@ -197,9 +194,8 @@ export class Git extends React.Component<IGitProps> {
         />
 
         <p id="default-branch-description" className="settings-description">
-          GitHub's default branch name is <Ref>main</Ref>. You may want to
-          change it due to different workflows, or because your integrations
-          still require the historical default branch name of <Ref>master</Ref>.
+          GitHub 的默认分支名称是 <Ref>main</Ref>。您可能因工作流不同而想更改它，
+          或者因为您的集成仍需要历史的默认分支名称 <Ref>master</Ref>。
         </p>
 
         {this.renderEditGlobalGitConfigInfo()}
@@ -210,9 +206,9 @@ export class Git extends React.Component<IGitProps> {
   private renderEditGlobalGitConfigInfo() {
     return (
       <p className="settings-description">
-        These preferences will{' '}
+        这些选项将{' '}
         <LinkButton onClick={this.props.onEditGlobalGitConfig}>
-          edit your global Git config file
+          编辑您的全局 Git 配置文件
         </LinkButton>
         .
       </p>

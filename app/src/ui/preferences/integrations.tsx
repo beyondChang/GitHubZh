@@ -198,7 +198,7 @@ export class Integrations extends React.Component<
   private renderExternalEditor() {
     const options = this.props.availableEditors
     const { selectedExternalEditor, useCustomEditor } = this.state
-    const label = __DARWIN__ ? 'External Editor' : 'External editor'
+    const label = '外部编辑器'
 
     if (!enableCustomIntegration() && options.length === 0) {
       // this is emulating the <Select/> component's UI so the styles are
@@ -238,8 +238,8 @@ export class Integrations extends React.Component<
         {enableCustomIntegration() && (
           <option key={CustomIntegrationValue} value={CustomIntegrationValue}>
             {__DARWIN__
-              ? 'Configure Custom Editor…'
-              : 'Configure custom editor…'}
+              ? '配置自定义编辑器…'
+              : '配置自定义编辑器…'}
           </option>
         )}
       </Select>
@@ -321,7 +321,7 @@ export class Integrations extends React.Component<
         ))}
         {enableCustomIntegration() && (
           <option key={CustomIntegrationValue} value={CustomIntegrationValue}>
-            {__DARWIN__ ? 'Configure Custom Shell…' : 'Configure custom shell…'}
+            {__DARWIN__ ? '配置自定义 Shell…' : '配置自定义 Shell…'}
           </option>
         )}
       </Select>
@@ -372,7 +372,7 @@ export class Integrations extends React.Component<
 
   private onChooseCopilotAppPath = async () => {
     const path = await showOpenDialog({
-      title: 'Choose GitHub Copilot',
+      title: '选择 GitHub Copilot',
       properties: __DARWIN__ ? ['openFile', 'openDirectory'] : ['openFile'],
       filters: [
         { name: 'GitHub Copilot', extensions: [__DARWIN__ ? 'app' : 'exe'] },
@@ -395,22 +395,22 @@ export class Integrations extends React.Component<
           <h2>GitHub Copilot</h2>
         </legend>
         <p>
-          Experience agent-driven development built natively on GitHub.{' '}
+          体验原生构建于 GitHub 之上的智能体驱动开发。{' '}
           <LinkButton uri={copilotAppMarketingUrl}>
-            Learn more about GitHub Copilot
+            了解有关 GitHub Copilot 的更多信息
           </LinkButton>
-          .
+          。
         </p>
         <Row>
           <div className="custom-integration-form-container">
             <div className="custom-integration-form-path-container">
               <TextBox
-                label="App location"
+                label="应用位置"
                 value={this.state.copilotAppPath}
                 placeholder={
                   __DARWIN__
-                    ? 'path to GitHub Copilot.app'
-                    : 'path to github.exe'
+                    ? 'GitHub Copilot.app 的路径'
+                    : 'github.exe 的路径'
                 }
                 onValueChanged={this.onCopilotAppPathChanged}
                 ariaDescribedBy={
@@ -419,7 +419,7 @@ export class Integrations extends React.Component<
                     : 'copilot-app-path-error'
                 }
               />
-              <Button onClick={this.onChooseCopilotAppPath}>Choose…</Button>
+              <Button onClick={this.onChooseCopilotAppPath}>选择…</Button>
             </div>
             {this.props.copilotAppPathError !== undefined && (
               <div className="custom-integration-form-error">
@@ -442,7 +442,7 @@ export class Integrations extends React.Component<
     if (!enableCustomIntegration()) {
       return (
         <DialogContent>
-          <h2>Applications</h2>
+          <h2>应用程序</h2>
           <Row>{this.renderExternalEditor()}</Row>
           <Row>{this.renderSelectedShell()}</Row>
           {this.renderCopilotApp()}
@@ -454,7 +454,7 @@ export class Integrations extends React.Component<
       <DialogContent>
         <fieldset>
           <legend>
-            <h2>{__DARWIN__ ? 'External Editor' : 'External editor'}</h2>
+            <h2>外部编辑器</h2>
           </legend>
           <Row>{this.renderExternalEditor()}</Row>
           {this.state.useCustomEditor && this.renderCustomExternalEditor()}

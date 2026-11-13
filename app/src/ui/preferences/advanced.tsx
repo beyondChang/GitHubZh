@@ -77,8 +77,8 @@ export class Advanced extends React.Component<
   private reportDesktopUsageLabel() {
     return (
       <span>
-        Help GitHub Desktop improve by submitting{' '}
-        <LinkButton uri={SamplesURL}>usage stats</LinkButton>
+        通过提交{' '}
+        <LinkButton uri={SamplesURL}>使用统计</LinkButton>帮助改进 GitHub Desktop
       </span>
     )
   }
@@ -87,9 +87,9 @@ export class Advanced extends React.Component<
     return (
       <DialogContent>
         <div className="advanced-section">
-          <h2>Background updates</h2>
+          <h2>后台更新</h2>
           <Checkbox
-            label="Show status icons in the repository list"
+            label="在仓库列表中显示状态图标"
             value={
               this.props.repositoryIndicatorsEnabled
                 ? CheckboxValue.On
@@ -100,19 +100,15 @@ export class Advanced extends React.Component<
           />
           <div id="periodic-fetch-description" className="settings-description">
             <p>
-              These icons indicate which repositories have local or remote
-              changes, and require the periodic fetching of repositories that
-              are not currently selected.
+              这些图标表示哪些仓库有本地或远程更改，这需要对当前未选中的仓库进行定期获取。
             </p>
             <p>
-              Turning this off will not stop the periodic fetching of your
-              currently selected repository, but may improve overall app
-              performance for users with many repositories.
+              关闭此选项不会停止对当前选中仓库的定期获取，但对于拥有大量仓库的用户，可能会提升应用整体性能。
             </p>
           </div>
         </div>
         <div className="advanced-section">
-          <h2>Usage</h2>
+          <h2>使用情况</h2>
           <Checkbox
             label={this.reportDesktopUsageLabel()}
             value={
@@ -123,11 +119,11 @@ export class Advanced extends React.Component<
             onChange={this.onReportingOptOutChanged}
           />
         </div>
-        <h2>Network and credentials</h2>
+        <h2>网络与凭据</h2>
         {this.renderSSHSettings()}
         <div className="advanced-section">
           <Checkbox
-            label={'Use Git Credential Manager'}
+            label={'使用 Git Credential Manager'}
             value={
               this.state.useExternalCredentialHelper
                 ? CheckboxValue.On
@@ -141,12 +137,11 @@ export class Advanced extends React.Component<
             className="settings-description"
           >
             <p>
-              Use{' '}
+              在 GitHub.com 之外的私有仓库使用{' '}
               <LinkButton uri="https://gh.io/gcm">
                 Git Credential Manager{' '}
-              </LinkButton>{' '}
-              for private repositories outside of GitHub.com. This feature is
-              experimental and subject to change.
+              </LinkButton>
+              。此功能为实验性功能，可能会发生变化。
             </p>
           </div>
         </div>
@@ -162,7 +157,7 @@ export class Advanced extends React.Component<
     return (
       <div className="advanced-section">
         <Checkbox
-          label="Use system OpenSSH (recommended)"
+          label="使用系统 OpenSSH（推荐）"
           value={
             this.props.useWindowsOpenSSH ? CheckboxValue.On : CheckboxValue.Off
           }

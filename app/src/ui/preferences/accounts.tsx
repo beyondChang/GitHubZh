@@ -43,7 +43,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
             this.renderSignIn(SignInType.DotCom)
           ) : (
             <Button onClick={this.props.onDotComSignIn}>
-              Add GitHub.com account
+              添加 GitHub.com 账号
             </Button>
           )}
         </div>
@@ -116,7 +116,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
           </div>
         </div>
         <Button onClick={this.logout(account)} className={className}>
-          {__DARWIN__ ? 'Sign Out' : 'Sign out'}
+          退出登录
         </Button>
       </Row>
     )
@@ -131,7 +131,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
   }
 
   private renderSignIn(type: SignInType) {
-    const signInTitle = __DARWIN__ ? 'Sign Into' : 'Sign into'
+    const signInTitle = '登录'
     switch (type) {
       case SignInType.DotCom: {
         return (
@@ -143,7 +143,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
             buttonClassName={DialogPreferredFocusClassName}
           >
             <div>
-              Sign in to your GitHub.com account to access your repositories.
+              登录您的 GitHub.com 账号以访问您的仓库。
             </div>
           </CallToAction>
         )
@@ -155,8 +155,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
             onAction={this.onEnterpriseSignIn}
           >
             <div>
-              If you are using GitHub Enterprise at work, sign in to it to get
-              access to your repositories.
+              如果您在工作中使用 GitHub Enterprise，请登录以访问您的仓库。
             </div>
           </CallToAction>
         )

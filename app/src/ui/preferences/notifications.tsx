@@ -51,9 +51,9 @@ export class Notifications extends React.Component<
     return (
       <DialogContent>
         <div className="advanced-section">
-          <h2>Notifications</h2>
+          <h2>通知</h2>
           <Checkbox
-            label="Enable notifications"
+            label="启用通知"
             value={
               this.props.notificationsEnabled
                 ? CheckboxValue.On
@@ -62,8 +62,7 @@ export class Notifications extends React.Component<
             onChange={this.onNotificationsEnabledChanged}
           />
           <p className="settings-description">
-            Allows the display of notifications when high-signal events take
-            place in the current repository.{this.renderNotificationHint()}
+            允许在当前仓库发生重要事件时显示通知。{this.renderNotificationHint()}
           </p>
         </div>
       </DialogContent>
@@ -105,9 +104,9 @@ export class Notifications extends React.Component<
           {' '}
           You need to{' '}
           <LinkButton onClick={this.onGrantNotificationPermission}>
-            grant permission
+            授予权限
           </LinkButton>{' '}
-          to display these notifications from GitHub Desktop.
+          才能显示来自 GitHub Desktop 的这些通知。
         </>
       )
     }
@@ -124,25 +123,25 @@ export class Notifications extends React.Component<
           <span className="warning-icon">⚠️</span> GitHub Desktop has no
           permission to display notifications. Please, enable them in the{' '}
           <LinkButton uri={notificationSettingsURL}>
-            Notifications Settings
+            通知设置
           </LinkButton>
-          .
+          {' '}。
         </div>
       )
     }
 
     const verb = suggestConfigureNotifications
-      ? 'properly configured'
-      : 'enabled'
+      ? '正确配置'
+      : '启用'
 
     return (
       <>
         {' '}
-        Make sure notifications are {verb} for GitHub Desktop in the{' '}
+        请确保在{' '}
         <LinkButton uri={notificationSettingsURL}>
-          Notifications Settings
+          通知设置
         </LinkButton>
-        .
+        {' '}中为 GitHub Desktop {verb}通知。
       </>
     )
   }
