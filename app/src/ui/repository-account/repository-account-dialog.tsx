@@ -115,13 +115,12 @@ export class RepositoryAccountDialog extends React.Component<
     return (
       <>
         <p>
-          {this.props.repository.name} is assigned to @
-          {this.props.repository.login} on {friendlyEndpoint}. Sign in to
-          continue using this account.
+          {this.props.repository.name} 在 {friendlyEndpoint} 上分配给了 @
+          {this.props.repository.login}。请登录以继续使用该账号。
         </p>
         {this.accounts.length > 0 && (
           <Button onClick={this.onChooseAnotherAccount}>
-            Choose another account
+            选择其他账号
           </Button>
         )}
       </>
@@ -132,9 +131,8 @@ export class RepositoryAccountDialog extends React.Component<
     return (
       <>
         <p>
-          Choose the account to use for GitHub API requests and HTTPS
-          authentication for {this.props.repository.name} on {friendlyEndpoint}.
-          This does not change your Git author name or email.
+          选择用于 {this.props.repository.name}（位于 {friendlyEndpoint}）的 GitHub API 请求和 HTTPS
+          身份验证的账号。这不会更改您的 Git 作者姓名或邮箱。
         </p>
         <AccountPicker
           accounts={this.accounts}
