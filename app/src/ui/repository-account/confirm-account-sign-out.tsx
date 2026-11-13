@@ -44,23 +44,19 @@ export class ConfirmAccountSignOut extends React.Component<
     return (
       <Dialog
         id="confirm-account-sign-out"
-        title={`Sign out of @${account.login}?`}
+        title={`退出 @${account.login}？`}
         onSubmit={this.onSubmit}
         onDismissed={this.onDismissed}
       >
         <DialogContent>
           <p>
-            {repositoryCount}{' '}
-            {repositoryCount === 1 ? 'repository is' : 'repositories are'}{' '}
-            assigned to @{account.login} on {account.friendlyEndpoint}.
+            在 {account.friendlyEndpoint} 上有 {repositoryCount} 个仓库分配给了 @{account.login}。
           </p>
           <p>
-            Keep these assignments to use this account when you sign in again,
-            or clear them to choose an account the next time you use these
-            repositories.
+            保留这些分配可在您再次登录时继续使用此账号；清除后，下次使用这些仓库时需要重新选择账号。
           </p>
           <Checkbox
-            label="Clear repository account assignments"
+            label="清除仓库账号分配"
             value={
               this.state.clearAssignments ? CheckboxValue.On : CheckboxValue.Off
             }
@@ -68,7 +64,7 @@ export class ConfirmAccountSignOut extends React.Component<
           />
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText="Sign out" />
+          <OkCancelButtonGroup okButtonText="退出登录" />
         </DialogFooter>
       </Dialog>
     )

@@ -152,7 +152,7 @@ export class RepositoryAccountDialog extends React.Component<
     return (
       <Dialog
         id="repository-account"
-        title="Repository account"
+        title="仓库账号"
         onDismissed={this.onDismissed}
         onSubmit={this.onSubmit}
       >
@@ -163,7 +163,7 @@ export class RepositoryAccountDialog extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={requiresSignIn ? 'Sign in' : 'Use account'}
+            okButtonText={requiresSignIn ? '登录' : '使用该账号'}
             okButtonDisabled={
               !requiresSignIn && this.state.selectedAccount === null
             }
