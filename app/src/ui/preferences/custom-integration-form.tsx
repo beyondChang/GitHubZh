@@ -69,21 +69,21 @@ export class CustomIntegrationForm extends React.Component<
       <div className="custom-integration-form-container">
         <div className="custom-integration-form-path-container">
           <TextBox
-            label="Path"
+            label="路径"
             value={this.state.path}
             ref={this.pathInputRef}
             onValueChanged={this.onPathChanged}
-            placeholder="Path to executable"
+            placeholder="可执行文件路径"
             ariaDescribedBy={`${this.props.id}-custom-integration-path-error`}
           />
-          <Button onClick={this.onChoosePath}>Choose…</Button>
+          <Button onClick={this.onChoosePath}>选择…</Button>
         </div>
         {this.renderPathErrors()}
         <TextBox
-          label="Arguments"
+          label="参数"
           value={this.state.arguments}
           onValueChanged={this.onParamsChanged}
-          placeholder="Command line arguments"
+          placeholder="命令行参数"
           ariaDescribedBy={`${this.props.id}-custom-integration-args-error`}
         />
         {this.renderArgsErrors()}
@@ -97,7 +97,7 @@ export class CustomIntegrationForm extends React.Component<
     }
 
     const errorDescription =
-      'This path does not appear to be a valid executable.'
+      '此路径似乎不是有效的可执行文件。'
 
     return (
       <div className="custom-integration-form-error">
@@ -121,8 +121,8 @@ export class CustomIntegrationForm extends React.Component<
     }
 
     const errorDescription = this.state.showNonValidArgsError
-      ? 'These arguments are not valid.'
-      : `Arguments must include the target path placeholder (${TargetPathArgument}).`
+      ? '这些参数无效。'
+      : `参数必须包含目标路径占位符（${TargetPathArgument}）。`
 
     return (
       <div className="custom-integration-form-error">
@@ -148,7 +148,7 @@ export class CustomIntegrationForm extends React.Component<
       filters: __WIN32__
         ? [
             {
-              name: 'Executables',
+              name: '可执行文件',
               extensions: [...WindowsExecutableExtensions],
             },
           ]
