@@ -120,7 +120,7 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
     return (
       <Dialog
         id="publish-repository"
-        title={__DARWIN__ ? 'Publish Repository' : 'Publish repository'}
+        title="发布仓库"
         onDismissed={this.props.onDismissed}
         onSubmit={this.publishRepository}
         disabled={this.state.publishing}
@@ -237,9 +237,7 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText={
-            __DARWIN__ ? 'Publish Repository' : 'Publish repository'
-          }
+          okButtonText={'发布仓库'}
           okButtonDisabled={disabled}
         />
       </DialogFooter>
