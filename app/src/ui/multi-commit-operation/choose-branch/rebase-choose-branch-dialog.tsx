@@ -95,9 +95,9 @@ export class RebaseChooseBranchDialog extends React.Component<
         : false
 
     return selectedBranchIsCurrentBranch
-      ? 'You are not able to rebase this branch onto itself.'
+      ? '无法将此分支变基到自身。'
       : !currentBranchIsBehindSelectedBranch
-      ? 'The current branch is already up to date with the selected branch.'
+      ? '当前分支已与所选分支保持同步。'
       : undefined
   }
 
@@ -108,7 +108,7 @@ export class RebaseChooseBranchDialog extends React.Component<
     )
     return (
       <>
-        Rebase <strong>{truncatedName}</strong>
+        变基到 <strong>{truncatedName}</strong>
       </>
     )
   }

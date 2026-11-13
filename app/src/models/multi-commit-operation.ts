@@ -18,6 +18,29 @@ export const enum MultiCommitOperationKind {
   Reorder = 'Reorder',
 }
 
+/**
+ * Returns the display name of a multi-commit operation in Chinese.
+ *
+ * The enum values themselves stay English because they are used as
+ * identifiers (menu ids, telemetry, persisted state).
+ */
+export function getMultiCommitOperationLabel(
+  kind: MultiCommitOperationKind
+): string {
+  switch (kind) {
+    case MultiCommitOperationKind.Rebase:
+      return '变基'
+    case MultiCommitOperationKind.CherryPick:
+      return '拣选'
+    case MultiCommitOperationKind.Squash:
+      return '压缩'
+    case MultiCommitOperationKind.Merge:
+      return '合并'
+    case MultiCommitOperationKind.Reorder:
+      return '重排'
+  }
+}
+
 /** Type guard which narrows a string to a MultiCommitOperationKind */
 export function isIdMultiCommitOperation(
   id: string

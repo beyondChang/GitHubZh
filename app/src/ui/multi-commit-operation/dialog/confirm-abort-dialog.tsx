@@ -52,11 +52,7 @@ export class ConfirmAbortDialog extends React.Component<
     return (
       <Dialog
         id="abort-warning"
-        title={
-          __DARWIN__
-            ? `Confirm Abort ${operation}`
-            : `Confirm abort ${operation.toLowerCase()}`
-        }
+        title={`确认中止${operation}`}
         onDismissed={this.onCancel}
         onSubmit={this.onSubmit}
         disabled={this.state.isAborting}
@@ -66,23 +62,16 @@ export class ConfirmAbortDialog extends React.Component<
       >
         <DialogContent>
           <div className="column-left" id="abort-operation-confirmation">
+            <p>您确定要中止此次{operation}吗？</p>
             <p>
-              Are you sure you want to abort this {operation.toLowerCase()}?
-            </p>
-            <p>
-              This will take you back to the original branch state and the
-              conflicts you have already resolved will be discarded.
+              这将把您带回原始分支状态，您已经解决的冲突将被丢弃。
             </p>
           </div>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={
-              __DARWIN__
-                ? `Abort ${operation}`
-                : `Abort ${operation.toLowerCase()}`
-            }
+            okButtonText={`中止${operation}`}
           />
         </DialogFooter>
       </Dialog>

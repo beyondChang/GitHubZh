@@ -549,7 +549,7 @@ export function buildDefaultMenuTemplate({
     ? '在访达中显示日志'
     : __WIN32__
     ? '在资源管理器中显示日志'
-    : '在文件管理器中显示日志',
+    : '在文件管理器中显示日志'
 
   const showLogsItem: Electron.MenuItemConstructorOptions = {
     label: showLogsLabel,

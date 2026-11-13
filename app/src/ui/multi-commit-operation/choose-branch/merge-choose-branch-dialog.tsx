@@ -90,11 +90,11 @@ export class MergeChooseBranchDialog extends React.Component<
     )
     const squashPrefix =
       this.props.operation === MultiCommitOperationKind.Squash
-        ? 'Squash and '
+        ? '压缩并'
         : null
     return (
       <>
-        {squashPrefix}Merge into <strong>{truncatedName}</strong>
+        {squashPrefix}合并到 <strong>{truncatedName}</strong>
       </>
     )
   }

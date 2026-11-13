@@ -7,7 +7,10 @@ import { Dispatcher } from '../dispatcher'
 import { getResolvedFiles, getConflictedFiles } from '../../lib/status'
 import { ConflictState, IMultiCommitOperationState } from '../../lib/app-state'
 import { Branch } from '../../models/branch'
-import { MultiCommitOperationStepKind } from '../../models/multi-commit-operation'
+import {
+  MultiCommitOperationStepKind,
+  getMultiCommitOperationLabel,
+} from '../../models/multi-commit-operation'
 import { ConflictsDialog } from './dialog/conflicts-dialog'
 import { ConfirmAbortDialog } from './dialog/confirm-abort-dialog'
 import { ProgressDialog } from './dialog/progress-dialog'
@@ -242,7 +245,7 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
           <ProgressDialog
             progress={state.progress}
             emoji={emoji}
-            operation={state.operationDetail.kind}
+            operation={getMultiCommitOperationLabel(state.operationDetail.kind)}
           />
         )
       case MultiCommitOperationStepKind.ShowConflicts: {
@@ -259,11 +262,9 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
         const { userHasResolvedConflicts, operationDetail } = state
         const { manualResolutions, ourBranch, theirBranch } = step.conflictState
 
-        const operation = __DARWIN__
-          ? operationDetail.kind
-          : operationDetail.kind.toLowerCase()
-        const submit = `Continue ${operation}`
-        const abort = `Abort ${operation}`
+        const operation = getMultiCommitOperationLabel(operationDetail.kind)
+        const submit = `继续${operation}`
+        const abort = `中止${operation}`
 
         return (
           <ConflictsDialog
@@ -279,7 +280,7 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
             ourBranch={ourBranch}
             theirBranch={theirBranch}
             manualResolutions={manualResolutions}
-            headerTitle={`Resolve conflicts before ${operationDetail.kind}`}
+            headerTitle={`在${operation}前解决冲突`}
             submitButton={submit}
             abortButton={abort}
             onSubmit={this.onContinueAfterConflicts}
@@ -295,7 +296,9 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
       case MultiCommitOperationStepKind.ConfirmAbort:
         return (
           <ConfirmAbortDialog
-            operation={this.props.state.operationDetail.kind}
+            operation={getMultiCommitOperationLabel(
+              this.props.state.operationDetail.kind
+            )}
             onConfirmAbort={this.onAbort}
             onReturnToConflicts={this.moveToConflictState}
           />
@@ -304,7 +307,9 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
         const { dispatcher, askForConfirmationOnForcePush } = this.props
         return (
           <WarnForcePushDialog
-            operation={state.operationDetail.kind}
+            operation={getMultiCommitOperationLabel(
+              state.operationDetail.kind
+            )}
             dispatcher={dispatcher}
             askForConfirmationOnForcePush={askForConfirmationOnForcePush}
             onBegin={this.onBeginOperation}

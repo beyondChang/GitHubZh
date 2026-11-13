@@ -40,9 +40,7 @@ export class WarnForcePushDialog extends React.Component<
   public render() {
     const { operation, onDismissed } = this.props
 
-    const title = __DARWIN__
-      ? `${operation} Will Require Force Push`
-      : `${operation} will require force push`
+    const title = `${operation}需要强制推送`
 
     return (
       <Dialog
@@ -56,17 +54,15 @@ export class WarnForcePushDialog extends React.Component<
       >
         <DialogContent>
           <p id="warn-force-push-confirmation-title">
-            Are you sure you want to {operation.toLowerCase()}?
+            您确定要执行{operation}吗？
           </p>
           <p id="warn-force-push-confirmation-message">
-            At the end of the {operation.toLowerCase()} flow, GitHub Desktop
-            will enable you to force push the branch to update the upstream
-            branch. Force pushing will alter the history on the remote and
-            potentially cause problems for others collaborating on this branch.
+            在{operation}流程结束时，GitHub Desktop 将允许您强制推送该分支以更新上游分支。
+            强制推送会更改远程仓库的历史记录，并可能给在此分支上协作的其他人员带来问题。
           </p>
           <div>
             <Checkbox
-              label="Do not show this message again"
+              label="不再显示此消息"
               value={
                 this.state.askForConfirmationOnForcePush
                   ? CheckboxValue.Off
@@ -78,9 +74,7 @@ export class WarnForcePushDialog extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={`Begin ${
-              __DARWIN__ ? operation : operation.toLowerCase()
-            }`}
+            okButtonText={`开始${operation}`}
             onCancelButtonClick={this.props.onDismissed}
           />
         </DialogFooter>

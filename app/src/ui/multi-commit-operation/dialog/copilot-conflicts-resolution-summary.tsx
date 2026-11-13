@@ -37,31 +37,31 @@ function getOperationPhrase(
     case MultiCommitOperationKind.Merge:
       return (
         <span>
-          Merging <Ref>{theirLabel}</Ref> into <Ref>{ourLabel}</Ref>
+          将 <Ref>{theirLabel}</Ref> 合并到 <Ref>{ourLabel}</Ref>
         </span>
       )
     case MultiCommitOperationKind.Rebase:
       return (
         <span>
-          Rebasing <Ref>{ourLabel}</Ref> onto <Ref>{theirLabel}</Ref>
+          将 <Ref>{ourLabel}</Ref> 变基到 <Ref>{theirLabel}</Ref> 之上
         </span>
       )
     case MultiCommitOperationKind.CherryPick:
       return (
         <span>
-          Cherry-picking from <Ref>{theirLabel}</Ref> into <Ref>{ourLabel}</Ref>
+          从 <Ref>{theirLabel}</Ref> 拣选到 <Ref>{ourLabel}</Ref>
         </span>
       )
     case MultiCommitOperationKind.Squash:
       return (
         <span>
-          Squashing into <Ref>{ourLabel}</Ref>
+          压缩到 <Ref>{ourLabel}</Ref>
         </span>
       )
     case MultiCommitOperationKind.Reorder:
       return (
         <span>
-          Reordering <Ref>{ourLabel}</Ref>
+          重排 <Ref>{ourLabel}</Ref>
         </span>
       )
     default:
@@ -124,7 +124,7 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
             className="copilot-conflicts-summary-copilot-icon"
           />
           <span className="copilot-conflicts-summary-theme-label">
-            Resolution summary
+            解决方案摘要
           </span>
         </h2>
         <div className="copilot-conflicts-summary-body">

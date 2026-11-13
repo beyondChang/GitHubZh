@@ -9,7 +9,10 @@ import { IConflictResolutionProgress } from '../../../lib/copilot-conflict-resol
 import { Button } from '../../lib/button'
 import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
-import { MultiCommitOperationKind } from '../../../models/multi-commit-operation'
+import {
+  MultiCommitOperationKind,
+  getMultiCommitOperationLabel,
+} from '../../../models/multi-commit-operation'
 import { AriaLiveContainer } from '../../accessibility/aria-live-container'
 import { IConflictResolutionModelDisplay } from '../../../lib/copilot/conflict-resolution-model'
 import { formatReasoningEffort } from '../../../lib/stores/copilot-store'
@@ -419,7 +422,7 @@ export class CopilotConflictsLoadingDialog extends React.Component<
         onDismissed={this.props.onDismissed}
       >
         <DialogHeader
-          title={`Resolving conflicts for ${operationKind.toLowerCase()}`}
+          title={`正在为${getMultiCommitOperationLabel(operationKind)}解决冲突`}
           titleId={CopilotConflictsLoadingDialogId}
           showCloseButton={true}
           onCloseButtonClick={this.props.onDismissed}
@@ -468,10 +471,10 @@ export class CopilotConflictsLoadingDialog extends React.Component<
                 className="copilot-conflicts-loading-stop-icon"
                 symbol={octicons.squareFill}
               />
-              Stop
+              停止
             </Button>
             <Button onClick={this.props.onAbort}>
-              Abort {operationKind.toLowerCase()}
+              中止{getMultiCommitOperationLabel(operationKind)}
             </Button>
           </div>
         </DialogFooter>

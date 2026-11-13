@@ -150,18 +150,15 @@ export class ChooseTargetBranchDialog extends React.Component<
     const { selectedBranch, isCreateBranchState } = this.state
 
     if (isCreateBranchState) {
-      return __DARWIN__
-        ? 'Cherry-pick to New Branch'
-        : 'Cherry-pick to new branch'
+      return '拣选到新分支'
     }
 
-    const pluralize = this.props.commitCount > 1 ? 'commits' : 'commit'
-    const okButtonText = `Cherry-pick ${this.props.commitCount} ${pluralize}`
+    const okButtonText = `拣选 ${this.props.commitCount} 个提交`
 
     if (selectedBranch !== null) {
       return (
         <>
-          {okButtonText} to <strong>{selectedBranch.name}</strong>…
+          {okButtonText}到 <strong>{selectedBranch.name}</strong>…
         </>
       )
     }
@@ -183,7 +180,7 @@ export class ChooseTargetBranchDialog extends React.Component<
       ? 'You are not able to cherry-pick from and to the same branch'
       : undefined
 
-    const pluralize = this.props.commitCount > 1 ? 'commits' : 'commit'
+    const pluralize = ''
     return (
       <Dialog
         id="cherry-pick"
@@ -191,7 +188,7 @@ export class ChooseTargetBranchDialog extends React.Component<
         onSubmit={this.onSubmit}
         title={
           <strong>
-            Cherry-pick {this.props.commitCount} {pluralize} to a branch
+            将 {this.props.commitCount} {pluralize}拣选到分支
           </strong>
         }
       >

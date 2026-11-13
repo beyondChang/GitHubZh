@@ -5,7 +5,10 @@ import { DialogHeader } from '../../dialog/header'
 import { Dispatcher } from '../../dispatcher'
 import { Emoji } from '../../../lib/emoji'
 import { Repository } from '../../../models/repository'
-import { MultiCommitOperationStepKind } from '../../../models/multi-commit-operation'
+import {
+  MultiCommitOperationStepKind,
+  getMultiCommitOperationLabel,
+} from '../../../models/multi-commit-operation'
 import { MultiCommitOperationConflictState } from '../../../lib/app-state'
 import {
   WorkingDirectoryStatus,
@@ -664,7 +667,7 @@ export class CopilotConflictsDialog extends React.Component<
     const { isContinuing, selectedTab } = this.state
 
     const unmergedFiles = getUnmergedFiles(workingDirectory)
-    const operation = __DARWIN__ ? operationKind : operationKind.toLowerCase()
+    const operation = getMultiCommitOperationLabel(operationKind)
 
     const hasUnresolvedSkippedFiles = this.hasUnresolvedSkippedFiles()
 
@@ -684,7 +687,7 @@ export class CopilotConflictsDialog extends React.Component<
         disabled={isContinuing}
       >
         <DialogHeader
-          title={`Resolve conflicts before ${operationKind}`}
+          title={`在${operation}前解决冲突`}
           titleId={CopilotConflictsDialogTitleId}
           showCloseButton={!isContinuing}
           onCloseButtonClick={this.props.onDismissed}
@@ -694,8 +697,8 @@ export class CopilotConflictsDialog extends React.Component<
             <span className="copilot-conflicts-dialog-model">{modelLabel}</span>
             <Button
               className="copilot-conflicts-dialog-settings-button"
-              tooltip="Configure Copilot in app settings"
-              ariaLabel="Configure Copilot in app settings"
+              tooltip="在应用设置中配置 Copilot"
+              ariaLabel="在应用设置中配置 Copilot"
               onClick={this.onOpenCopilotSettings}
             >
               <Octicon symbol={octicons.sliders} />
@@ -708,25 +711,25 @@ export class CopilotConflictsDialog extends React.Component<
             onTabClicked={this.onTabSelected}
             type={TabBarType.Tabs}
           >
-            <span>Summary</span>
-            <span>Changes</span>
+            <span>摘要</span>
+            <span>更改</span>
           </TabBar>
           {this.renderTabContent(unmergedFiles)}
         </DialogContent>
         <DialogFooter>
           <div className="copilot-conflicts-footer">
             <Button onClick={this.onBackToManual} disabled={isContinuing}>
-              Switch to manual
+              切换到手动模式
             </Button>
             <OkCancelButtonGroup
-              okButtonText={`Continue ${operation}`}
+              okButtonText={`继续${operation}`}
               okButtonDisabled={hasUnresolvedSkippedFiles || isContinuing}
               okButtonTitle={
                 hasUnresolvedSkippedFiles
-                  ? 'Some files were skipped by Copilot. Those need to be resolved manually.'
+                  ? '部分文件被 Copilot 跳过，需要手动解决。'
                   : undefined
               }
-              cancelButtonText={`Abort ${operation}`}
+              cancelButtonText={`中止${operation}`}
               onCancelButtonClick={this.onAbort}
               cancelButtonDisabled={isContinuing}
             />
