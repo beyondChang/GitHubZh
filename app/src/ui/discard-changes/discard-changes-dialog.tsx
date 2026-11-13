@@ -57,18 +57,16 @@ export class DiscardChanges extends React.Component<
 
   private getOkButtonLabel() {
     if (this.props.discardingAllChanges) {
-      return __DARWIN__ ? 'Discard All Changes' : 'Discard all changes'
+      return '放弃所有更改'
     }
-    return __DARWIN__ ? 'Discard Changes' : 'Discard changes'
+    return '放弃更改'
   }
 
   private getDialogTitle() {
     if (this.props.discardingAllChanges) {
-      return __DARWIN__
-        ? 'Confirm Discard All Changes'
-        : 'Confirm discard all changes'
+      return '确认放弃所有更改'
     }
-    return __DARWIN__ ? 'Confirm Discard Changes' : 'Confirm discard changes'
+    return '确认放弃更改'
   }
 
   public render() {
@@ -90,8 +88,7 @@ export class DiscardChanges extends React.Component<
         <DialogContent>
           {this.renderFileList()}
           <p id="discard-changes-confirmation-message">
-            Changes can be restored by retrieving them from the {TrashNameLabel}
-            .
+            更改可以通过从 {TrashNameLabel} 中检索来恢复。
           </p>
           {this.renderConfirmDiscardChanges()}
         </DialogContent>
@@ -112,7 +109,7 @@ export class DiscardChanges extends React.Component<
     if (this.props.showDiscardChangesSetting) {
       return (
         <Checkbox
-          label="Do not show this message again"
+          label="不再显示此消息"
           value={
             this.state.confirmDiscardChanges
               ? CheckboxValue.Off

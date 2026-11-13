@@ -32,11 +32,7 @@ export class DiscardChangesRetryDialog extends React.Component<
 
     return (
       <Dialog
-        title={
-          __DARWIN__
-            ? 'Discarded Changes Will Be Unrecoverable'
-            : 'Discarded changes will be unrecoverable'
-        }
+        title="放弃的更改将无法恢复"
         id="discard-changes-retry"
         loading={retrying}
         disabled={retrying}
@@ -45,17 +41,17 @@ export class DiscardChangesRetryDialog extends React.Component<
         type="error"
       >
         <DialogContent>
-          <p>Failed to discard changes to {TrashNameLabel}.</p>
+          <p>无法放弃对 {TrashNameLabel} 的更改。</p>
           <div>
-            Common reasons are:
+            常见原因：
             <ul>
               <li>
-                The {TrashNameLabel} is configured to delete items immediately.
+                {TrashNameLabel} 被配置为立即删除项目。
               </li>
-              <li>Restricted access to move the file(s).</li>
+              <li>没有移动这些文件的权限。</li>
             </ul>
           </div>
-          <p>These changes will be unrecoverable from the {TrashNameLabel}.</p>
+          <p>这些更改将无法从 {TrashNameLabel} 中恢复。</p>
           {this.renderConfirmDiscardChanges()}
         </DialogContent>
         {this.renderFooter()}
@@ -66,7 +62,7 @@ export class DiscardChangesRetryDialog extends React.Component<
   private renderConfirmDiscardChanges() {
     return (
       <Checkbox
-        label="Do not show this message again"
+        label="不再显示此消息"
         value={
           this.state.confirmDiscardChanges
             ? CheckboxValue.Off
@@ -81,13 +77,9 @@ export class DiscardChangesRetryDialog extends React.Component<
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText={
-            __DARWIN__
-              ? 'Permanently Discard Changes'
-              : 'Permanently discard changes'
-          }
-          okButtonTitle={`This will discard changes and they will be unrecoverable.`}
-          cancelButtonText="Cancel"
+          okButtonText={'永久放弃更改'}
+          okButtonTitle={`将放弃这些更改且无法恢复。`}
+          cancelButtonText="取消"
           destructive={true}
         />
       </DialogFooter>
