@@ -193,7 +193,7 @@ export class AccountPicker extends React.Component<
     if (account === null) {
       return (
         <div className="account placeholder">
-          {__DARWIN__ ? 'Choose an Account…' : 'Choose an account…'}
+          选择一个账号…
         </div>
       )
     }
@@ -212,9 +212,9 @@ export class AccountPicker extends React.Component<
     return (
       <PopoverDropdown
         className="account-picker"
-        contentTitle="Choose an account"
+        contentTitle="选择一个账号"
         buttonContent={this.renderButtonContent()}
-        label="Account"
+        label="账号"
         ref={this.popoverRef}
         openButtonClassName={this.props.openButtonClassName}
       >

@@ -28,19 +28,18 @@ export class Start extends React.Component<IStartProps, {}> {
     return (
       <section
         id="start"
-        aria-label="Welcome to GitHub Desktop"
+        aria-label="欢迎使用 GitHub Desktop"
         aria-describedby="start-description"
       >
         <div className="start-content">
           <h1 className="welcome-title">
-            Welcome to <span>GitHub Desktop</span>
+            欢迎使用 <span>GitHub Desktop</span>
           </h1>
           {!this.props.loadingBrowserAuth ? (
             <>
               <p id="start-description" className="welcome-text">
-                GitHub Desktop is a seamless way to contribute to projects on
-                GitHub and GitHub Enterprise. Sign in below to get started with
-                your existing projects.
+                GitHub Desktop 是您在 GitHub 和 GitHub Enterprise 上参与项目的无缝方式。
+                登录即可开始使用您现有的项目。
               </p>
             </>
           ) : (
@@ -57,49 +56,49 @@ export class Start extends React.Component<IStartProps, {}> {
               role="link"
             >
               {this.props.loadingBrowserAuth && <Loading />}
-              Sign in to GitHub.com
+              登录 GitHub.com
               <Octicon symbol={octicons.linkExternal} />
             </Button>
             {this.props.loadingBrowserAuth ? (
-              <Button onClick={this.cancelBrowserAuth}>Cancel</Button>
+              <Button onClick={this.cancelBrowserAuth}>取消</Button>
             ) : (
               <Button onClick={this.signInToEnterprise}>
-                Sign in to GitHub Enterprise
+                登录 GitHub Enterprise
               </Button>
             )}
           </div>
           <div className="skip-action-container">
             <p className="welcome-text">
-              New to GitHub?{' '}
+              还没有 GitHub 账号？{' '}
               <LinkButton
                 uri={CreateAccountURL}
                 className="create-account-link"
               >
-                Create your free account.
+                创建免费账号。
               </LinkButton>
             </p>
             <LinkButton className="skip-button" onClick={this.skip}>
-              Skip this step
+              跳过此步骤
             </LinkButton>
           </div>
         </div>
 
         <div className="start-footer">
           <p>
-            By creating an account, you agree to the{' '}
+            创建账号即表示您同意{' '}
             <LinkButton uri={'https://github.com/site/terms'}>
-              Terms of Service
+              《服务条款》
             </LinkButton>
-            . For more information about GitHub's privacy practices, see the{' '}
+            。如需了解更多 GitHub 隐私政策，请参阅{' '}
             <LinkButton uri={'https://github.com/site/privacy'}>
-              GitHub Privacy Statement.
+              GitHub 隐私声明。
             </LinkButton>
           </p>
           <p>
-            GitHub Desktop sends usage metrics to improve the product and inform
-            feature decisions.{' '}
+            GitHub Desktop 会发送使用情况统计，以改进产品并协助做出功能决策。
+            {' '}
             <LinkButton uri={SamplesURL}>
-              Learn more about user metrics.
+              了解有关用户统计的更多信息。
             </LinkButton>
           </p>
         </div>

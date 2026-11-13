@@ -565,16 +565,12 @@ export class FilterChangesList extends React.Component<
       this.props.conflictState !== null ||
       hasConflictedFiles(this.props.workingDirectory)
 
-    const stashAllChangesLabel = __DARWIN__
-      ? 'Stash All Changes'
-      : 'Stash all changes'
-    const confirmStashAllChangesLabel = __DARWIN__
-      ? 'Stash All Changes…'
-      : 'Stash all changes…'
+    const stashAllChangesLabel = '暂存所有更改'
+    const confirmStashAllChangesLabel = '暂存所有更改…'
 
     const items: IMenuItem[] = [
       {
-        label: __DARWIN__ ? 'Discard All Changes…' : 'Discard all changes…',
+        label: '放弃所有更改…',
         action: this.onDiscardAllChanges,
         enabled: hasLocalChanges,
       },
@@ -661,7 +657,7 @@ export class FilterChangesList extends React.Component<
     const { externalEditorLabel } = this.props
 
     const openInExternalEditor = externalEditorLabel
-      ? `Open in ${externalEditorLabel}`
+      ? `在 ${externalEditorLabel} 中打开`
       : DefaultEditorLabel
 
     return {
@@ -717,9 +713,7 @@ export class FilterChangesList extends React.Component<
     if (paths.length === 1) {
       const enabled = Path.basename(path) !== GitIgnoreFileName
       items.push({
-        label: __DARWIN__
-          ? 'Ignore File (Add to .gitignore)'
-          : 'Ignore file (add to .gitignore)',
+        label: '忽略文件（添加到 .gitignore）',
         action: () => this.props.onIgnoreFile(path),
         enabled,
       })
@@ -739,18 +733,14 @@ export class FilterChangesList extends React.Component<
         })
 
         items.push({
-          label: __DARWIN__
-            ? 'Ignore Folder (Add to .gitignore)'
-            : 'Ignore folder (add to .gitignore)',
+          label: '忽略文件夹（添加到 .gitignore）',
           submenu,
           enabled,
         })
       }
     } else if (paths.length > 1) {
       items.push({
-        label: __DARWIN__
-          ? `Ignore ${paths.length} Selected Files (Add to .gitignore)`
-          : `Ignore ${paths.length} selected files (add to .gitignore)`,
+        label: `忽略所选的 ${paths.length} 个文件（添加到 .gitignore）`,
         action: () => {
           // Filter out any .gitignores that happens to be selected, ignoring
           // those doesn't make sense.
@@ -768,9 +758,7 @@ export class FilterChangesList extends React.Component<
       .slice(0, 5)
       .forEach(extension => {
         items.push({
-          label: __DARWIN__
-            ? `Ignore All ${extension} Files (Add to .gitignore)`
-            : `Ignore all ${extension} files (add to .gitignore)`,
+          label: `忽略所有 ${extension} 文件（添加到 .gitignore）`,
           action: () => this.props.onIgnorePattern(`*${extension}`),
         })
       })
@@ -779,17 +767,13 @@ export class FilterChangesList extends React.Component<
       items.push(
         { type: 'separator' },
         {
-          label: __DARWIN__
-            ? 'Include Selected Files'
-            : 'Include selected files',
+          label: '包含所选文件',
           action: () => {
             selectedFiles.map(file => this.props.onIncludeChanged(file, true))
           },
         },
         {
-          label: __DARWIN__
-            ? 'Exclude Selected Files'
-            : 'Exclude selected files',
+          label: '排除所选文件',
           action: () => {
             selectedFiles.map(file => this.props.onIncludeChanged(file, false))
           },
@@ -1213,7 +1197,7 @@ export class FilterChangesList extends React.Component<
         }
       >
         <Octicon className="stack-icon" symbol={StashIcon} />
-        <div className="text">Stashed Changes</div>
+        <div className="text">已暂存的更改</div>
         <Octicon symbol={octicons.chevronRight} />
       </button>
     )
@@ -1393,7 +1377,7 @@ export class FilterChangesList extends React.Component<
         <TextBox
           ref={this.onTextBoxRef}
           displayClearButton={true}
-          placeholder={'Filter'}
+          placeholder={'筛选'}
           className="filter-list-filter-field"
           onValueChanged={this.onFilterTextChanged}
           onKeyDown={this.onFilterKeyDown}
@@ -1501,11 +1485,10 @@ export class FilterChangesList extends React.Component<
     return (
       <div className="hidden-changes-warning" id="hidden-changes-warning">
         <Octicon symbol={octicons.alert} />
-        <span className="sr-only">Warning:</span>
-        <span>Hidden changes will be committed. </span>
+        <span className="sr-only">警告：</span>
+        <span>隐藏的更改也将被提交。</span>
         <LinkButton onClick={this.showFilesToBeCommitted}>
-          Adjust the filters to see all {formatNumber(filesSelected.length)}{' '}
-          changes
+          调整筛选条件以查看全部 {formatNumber(filesSelected.length)} 项更改
         </LinkButton>
       </div>
     )
@@ -1528,7 +1511,7 @@ export class FilterChangesList extends React.Component<
       <div className="no-changes-filtered">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
 
-        <div className="title">No files match your current filters</div>
+        <div className="title">没有文件符合当前筛选条件</div>
 
         <div className="subtitle">
           {getNoResultsMessage(this.props.fileListFilter)}

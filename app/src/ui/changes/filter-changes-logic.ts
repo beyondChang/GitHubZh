@@ -88,41 +88,32 @@ export function getNoResultsMessage(
   }
 
   if (filters.isIncludedInCommit) {
-    activeFilters.push('Included in commit')
+    activeFilters.push('已包含在提交中')
   }
 
   if (filters.isExcludedFromCommit) {
-    activeFilters.push('Excluded from commit')
+    activeFilters.push('已从提交中排除')
   }
 
   if (filters.isNewFile) {
-    activeFilters.push('New files')
+    activeFilters.push('新文件')
   }
 
   if (filters.isModifiedFile) {
-    activeFilters.push('Modified files')
+    activeFilters.push('已修改文件')
   }
 
   if (filters.isDeletedFile) {
-    activeFilters.push('Deleted files')
+    activeFilters.push('已删除文件')
   }
 
   if (activeFilters.length === 0) {
     return undefined
   }
 
-  // Format the list with proper grammar (e.g., "A, B, and C")
-  let filterList: string
-  if (activeFilters.length === 1) {
-    filterList = activeFilters[0]
-  } else if (activeFilters.length === 2) {
-    filterList = `${activeFilters[0]} and ${activeFilters[1]}`
-  } else {
-    const lastFilter = activeFilters[activeFilters.length - 1]
-    const otherFilters = activeFilters.slice(0, -1)
-    filterList = `${otherFilters.join(', ')}, and ${lastFilter}`
-  }
-  return `Sorry, I can't find any changed files matching the following filters: ${filterList}`
+  // 用中文顿号连接多个筛选条件
+  const filterList = activeFilters.join('、')
+  return `抱歉，找不到符合以下筛选条件的已更改文件：${filterList}`
 }
 
 /**

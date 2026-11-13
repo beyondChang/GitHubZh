@@ -297,7 +297,7 @@ export class CloneRepository extends React.Component<
     return (
       <Dialog
         className="clone-repository"
-        title={__DARWIN__ ? 'Clone a Repository' : 'Clone a repository'}
+        title="克隆仓库"
         onSubmit={this.clone}
         onDismissed={this.props.onDismissed}
         loading={this.state.loading}
@@ -369,7 +369,7 @@ export class CloneRepository extends React.Component<
 
     return (
       <DialogFooter>
-        <OkCancelButtonGroup okButtonText="Clone" okButtonDisabled={disabled} />
+        <OkCancelButtonGroup okButtonText="克隆" okButtonDisabled={disabled} />
       </DialogFooter>
     )
   }
@@ -559,19 +559,17 @@ export class CloneRepository extends React.Component<
   }
 
   private renderSignIn() {
-    const signInTitle = __DARWIN__ ? 'Sign In' : 'Sign in'
+    const signInTitle = '登录'
     return (
       <>
         <CallToAction actionTitle={signInTitle} onAction={this.signInDotCom}>
           <div>
-            Sign in to your GitHub.com account to access your repositories.
+            登录您的 GitHub.com 账号以访问您的仓库。
           </div>
         </CallToAction>
         <Row className="sign-in-enterprise">
           <LinkButton onClick={this.signInEnterprise}>
-            {__DARWIN__
-              ? 'Sign In to GitHub Enterprise'
-              : 'Sign in to GitHub Enterprise'}
+            登录 GitHub Enterprise
           </LinkButton>
         </Row>
       </>
@@ -672,8 +670,8 @@ export class CloneRepository extends React.Component<
     const tabState = this.getSelectedTabState()
 
     const path = await showSaveDialog({
-      buttonLabel: 'Select',
-      nameFieldLabel: 'Clone As:',
+      buttonLabel: '选择',
+      nameFieldLabel: '克隆为：',
       showsTagField: false,
       defaultPath: tabState.path ?? '',
       properties: ['createDirectory'],
@@ -729,9 +727,7 @@ export class CloneRepository extends React.Component<
   /** Validate the destination before cloning can create files in it. */
   private async validateClonePath(path: string | null): Promise<null | Error> {
     if (path === null) {
-      return new Error(
-        'Unable to read path on disk. Please check the path and try again.'
-      )
+      return new Error('无法读取磁盘上的路径。请检查路径后重试。')
     }
 
     if (
@@ -739,7 +735,7 @@ export class CloneRepository extends React.Component<
       Path.basename(Path.resolve(path)).toLowerCase().endsWith('.app')
     ) {
       return new Error(
-        'The local path cannot end in .app on macOS. Choose a different folder name to avoid creating an application bundle.'
+        '在 macOS 上，本地路径不能以 .app 结尾。请选择其他文件夹名称，以免创建应用程序包。'
       )
     }
 
@@ -749,25 +745,19 @@ export class CloneRepository extends React.Component<
         this.validatedClonePath = { path, canonical }
       }
       if (isRepositoryAffectedByAssistedCommit(canonical)) {
-        return new Error(
-          'Finish or cancel the assisted commit run before cloning into this directory.'
-        )
+        return new Error('请先完成或取消辅助提交，再克隆到此目录。')
       }
       const directoryFiles = await readdir(path)
 
       if (directoryFiles.length === 0) {
         return null
       } else {
-        return new Error(
-          'This folder contains files. Git can only clone to empty folders.'
-        )
+        return new Error('此文件夹包含文件。Git 只能克隆到空文件夹。')
       }
     } catch (error) {
       if (error.code === 'ENOTDIR') {
         // path refers to a file or other file system entry
-        return new Error(
-          'There is already a file with this name. Git can only clone to a folder.'
-        )
+        return new Error('已存在同名文件。Git 只能克隆到文件夹中。')
       }
 
       if (error.code === 'ENOENT') {
@@ -778,9 +768,7 @@ export class CloneRepository extends React.Component<
       log.error(
         'CloneRepository: Path validation failed. Error: ' + error.message
       )
-      return new Error(
-        'Unable to read path on disk. Please check the path and try again.'
-      )
+      return new Error('无法读取磁盘上的路径。请检查路径后重试。')
     }
   }
 

@@ -173,7 +173,7 @@ export class ConfigureGitUser extends React.Component<
     const dummyCommit = new Commit(
       name,
       name.slice(0, 7),
-      'Fix all the things',
+      '修复所有问题',
       '',
       author,
       author,
@@ -185,7 +185,7 @@ export class ConfigureGitUser extends React.Component<
 
     return (
       <div id="commit-list" className="commit-list-example">
-        <div className="header">Example commit</div>
+        <div className="header">提交示例</div>
 
         <CommitListItem
           commit={dummyCommit}
@@ -212,14 +212,14 @@ export class ConfigureGitUser extends React.Component<
     return (
       <div>
         <RadioButton
-          label={`Use my GitHub${accountTypeSuffix} account name and email address`}
+          label={`使用我的 GitHub${accountTypeSuffix} 账号名称和邮箱地址`}
           checked={this.state.useGitHubAuthorInfo}
           onSelected={this.onUseGitHubInfoSelected}
           value="github-account"
           autoFocus={true}
         />
         <RadioButton
-          label="Configure manually"
+          label="手动配置"
           checked={!this.state.useGitHubAuthorInfo}
           onSelected={this.onUseGitConfigInfoSelected}
           value="git-config"
@@ -236,7 +236,7 @@ export class ConfigureGitUser extends React.Component<
     return (
       <>
         <Select
-          label="Email"
+          label="邮箱"
           value={this.state.gitHubEmail}
           onChange={this.onSelectedGitHubEmailChange}
         >
@@ -255,7 +255,7 @@ export class ConfigureGitUser extends React.Component<
       <>
         <TextBox
           type="email"
-          label="Email"
+          label="邮箱"
           placeholder="your-email@example.com"
           value={this.state.manualEmail}
           onValueChanged={this.onEmailChange}
@@ -276,8 +276,8 @@ export class ConfigureGitUser extends React.Component<
       <Form className="sign-in-form" onSubmit={this.save}>
         <div className="sign-in-form-inputs">
           <TextBox
-            label="Name"
-            placeholder="Your Name"
+            label="姓名"
+            placeholder="您的姓名"
             onValueChanged={this.onNameChange}
             value={
               this.state.useGitHubAuthorInfo
@@ -293,7 +293,7 @@ export class ConfigureGitUser extends React.Component<
             : this.renderGitConfigForm()}
         </div>
         <Row>
-          <Button type="submit">{this.props.saveLabel || 'Save'}</Button>
+          <Button type="submit">{this.props.saveLabel || '保存'}</Button>
           {this.props.children}
         </Row>
       </Form>

@@ -97,14 +97,13 @@ const commitModeOptions: ReadonlyArray<
 > = [
   {
     id: 'manual',
-    label: 'Commit',
-    description: 'Write the commit summary and description yourself.',
+    label: '提交',
+    description: '自行撰写提交摘要和描述。',
   },
   {
     id: 'copilot',
-    label: 'Commit with Copilot',
-    description:
-      'Copilot splits the selected changes into commits and writes their messages.',
+    label: '使用 Copilot 提交',
+    description: 'Copilot 将所选更改拆分为多个提交并撰写提交信息。',
   },
 ]
 
@@ -1024,15 +1023,15 @@ export class CommitMessage extends React.Component<
       >
         <div id={this.assistedAuthorWarningID} role="alert">
           <p>
-            Your commit author email does not meet this repository's rules.
-            {canBypass && ' You can bypass these rules.'}
+            您的提交作者邮箱不符合此仓库的规则。
+            {canBypass && ' 您可以绕过这些规则。'}
           </p>
           {repository.gitHubRepository !== null && branch !== null && (
             <RepoRulesMetadataFailureList
               repository={repository.gitHubRepository}
               branch={branch}
               failures={repoRuleCommitAuthorFailures}
-              leadingText="The commit author email"
+              leadingText="提交作者邮箱"
             />
           )}
         </div>
@@ -1041,7 +1040,7 @@ export class CommitMessage extends React.Component<
           onClick={this.onOpenRepositorySettings}
           disabled={this.isBusy}
         >
-          Update author email
+          更新作者邮箱
         </Button>
       </CommitWarning>
     )
@@ -1229,13 +1228,7 @@ export class CommitMessage extends React.Component<
   }
 
   private get toggleCoAuthorsText(): string {
-    return this.props.showCoAuthoredBy
-      ? __DARWIN__
-        ? 'Remove Co-Authors'
-        : 'Remove co-authors'
-      : __DARWIN__
-      ? 'Add Co-Authors'
-      : 'Add co-authors'
+    return this.props.showCoAuthoredBy ? '移除共同作者' : '添加共同作者'
   }
 
   private getAddRemoveCoAuthorsMenuItem(): IMenuItem {
@@ -1261,9 +1254,7 @@ export class CommitMessage extends React.Component<
     const noChangesAvailable = !commitToAmend && noFilesSelected
 
     return {
-      label: __DARWIN__
-        ? 'Generate Commit Message with Copilot'
-        : 'Generate commit message with Copilot',
+      label: '使用 Copilot 生成提交信息',
       action: () => {
         if (this.isBusy) {
           return
@@ -1321,12 +1312,8 @@ export class CommitMessage extends React.Component<
   }
 
   private getCommitSpellcheckEnabilityMenuItem(isEnabled: boolean): IMenuItem {
-    const enableLabel = __DARWIN__
-      ? 'Enable Commit Spellcheck'
-      : 'Enable commit spellcheck'
-    const disableLabel = __DARWIN__
-      ? 'Disable Commit Spellcheck'
-      : 'Disable commit spellcheck'
+    const enableLabel = '启用提交拼写检查'
+    const disableLabel = '禁用提交拼写检查'
     return {
       label: isEnabled ? disableLabel : enableLabel,
       action: () => this.props.onCommitSpellcheckEnabledChanged(!isEnabled),
@@ -1385,17 +1372,17 @@ export class CommitMessage extends React.Component<
     const noFilesSelected = filesSelected.length === 0
     const noChangesAvailable = !commitToAmend && noFilesSelected
 
-    let ariaLabel = 'Generate commit message with Copilot'
+    let ariaLabel = '使用 Copilot 生成提交信息'
     const canCancelGenerateCommitMessage = this.canCancelGenerateCommitMessage
     const showCancelGenerateCommitMessage =
       isGeneratingCommitMessage === true && canCancelGenerateCommitMessage
 
     if (!isGeneratingCommitMessage && noChangesAvailable) {
-      ariaLabel += '. Files must be selected to generate a commit message.'
+      ariaLabel += '。必须选择文件才能生成提交信息。'
     } else if (showCancelGenerateCommitMessage) {
-      ariaLabel = 'Cancel generating commit details'
+      ariaLabel = '取消生成提交详情'
     } else if (isGeneratingCommitMessage) {
-      ariaLabel = 'Generating commit details…'
+      ariaLabel = '正在生成提交详情…'
     }
 
     return (
@@ -1416,7 +1403,7 @@ export class CommitMessage extends React.Component<
         >
           <AriaLiveContainer
             message={
-              isGeneratingCommitMessage ? 'Generating commit details…' : ''
+              isGeneratingCommitMessage ? '正在生成提交详情…' : ''
             }
           />
           <Octicon
@@ -1427,7 +1414,7 @@ export class CommitMessage extends React.Component<
             }
           />
           {shouldShowGenerateCommitMessageCallOut && (
-            <span className="call-to-action-bubble">New</span>
+            <span className="call-to-action-bubble">新</span>
           )}
         </Button>
       </>
@@ -1435,7 +1422,7 @@ export class CommitMessage extends React.Component<
   }
 
   private renderCommitOptionsButton() {
-    const ariaLabel = 'Configure commit options'
+    const ariaLabel = '配置提交选项'
 
     return (
       <>
@@ -1485,7 +1472,7 @@ export class CommitMessage extends React.Component<
           this.props.canPushAfterCommit !== false &&
           this.props.commitToAmend === null &&
           !this.props.repository.isTutorialRepository,
-        label: 'Push after committing',
+        label: '提交后推送',
         action: this.onPushAfterCommitChanged,
       })
     }
@@ -1495,7 +1482,7 @@ export class CommitMessage extends React.Component<
         type: 'checkbox',
         checked: this.props.skipCommitHooks,
         enabled: !this.isBusy,
-        label: __DARWIN__ ? 'Bypass Commit Hooks' : 'Bypass Commit hooks',
+        label: '绕过提交钩子',
         action: () => {
           this.updateCommitOptions({
             skipCommitHooks: !this.props.skipCommitHooks,
@@ -1508,9 +1495,7 @@ export class CommitMessage extends React.Component<
       type: 'checkbox',
       checked: this.props.signOffCommits,
       enabled: !this.isBusy,
-      label: __DARWIN__
-        ? 'Add Signed-off-by Trailer'
-        : 'Add Signed-off-by trailer',
+      label: '添加 Signed-off-by 尾注',
       action: () => {
         this.updateCommitOptions({
           signOffCommits: !this.props.signOffCommits,
@@ -1523,7 +1508,7 @@ export class CommitMessage extends React.Component<
         type: 'checkbox',
         checked: this.props.allowEmptyCommit,
         enabled: !this.isBusy,
-        label: __DARWIN__ ? 'Allow Empty Commit' : 'Allow empty commit',
+        label: '允许空提交',
         action: () => {
           this.updateCommitOptions({
             allowEmptyCommit: !this.props.allowEmptyCommit,
@@ -1883,9 +1868,7 @@ export class CommitMessage extends React.Component<
       return
     }
 
-    const header = __DARWIN__
-      ? 'Commit Message Rule Failures'
-      : 'Commit message rule failures'
+    const header = '提交信息规则未通过'
     return (
       <Popover
         anchor={this.summaryTextInput}
@@ -1901,7 +1884,7 @@ export class CommitMessage extends React.Component<
           repository={repository.gitHubRepository}
           branch={branch}
           failures={this.state.repoRuleCommitMessageFailures}
-          leadingText="This commit message"
+          leadingText="此提交信息"
         />
       </Popover>
     )
@@ -1926,8 +1909,8 @@ export class CommitMessage extends React.Component<
     const isCommitting =
       this.props.isCommitting || this.props.isCreatingCopilotAssistedCommits
 
-    const amendVerb = isCommitting ? 'Amending' : 'Amend'
-    const commitVerb = isCommitting ? 'Committing' : 'Commit'
+    const amendVerb = isCommitting ? '正在修正' : '修正'
+    const commitVerb = isCommitting ? '正在提交' : '提交'
     const isAmending = commitToAmend !== null
 
     return isAmending ? amendVerb : commitVerb
@@ -1966,9 +1949,7 @@ export class CommitMessage extends React.Component<
       return ''
     }
 
-    const pluralizedFile = filesToBeCommittedCount > 1 ? 'files' : 'file'
-
-    return `${filesToBeCommittedCount} ${pluralizedFile} `
+    return `${filesToBeCommittedCount} 个文件 `
   }
 
   private getCommittingButtonTitle() {
@@ -1979,7 +1960,7 @@ export class CommitMessage extends React.Component<
       return verb
     }
 
-    return `${verb} to ${branch}`
+    return `${verb}到 ${branch}`
   }
 
   private getButtonText() {
@@ -2002,7 +1983,7 @@ export class CommitMessage extends React.Component<
 
     const isAmending = commitToAmend !== null
     return isAmending
-      ? `${this.getButtonVerb()} last commit`
+      ? `${this.getButtonVerb()}上次提交`
       : this.getCommittingButtonTitle()
   }
 
@@ -2013,15 +1994,15 @@ export class CommitMessage extends React.Component<
 
     const isSummaryBlank = isEmptyOrWhitespace(this.summaryOrPlaceholder)
     if (isSummaryBlank) {
-      return `A commit summary is required to commit`
+      return `提交需要填写提交摘要`
     } else if (
       !this.props.anyFilesSelected &&
       this.props.anyFilesAvailable &&
       !this.props.allowEmptyCommit
     ) {
-      return `Select one or more files to commit`
+      return `选择要提交的一个或多个文件`
     } else if (this.props.isCommitting) {
-      return `Committing changes…`
+      return `正在提交更改…`
     }
 
     return undefined
@@ -2052,7 +2033,7 @@ export class CommitMessage extends React.Component<
       <>
         {loading}
         {isGeneratingCommitMessage
-          ? 'Generating commit details…'
+          ? '正在生成提交详情…'
           : this.getButtonText()}
       </>
     )
@@ -2069,14 +2050,14 @@ export class CommitMessage extends React.Component<
 
     const tooltip = isCopilotCommitMode
       ? buttonEnabled
-        ? `${this.getButtonTitle()} with Copilot`
+        ? `${this.getButtonTitle()}（使用 Copilot）`
         : this.hasCommitAuthorRuleFailure
-        ? "Your commit author email does not meet this repository's rules."
+        ? '您的提交作者邮箱不符合此仓库的规则。'
         : anyFilesSelected || allowEmptyCommit
         ? undefined
-        : 'Select one or more files to commit'
+        : '选择要提交的一个或多个文件'
       : isGeneratingCommitMessage
-      ? 'Generating commit details…'
+      ? '正在生成提交详情…'
       : this.getButtonTooltip(buttonEnabled)
 
     const ariaDescribedBy =
@@ -2098,7 +2079,7 @@ export class CommitMessage extends React.Component<
         tooltipDismissable={false}
         onlyShowTooltipWhenOverflowed={buttonEnabled}
         ariaDescribedBy={ariaDescribedBy}
-        dropdownAriaLabel="Choose how to commit"
+        dropdownAriaLabel="选择提交方式"
         onCheckedOptionChange={this.onCommitModeChanged}
         onSubmit={this.onSubmit}
         renderInvokeButtonContent={
@@ -2128,7 +2109,7 @@ export class CommitMessage extends React.Component<
     const { isGeneratingCommitMessage } = this.props
     const buttonEnabled = this.isManualCommitButtonEnabled()
     const tooltip = isGeneratingCommitMessage
-      ? 'Generating commit details…'
+      ? '正在生成提交详情…'
       : this.getButtonTooltip(buttonEnabled)
 
     return (
@@ -2154,20 +2135,20 @@ export class CommitMessage extends React.Component<
         tooltip={
           <>
             <div className="title">
-              Great commit summaries contain fewer than 50 characters
+              优秀的提交摘要少于 50 个字符
             </div>
             <div className="description">
-              Place extra information in the description field.
+              其余信息请写在描述字段中。
             </div>
           </>
         }
         ariaLiveMessage={
-          'Great commit summaries contain fewer than 50 characters. Place extra information in the description field.'
+          '优秀的提交摘要少于 50 个字符。其余信息请写在描述字段中。'
         }
         direction={TooltipDirection.NORTH}
         className="length-hint"
         tooltipClassName="length-hint-tooltip"
-        ariaLabel="Open Summary Length Info"
+        ariaLabel="打开摘要长度说明"
       >
         <Octicon symbol={octicons.lightBulb} />
       </ToggledtippedContent>
@@ -2187,17 +2168,17 @@ export class CommitMessage extends React.Component<
     let ariaLabelPrefix: string
     let bypassMessage = ''
     if (canBypass) {
-      ariaLabelPrefix = 'Warning'
-      bypassMessage = ', but you can bypass them'
+      ariaLabelPrefix = '警告'
+      bypassMessage = '，但您可以绕过它们'
     } else {
-      ariaLabelPrefix = 'Error'
+      ariaLabelPrefix = '错误'
     }
 
     return (
       <button
         id="commit-message-failure-hint"
         className="commit-message-failure-hint button-component"
-        aria-label={`${ariaLabelPrefix}: Commit message fails repository rules${bypassMessage}. View details.`}
+        aria-label={`${ariaLabelPrefix}：提交信息不符合仓库规则${bypassMessage}。查看详情。`}
         aria-haspopup="dialog"
         aria-expanded={this.state.isRuleFailurePopoverOpen}
         onClick={this.toggleRuleFailurePopover}
@@ -2324,7 +2305,7 @@ export class CommitMessage extends React.Component<
     return (
       <div
         role="group"
-        aria-label="Create commit"
+        aria-label="创建提交"
         className={className}
         onContextMenu={this.onContextMenu}
         ref={this.wrapperRef}
@@ -2342,9 +2323,9 @@ export class CommitMessage extends React.Component<
               <AutocompletingInput
                 required={true}
                 label={
-                  this.props.showInputLabels === true ? 'Summary' : undefined
+                  this.props.showInputLabels === true ? '摘要' : undefined
                 }
-                screenReaderLabel="Commit summary"
+                screenReaderLabel="提交摘要"
                 className={summaryInputClassName}
                 placeholder={placeholder}
                 value={this.state.commitMessage.summary}
@@ -2368,7 +2349,7 @@ export class CommitMessage extends React.Component<
               this.renderRuleFailurePopover()}
 
             {this.props.showInputLabels === true && (
-              <label htmlFor="commit-message-description">Description</label>
+              <label htmlFor="commit-message-description">描述</label>
             )}
             <FocusContainer
               className="description-focus-container"
@@ -2379,10 +2360,10 @@ export class CommitMessage extends React.Component<
                 className={descriptionClassName}
                 screenReaderLabel={
                   this.props.showInputLabels !== true
-                    ? 'Commit description'
+                    ? '提交描述'
                     : undefined
                 }
-                placeholder="Description"
+                placeholder="描述"
                 value={this.state.commitMessage.description || ''}
                 onValueChanged={this.onDescriptionChanged}
                 autocompletionProviders={

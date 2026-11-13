@@ -146,7 +146,7 @@ export class SelectedCommits extends React.Component<
     if (file == null) {
       // don't show both 'empty' messages
       const message =
-        this.props.changesetData.files.length === 0 ? '' : 'No file selected'
+        this.props.changesetData.files.length === 0 ? '' : '未选择文件'
 
       return (
         <div className="panel blankslate" id="diff">
@@ -253,7 +253,7 @@ export class SelectedCommits extends React.Component<
   private renderFileList() {
     const files = this.props.changesetData.files
     if (files.length === 0) {
-      return <div className="fill-window">No files in commit</div>
+      return <div className="fill-window">提交中没有文件</div>
     }
 
     // -1 for right hand side border
@@ -348,18 +348,13 @@ export class SelectedCommits extends React.Component<
         <div className="panel blankslate">
           <img src={BlankSlateImage} className="blankslate-image" alt="" />
           <div>
-            <p>
-              Unable to display diff when multiple non-consecutive selected.
-            </p>
-            <div>You can:</div>
+            <p>选择多个不连续的提交时无法显示差异。</p>
+            <div>您可以：</div>
             <ul>
-              <li>
-                Select a single commit or a range of consecutive commits to view
-                a diff.
-              </li>
-              <li>Drag the commits to the branch menu to cherry-pick them.</li>
-              <li>Drag the commits to squash or reorder them.</li>
-              <li>Right click on multiple commits to see options.</li>
+              <li>选择一个提交或一段连续的提交以查看差异。</li>
+              <li>将提交拖到分支菜单以拣选它们。</li>
+              <li>拖动提交以压缩或重新排序。</li>
+              <li>右键单击多个提交以查看选项。</li>
             </ul>
           </div>
         </div>
@@ -386,9 +381,7 @@ export class SelectedCommits extends React.Component<
     if (!fileExistsOnDisk) {
       showContextualMenu([
         {
-          label: __DARWIN__
-            ? 'File Does Not Exist on Disk'
-            : 'File does not exist on disk',
+          label: '文件在磁盘上不存在',
           enabled: false,
         },
       ])
@@ -430,14 +423,14 @@ export class SelectedCommits extends React.Component<
       { type: 'separator' },
     ]
 
-    let viewOnGitHubLabel = 'View on GitHub'
+    let viewOnGitHubLabel = '在 GitHub 上查看'
     const gitHubRepository = repository.gitHubRepository
 
     if (
       gitHubRepository &&
       gitHubRepository.endpoint !== getDotComAPIEndpoint()
     ) {
-      viewOnGitHubLabel = 'View on GitHub Enterprise'
+      viewOnGitHubLabel = '在 GitHub Enterprise 上查看'
     }
 
     items.push({

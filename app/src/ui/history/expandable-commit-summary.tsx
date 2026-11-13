@@ -125,7 +125,7 @@ function createState(
 
 function getCommitSummary(selectedCommits: ReadonlyArray<Commit>) {
   return selectedCommits[0].summary.length === 0
-    ? 'Empty commit message'
+    ? '空的提交信息'
     : selectedCommits[0].summary
 }
 
@@ -220,11 +220,11 @@ export class ExpandableCommitSummary extends React.Component<
       <Button
         onClick={isExpanded ? this.onCollapse : this.onExpand}
         className="expander"
-        tooltip={isExpanded ? 'Collapse' : 'Expand'}
+        tooltip={isExpanded ? '折叠' : '展开'}
         applyTooltipAriaDescribedBy={false}
         ariaExpanded={isExpanded}
         ariaLabel={
-          isExpanded ? 'Collapse commit details' : 'Expand commit details'
+          isExpanded ? '折叠提交详情' : '展开提交详情'
         }
         ariaControls="expandable-commit-summary"
       >
@@ -378,7 +378,7 @@ export class ExpandableCommitSummary extends React.Component<
 
   private renderExpandedAuthor(user: IAvatarUser): string | JSX.Element {
     if (!user) {
-      return 'Unknown user'
+      return '未知用户'
     }
 
     if (user.name) {

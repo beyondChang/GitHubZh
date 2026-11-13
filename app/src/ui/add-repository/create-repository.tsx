@@ -498,7 +498,7 @@ export class CreateRepository extends React.Component<
     return (
       <Row>
         <Select
-          label={__DARWIN__ ? 'Git Ignore' : 'Git ignore'}
+          label="Git 忽略"
           value={this.state.gitIgnore}
           onChange={this.onGitIgnoreChange}
         >
@@ -523,7 +523,7 @@ export class CreateRepository extends React.Component<
     return (
       <Row>
         <Select
-          label="License"
+          label="许可证"
           value={this.state.license}
           onChange={this.onLicenseChange}
         >
@@ -680,9 +680,7 @@ export class CreateRepository extends React.Component<
     return (
       <Dialog
         id="create-repository"
-        title={
-          __DARWIN__ ? 'Create a New Repository' : 'Create a new repository'
-        }
+        title="创建新仓库"
         loading={this.state.creating}
         onSubmit={this.createRepository}
         onDismissed={this.props.onDismissed}
@@ -690,8 +688,7 @@ export class CreateRepository extends React.Component<
         {this.renderInvalidPathError()}
         {protectedDestination && (
           <DialogError>
-            Finish or cancel the assisted commit run before creating a
-            repository in this directory.
+            请先完成或取消辅助提交，再在此目录中创建仓库。
           </DialogError>
         )}
 
@@ -710,8 +707,8 @@ export class CreateRepository extends React.Component<
             onFullPathChanged={this.onFullPathChanged}
             onNameChanged={this.onNameChanged}
             onPathChanged={this.onPathChanged}
-            namePlaceholder="repository name"
-            pathPlaceholder="repository path"
+            namePlaceholder="仓库名称"
+            pathPlaceholder="仓库路径"
             nameAriaDescribedBy="existing-repository-path-error repo-sanitized-name-warning"
             pathAriaDescribedBy="existing-repository-path-error path-is-subfolder-of-repository"
           />
@@ -719,7 +716,7 @@ export class CreateRepository extends React.Component<
           <Row>
             <TextBox
               value={this.state.description}
-              label="Description"
+              label="描述"
               onValueChanged={this.onDescriptionChanged}
             />
           </Row>
@@ -729,7 +726,7 @@ export class CreateRepository extends React.Component<
 
           <Row>
             <Checkbox
-              label="Initialize this repository with a README"
+              label="使用 README 初始化此仓库"
               value={
                 this.state.createWithReadme
                   ? CheckboxValue.On
@@ -748,9 +745,7 @@ export class CreateRepository extends React.Component<
         <DialogFooter>
           {this.renderPathMessage()}
           <OkCancelButtonGroup
-            okButtonText={
-              __DARWIN__ ? 'Create Repository' : 'Create repository'
-            }
+            okButtonText="创建仓库"
             okButtonDisabled={disabled}
             okButtonAriaDescribedBy="create-repo-path-msg"
           />
