@@ -121,7 +121,7 @@ export class About extends React.Component<IAboutProps> {
             UpdateStatus.UpdateNotAvailable,
           ].includes(updateStatus) || isOSNoLongerSupportedByElectron()
 
-        const buttonTitle = 'Check for Updates'
+        const buttonTitle = '检查更新'
 
         return (
           <Row>
@@ -237,11 +237,11 @@ export class About extends React.Component<IAboutProps> {
 
     return (
       <div>
-        <p className="no-padding">Looking for the latest features?</p>
+        <p className="no-padding">想了解最新功能？</p>
         <p className="no-padding">
-          Check out the{' '}
+          请查看{' '}
           <LinkButton uri="https://desktop.github.com/beta">
-            Beta Channel
+            Beta 频道
           </LinkButton>
         </p>
       </div>
