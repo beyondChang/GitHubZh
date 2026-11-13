@@ -237,7 +237,7 @@ export class CreateBranch extends React.Component<
       >
         <DialogContent>
           <RefNameTextBox
-            label="Name"
+            label="名称"
             ariaDescribedBy={hasError ? this.ERRORS_ID : undefined}
             initialValue={this.props.initialName}
             onValueChange={this.onBranchNameChange}
@@ -272,7 +272,7 @@ export class CreateBranch extends React.Component<
       return this.props.headerText
     }
 
-    return __DARWIN__ ? 'Create a Branch' : 'Create a branch'
+    return '创建分支'
   }
 
   private getOkButtonText = (): string => {
@@ -280,7 +280,7 @@ export class CreateBranch extends React.Component<
       return this.props.okButtonText
     }
 
-    return __DARWIN__ ? 'Create Branch' : 'Create branch'
+    return '创建分支'
   }
 
   private onBranchNameChange = (name: string) => {
@@ -295,7 +295,7 @@ export class CreateBranch extends React.Component<
 
     const currentError = alreadyExists
       ? {
-          error: new Error(`A branch named ${branchName} already exists.`),
+          error: new Error(`名为 ${branchName} 的分支已存在。`),
           isWarning: false,
         }
       : null
@@ -360,7 +360,7 @@ export class CreateBranch extends React.Component<
       if (!defaultBranch) {
         this.setState({
           currentError: {
-            error: new Error('Could not determine the default branch.'),
+            error: new Error('无法确定默认分支。'),
             isWarning: false,
           },
         })
@@ -374,7 +374,7 @@ export class CreateBranch extends React.Component<
       if (!upstreamDefaultBranch) {
         this.setState({
           currentError: {
-            error: new Error('Could not determine the default branch.'),
+            error: new Error('无法确定默认分支。'),
             isWarning: false,
           },
         })
@@ -444,13 +444,13 @@ export class CreateBranch extends React.Component<
         {
           title: defaultBranch.name,
           description:
-            "The default branch in your repository. Pick this to start on something new that's not dependent on your current branch.",
+            '仓库中的默认分支。选择此项可基于不依赖当前分支的新起点开始。',
           key: StartPoint.DefaultBranch,
         },
         {
           title: currentBranchName,
           description:
-            'The currently checked out branch. Pick this if you need to build on work done on this branch.',
+            '当前检出的分支。如果您需要基于此分支上的工作继续，请选择此项。',
           key: StartPoint.CurrentBranch,
         },
       ]
@@ -485,11 +485,11 @@ export class CreateBranch extends React.Component<
     if (currentBranchName === upstreamDefaultBranch.nameWithoutRemote) {
       return (
         <div>
-          Your new branch will be based on{' '}
+          您的新分支将基于{' '}
           <strong>{upstreamRepositoryFullName}</strong>
-          's {defaultBranchLink} (
-          <Ref>{upstreamDefaultBranch.nameWithoutRemote}</Ref>)
-          {this.renderForkLinkSuffix()}.
+          的 {defaultBranchLink}（
+          <Ref>{upstreamDefaultBranch.nameWithoutRemote}</Ref>）
+          {this.renderForkLinkSuffix()}。
         </div>
       )
     } else {
@@ -497,13 +497,13 @@ export class CreateBranch extends React.Component<
         {
           title: upstreamDefaultBranch.name,
           description:
-            "The default branch of the upstream repository. Pick this to start on something new that's not dependent on your current branch.",
+            '上游仓库的默认分支。选择此项可基于不依赖当前分支的新起点开始。',
           key: StartPoint.UpstreamDefaultBranch,
         },
         {
           title: currentBranchName,
           description:
-            'The currently checked out branch. Pick this if you need to build on work done on this branch.',
+            '当前检出的分支。如果您需要基于此分支上的工作继续，请选择此项。',
           key: StartPoint.CurrentBranch,
         },
       ]
@@ -559,7 +559,7 @@ export class CreateBranch extends React.Component<
   ) => (
     <Row>
       <VerticalSegmentedControl
-        label="Create branch based on…"
+        label="基于…创建分支"
         items={items}
         selectedKey={selectedValue}
         onSelectionChanged={this.onBaseBranchChanged}
