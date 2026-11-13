@@ -168,7 +168,7 @@ export class RepositorySettings extends React.Component<
     return (
       <Dialog
         id="repository-settings"
-        title={__DARWIN__ ? 'Repository Settings' : 'Repository settings'}
+        title="仓库设置"
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSubmit}
         disabled={this.state.disabled}
@@ -183,20 +183,20 @@ export class RepositorySettings extends React.Component<
           >
             <span>
               <Octicon className="icon" symbol={octicons.server} />
-              Remote
+              远程
             </span>
             <span>
               <Octicon className="icon" symbol={octicons.file} />
-              {__DARWIN__ ? 'Ignored Files' : 'Ignored files'}
+              忽略的文件
             </span>
             <span>
               <Octicon className="icon" symbol={octicons.gitCommit} />
-              {__DARWIN__ ? 'Git Config' : 'Git config'}
+              Git 配置
             </span>
             {showForkSettings && (
               <span>
                 <Octicon className="icon" symbol={octicons.repoForked} />
-                {__DARWIN__ ? 'Fork Behavior' : 'Fork behavior'}
+                Fork 行为
               </span>
             )}
           </TabBar>
@@ -205,7 +205,7 @@ export class RepositorySettings extends React.Component<
         </div>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Save"
+            okButtonText="保存"
             okButtonDisabled={this.state.saveDisabled}
           />
         </DialogFooter>

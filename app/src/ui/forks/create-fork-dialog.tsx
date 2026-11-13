@@ -77,7 +77,7 @@ export class CreateForkDialog extends React.Component<
   public render() {
     return (
       <Dialog
-        title="Do you want to fork this repository?"
+        title="您要 fork 此仓库吗？"
         onDismissed={this.props.onDismissed}
         onSubmit={this.state.error ? undefined : this.onSubmit}
         dismissDisabled={this.state.loading}
@@ -112,23 +112,23 @@ function renderCreateForkDialogContent(
     <>
       <DialogContent>
         <p>
-          {`It looks like you don’t have write access to `}
+          {`您似乎对 `}
           <strong>{repository.gitHubRepository.fullName}</strong>
-          {`. If you should, please check with a repository administrator.`}
+          {` 没有写入权限。如果您应该有权限，请与仓库管理员确认。`}
         </p>
         <p>
-          {` Do you want to create a fork of this repository at `}
+          {`您要在 `}
           <strong>
             {`${account.login}/${repository.gitHubRepository.name}`}
           </strong>
-          {` to continue?`}
+          {` 创建此仓库的 fork 以继续吗？`}
         </p>
       </DialogContent>
       <DialogFooter>
         <OkCancelButtonGroup
           destructive={true}
           okButtonText={
-            __DARWIN__ ? 'Fork This Repository' : 'Fork this repository'
+            'fork 此仓库'
           }
           okButtonDisabled={loading}
           cancelButtonDisabled={loading}
@@ -147,26 +147,26 @@ function renderCreateForkDialogError(
   const suggestion =
     repository.gitHubRepository.htmlURL !== null ? (
       <>
-        {`You can try `}
+        {`您可以尝试 `}
         <LinkButton uri={repository.gitHubRepository.htmlURL}>
-          creating the fork manually on GitHub
+          在 GitHub 上手动创建 fork
         </LinkButton>
-        .
+        。
       </>
     ) : undefined
   return (
     <>
       <DialogContent>
         <div>
-          {`Creating your fork `}
+          {`创建 fork `}
           <strong>
             {`${account.login}/${repository.gitHubRepository.name}`}
           </strong>
-          {` failed. `}
+          {` 失败。`}
           {suggestion}
         </div>
         <details>
-          <summary>Error details</summary>
+          <summary>错误详情</summary>
           <pre className="error">{error.message}</pre>
         </details>
       </DialogContent>

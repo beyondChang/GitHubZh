@@ -61,7 +61,7 @@ function getSpellCheckMenuItems(
   if (misspelledWord) {
     items.push(
       new MenuItem({
-        label: __DARWIN__ ? 'Add to Dictionary' : 'Add to dictionary',
+        label: '添加到词典',
         click: () =>
           webContents.session.addWordToSpellCheckerDictionary(misspelledWord),
       })
@@ -104,8 +104,8 @@ interface ISpellCheckMenuItemOption {
   readonly languages: string[]
 }
 
-export const SpellcheckEnglishLabel = 'Set spellcheck to English'
-export const SpellcheckSystemLabel = 'Set spellcheck to system language'
+export const SpellcheckEnglishLabel = '将拼写检查设置为英语'
+export const SpellcheckSystemLabel = '将拼写检查设置为系统语言'
 
 /**
  * Method to get a menu item options to give user the choice to use English or
