@@ -40,10 +40,10 @@ export const generateRepositoryListContextMenu = (
   const github =
     repository instanceof Repository && repository.gitHubRepository != null
   const openInExternalEditor = config.externalEditorLabel
-    ? `Open in ${config.externalEditorLabel}`
+    ? `在 ${config.externalEditorLabel} 中打开`
     : DefaultEditorLabel
   const openInShell = config.shellLabel
-    ? `Open in ${config.shellLabel}`
+    ? `在 ${config.shellLabel} 中打开`
     : DefaultShellLabel
 
   const items: ReadonlyArray<IMenuItem> = [
@@ -52,16 +52,16 @@ export const generateRepositoryListContextMenu = (
     ...buildAccountMenuItems(config),
     ...buildRepositorySettingsMenuItems(config),
     {
-      label: __DARWIN__ ? 'Copy Repo Name' : 'Copy repo name',
+      label: '复制仓库名称',
       action: () => writeClipboardText(repository.name),
     },
     {
-      label: __DARWIN__ ? 'Copy Repo Path' : 'Copy repo path',
+      label: '复制仓库路径',
       action: () => writeClipboardText(repository.path),
     },
     { type: 'separator' },
     {
-      label: 'View on GitHub',
+      label: '在 GitHub 上查看',
       action: () => config.onViewOnGitHub(repository),
       enabled: github,
     },
@@ -82,7 +82,7 @@ export const generateRepositoryListContextMenu = (
     },
     { type: 'separator' },
     {
-      label: config.askForConfirmationOnRemoveRepository ? 'Remove…' : 'Remove',
+      label: config.askForConfirmationOnRemoveRepository ? '移除…' : '移除',
       action: () => config.onRemoveRepository(repository),
     },
   ]
@@ -99,17 +99,17 @@ const buildAliasMenuItems = (
     return []
   }
 
-  const verb = repository.alias == null ? 'Create' : 'Change'
+  const verb = repository.alias == null ? '创建' : '更改'
   const items: Array<IMenuItem> = [
     {
-      label: __DARWIN__ ? `${verb} Alias` : `${verb} alias`,
+      label: `${verb}别名`,
       action: () => config.onChangeRepositoryAlias(repository),
     },
   ]
 
   if (repository.alias !== null) {
     items.push({
-      label: __DARWIN__ ? 'Remove Alias' : 'Remove alias',
+      label: '移除别名',
       action: () => config.onRemoveRepositoryAlias(repository),
     })
   }
@@ -134,14 +134,14 @@ const buildWorktreeMenuItems = (
 
   if (onShowWorktrees !== undefined) {
     items.push({
-      label: __DARWIN__ ? 'Show Worktrees' : 'Show worktrees',
+      label: '显示工作树',
       action: () => onShowWorktrees(repository),
     })
   }
 
   if (onCreateWorktree !== undefined) {
     items.push({
-      label: __DARWIN__ ? 'New Worktree…' : 'New worktree…',
+      label: '新建工作树…',
       action: () => onCreateWorktree(repository),
     })
   }
@@ -205,7 +205,7 @@ const buildAccountMenuItems = (
     })
   }
 
-  return [{ label: 'Account', submenu }]
+  return [{ label: '账号', submenu }]
 }
 
 const buildRepositorySettingsMenuItems = (
@@ -219,7 +219,7 @@ const buildRepositorySettingsMenuItems = (
 
   return [
     {
-      label: __DARWIN__ ? 'Repository Settings…' : 'Repository settings…',
+      label: '仓库设置…',
       action: () => config.onShowRepositorySettings(repository),
     },
   ]

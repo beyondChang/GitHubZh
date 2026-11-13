@@ -192,11 +192,11 @@ export class RepositoriesList extends React.Component<
     }
 
     return (
-      'The currently checked out branch is' +
-      (behind ? ` ${commitGrammar(behind)} behind ` : '') +
-      (behind && ahead ? 'and' : '') +
-      (ahead ? ` ${commitGrammar(ahead)} ahead of ` : '') +
-      'its tracked branch.'
+      '当前检出的分支' +
+      (behind ? `落后 ${commitGrammar(behind)} ` : '') +
+      (behind && ahead ? '且' : '') +
+      (ahead ? `领先 ${commitGrammar(ahead)} ` : '') +
+      '其跟踪分支。'
     )
   }
 
@@ -258,11 +258,11 @@ export class RepositoriesList extends React.Component<
     if (kind === 'enterprise') {
       return group.host
     } else if (kind === 'other') {
-      return 'Other'
+      return '其他'
     } else if (kind === 'dotcom') {
       return group.owner.login
     } else if (kind === 'recent') {
-      return 'Recent'
+      return '最近'
     } else {
       assertNever(kind, `Unknown repository group kind ${kind}`)
     }
@@ -410,21 +410,21 @@ export class RepositoriesList extends React.Component<
     return (
       <div className="no-items no-results-found">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
-        <div className="title">Sorry, I can't find that repository</div>
+        <div className="title">抱歉，找不到该仓库</div>
 
         <div className="protip">
-          ProTip! Press{' '}
+          小提示！按{' '}
           <div className="kbd-shortcut">
             <KeyboardShortcut darwinKeys={['⌘', 'O']} keys={['Ctrl', 'O']} />
           </div>{' '}
-          to quickly add a local repository, and{' '}
+          可快速添加本地仓库，按{' '}
           <div className="kbd-shortcut">
             <KeyboardShortcut
               darwinKeys={['⇧', '⌘', 'O']}
               keys={['Ctrl', 'Shift', 'O']}
             />
           </div>{' '}
-          to clone from anywhere within the app
+          可在应用内任意位置克隆仓库
         </div>
       </div>
     )
@@ -433,17 +433,15 @@ export class RepositoriesList extends React.Component<
   private onNewRepositoryButtonClick = () => {
     const items: IMenuItem[] = [
       {
-        label: __DARWIN__ ? 'Clone Repository…' : 'Clone repository…',
+        label: '克隆仓库…',
         action: this.onCloneRepository,
       },
       {
-        label: __DARWIN__ ? 'Create New Repository…' : 'Create new repository…',
+        label: '创建新仓库…',
         action: this.onCreateNewRepository,
       },
       {
-        label: __DARWIN__
-          ? 'Add Existing Repository…'
-          : 'Add existing repository…',
+        label: '添加现有仓库…',
         action: this.onAddExistingRepository,
       },
     ]
