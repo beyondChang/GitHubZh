@@ -133,11 +133,10 @@ export class PullRequestList extends React.Component<
     const loadingComplete =
       this.props.isLoadingPullRequests && !nextProps.isLoadingPullRequests
     const numPullRequests = this.props.pullRequests.length
-    const plural = numPullRequests === 1 ? '' : 's'
     const screenReaderStateMessage = loadingStarted
-      ? 'Hang Tight. Loading pull requests as fast as I can!'
+      ? '请稍候。正在尽快加载拉取请求！'
       : loadingComplete
-      ? `${numPullRequests} pull request${plural} found`
+      ? `找到 ${numPullRequests} 个拉取请求`
       : null
 
     this.setState({
@@ -148,7 +147,7 @@ export class PullRequestList extends React.Component<
   }
 
   private getListAriaLabel = () => {
-    return `Pull requests in ${this.getRepositoryName()}`
+    return `${this.getRepositoryName()} 中的拉取请求`
   }
 
   public render() {
@@ -334,7 +333,7 @@ export class PullRequestList extends React.Component<
   }
 
   private renderPostFilter = () => {
-    const tooltip = 'Refresh the list of pull requests'
+    const tooltip = '刷新拉取请求列表'
 
     return (
       <Button

@@ -214,9 +214,9 @@ export class BranchesContainer extends React.Component<
         selectedIndex={this.props.selectedTab}
         allowDragOverSwitching={true}
       >
-        <span id="branches-tab">Branches</span>
+        <span id="branches-tab">分支</span>
         <span id="pull-requests-tab" className="pull-request-tab">
-          {__DARWIN__ ? 'Pull Requests' : 'Pull requests'}
+          拉取请求
           {this.renderOpenPullRequestsBubble()}
         </span>
       </TabBar>
@@ -315,7 +315,7 @@ export class BranchesContainer extends React.Component<
       return null
     }
 
-    const label = __DARWIN__ ? 'New Branch' : 'New branch'
+    const label = '新建分支'
 
     return (
       /**
