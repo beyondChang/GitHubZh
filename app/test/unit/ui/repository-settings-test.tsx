@@ -135,7 +135,7 @@ describe('repository settings Git identity refresh', () => {
           target: { value: 'changed@example.invalid' },
         })
       } else {
-        fireEvent.click(screen.getByLabelText('Use my global Git config'))
+        fireEvent.click(screen.getByLabelText('使用我的全局 Git 配置'))
       }
       await h.save()
       assert.ok(screen.getByText(/Failed updating Git identity:/))

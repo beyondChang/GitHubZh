@@ -65,9 +65,9 @@ describe('Session recovery dialog', () => {
           onDismissed={() => actions.push('dismiss')}
         />
       )
-      assert.ok(screen.getByText(/you have been signed out/))
+      assert.ok(screen.getByText(/您已从/))
       assert.ok(screen.getByText('octocat'))
-      fireEvent.click(screen.getByRole('button', { name: 'Yes', hidden: true }))
+      fireEvent.click(screen.getByRole('button', { name: '是', hidden: true }))
       assert.deepEqual(actions, ['dismiss', `${endpoint} octocat`])
     })
   }
@@ -96,7 +96,7 @@ describe('Session recovery dialog', () => {
       </DialogStackContext.Provider>
     )
     await waitFor(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'No', hidden: true }))
+      fireEvent.click(screen.getByRole('button', { name: '否', hidden: true }))
       assert.equal(dismissed, 1)
     })
     view.rerender(
@@ -109,7 +109,7 @@ describe('Session recovery dialog', () => {
     )
     assert.equal(screen.queryByText('Octocat'), null)
     fireEvent.click(
-      screen.getByRole('button', { name: /sign into GitHub.com/i })
+      screen.getByRole('button', { name: /登录 GitHub\.com/i })
     )
     assert.equal(signIns, 1)
   })

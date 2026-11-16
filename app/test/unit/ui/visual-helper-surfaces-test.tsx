@@ -120,9 +120,9 @@ describe('visual helper surfaces', () => {
     )
 
     assert.equal(warnings.length, 2)
-    assert.ok(view.container.textContent?.includes('This branch is tracking'))
+    assert.ok(view.container.textContent?.includes('此分支正在跟踪'))
     assert.ok(view.container.textContent?.includes('origin/main'))
-    assert.ok(view.container.textContent?.includes('A branch named'))
+    assert.ok(view.container.textContent?.includes('远程上已存在名为'))
     assert.ok(view.container.textContent?.includes('feature'))
   })
 

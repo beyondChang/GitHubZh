@@ -22,7 +22,7 @@ describe('assisted shared worktree UI protection', () => {
       item =>
         'label' in item &&
         typeof item.label === 'string' &&
-        ['Rename…', 'Delete…'].includes(item.label)
+        ['重命名…', '删除…'].includes(item.label)
     )
     assert.strictEqual(mutations.length, 2)
     assert.ok(
@@ -39,7 +39,7 @@ describe('assisted shared worktree UI protection', () => {
       item =>
         'label' in item &&
         typeof item.label === 'string' &&
-        ['Rename…', 'Delete…'].includes(item.label)
+        ['重命名…', '删除…'].includes(item.label)
     )
     assert.ok(
       released.every(item => 'enabled' in item && item.enabled === true)

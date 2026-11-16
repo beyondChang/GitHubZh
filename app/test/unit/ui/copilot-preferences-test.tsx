@@ -370,12 +370,12 @@ describe('CopilotPreferences', () => {
 
     assert.ok(
       screen.getByText(
-        'Sign in to an account with a Copilot license to configure Copilot settings.'
+        '请登录拥有 Copilot 许可证的账号以配置 Copilot 设置。'
       )
     )
 
     const signInButton = screen.getByRole('button', {
-      name: 'Sign In',
+      name: '登录',
     })
     fireEvent.click(signInButton)
 
@@ -401,10 +401,10 @@ describe('CopilotPreferences', () => {
 
     assert.ok(
       screen.getByText(
-        'Sign in to an account with a Copilot license to configure Copilot settings.'
+        '请登录拥有 Copilot 许可证的账号以配置 Copilot 设置。'
       )
     )
-    assert.strictEqual(screen.queryByText('Checking Copilot access…'), null)
+    assert.strictEqual(screen.queryByText('正在检查 Copilot 访问权限…'), null)
     assert.strictEqual(screen.queryByRole('combobox'), null)
   })
 
@@ -421,7 +421,7 @@ describe('CopilotPreferences', () => {
       />
     )
 
-    assert.ok(screen.getByText('Checking Copilot access…'))
+    assert.ok(screen.getByText('正在检查 Copilot 访问权限…'))
     assert.strictEqual(screen.queryByRole('combobox'), null)
   })
 
@@ -438,7 +438,7 @@ describe('CopilotPreferences', () => {
       />
     )
 
-    assert.ok(screen.getByText('Checking Copilot access…'))
+    assert.ok(screen.getByText('正在检查 Copilot 访问权限…'))
     assert.strictEqual(screen.queryByRole('combobox'), null)
   })
 
@@ -461,12 +461,11 @@ describe('CopilotPreferences', () => {
 
     assert.ok(
       screen.getByText(
-        'Copilot features in GitHub Desktop require a GitHub Copilot license.'
+        'GitHub Desktop 中的 Copilot 功能需要 GitHub Copilot 许可证。'
       )
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'View Copilot plans' }))
-
+    fireEvent.click(screen.getByRole('button', { name: '查看 Copilot 套餐' }))
     assert.strictEqual(called, 1)
     assert.strictEqual(screen.queryByRole('combobox'), null)
   })
@@ -490,12 +489,12 @@ describe('CopilotPreferences', () => {
 
     assert.ok(
       screen.getByText(
-        'A Copilot license is available for your account, but "Copilot in GitHub Desktop" is disabled in your Copilot feature settings.'
+        '您的账号拥有 Copilot 许可证，但 Copilot 功能设置中已禁用「GitHub Desktop 中的 Copilot」。'
       )
     )
 
     fireEvent.click(
-      screen.getByRole('button', { name: 'Open Copilot feature settings' })
+      screen.getByRole('button', { name: '打开 Copilot 功能设置' })
     )
 
     assert.strictEqual(called, 1)
@@ -692,11 +691,11 @@ describe('CopilotPreferences', () => {
 
     assert.ok(
       screen.getByText(
-        'Copilot features in GitHub Desktop require a GitHub Copilot license.'
+        'GitHub Desktop 中的 Copilot 功能需要 GitHub Copilot 许可证。'
       )
     )
     assert.strictEqual(screen.queryByRole('combobox'), null)
-    assert.strictEqual(screen.queryByText('Checking Copilot access…'), null)
+    assert.strictEqual(screen.queryByText('正在检查 Copilot 访问权限…'), null)
   })
 
   it('shows loading message when models not yet fetched', () => {
@@ -706,7 +705,7 @@ describe('CopilotPreferences', () => {
         copilotModelsByAccount={modelsForDefaultAccount(null)}
       />
     )
-    assert.ok(screen.getByText('Loading available models…'))
+    assert.ok(screen.getByText('正在加载可用模型…'))
   })
 
   it('shows no-models message when fetch completed with empty result', () => {
@@ -716,7 +715,7 @@ describe('CopilotPreferences', () => {
         copilotModelsByAccount={modelsForDefaultAccount([])}
       />
     )
-    assert.ok(screen.getByText('No Copilot models available.'))
+    assert.ok(screen.getByText('没有可用的 Copilot 模型。'))
   })
 
   it('shows a loading message when quota snapshots have not been fetched', () => {
@@ -727,7 +726,7 @@ describe('CopilotPreferences', () => {
       />
     )
 
-    assert.ok(screen.getByText('Loading Copilot usage…'))
+    assert.ok(screen.getByText('正在加载 Copilot 使用情况…'))
   })
 
   it('renders Copilot quota snapshot cards', () => {
@@ -737,8 +736,8 @@ describe('CopilotPreferences', () => {
     assert.ok(screen.getByAltText('Avatar for Mona Lisa'))
     assert.ok(screen.getByText('Mona Lisa'))
     assert.ok(screen.getByText('@mona'))
-    assert.ok(screen.getByText('Chat messages'))
-    assert.ok(screen.getByText('Premium requests'))
+    assert.ok(screen.getByText('聊天消息'))
+    assert.ok(screen.getByText('高级请求'))
 
     const modelPicker = view.container.querySelector('.copilot-model-picker')
     const settingsScroll = view.container.querySelector(
@@ -761,7 +760,7 @@ describe('CopilotPreferences', () => {
     assert.strictEqual(progressBars[0].getAttribute('aria-valuenow'), '25')
     assert.strictEqual(
       progressBars[0].getAttribute('aria-label'),
-      '25% quota used'
+      '已使用 25% 配额'
     )
     assert.strictEqual(progressBars[1].getAttribute('aria-valuenow'), '30')
     assert.ok(screen.getByText('25%'))
@@ -787,7 +786,7 @@ describe('CopilotPreferences', () => {
       />
     )
 
-    assert.ok(screen.getByText('Code completions'))
+    assert.ok(screen.getByText('代码补全'))
     assert.ok(screen.getByText('25%'))
   })
 
@@ -812,14 +811,14 @@ describe('CopilotPreferences', () => {
     )
 
     const progressBar = screen.getByRole('progressbar', {
-      name: 'No usage limit',
+      name: '无使用限制',
     })
     assert.strictEqual(progressBar.getAttribute('aria-valuenow'), '0')
     assert.strictEqual(progressBar.getAttribute('aria-valuemin'), '0')
     assert.strictEqual(progressBar.getAttribute('aria-valuemax'), '100')
     assert.strictEqual(
       progressBar.getAttribute('aria-valuetext'),
-      'No usage limit'
+      '无使用限制'
     )
   })
 
@@ -863,18 +862,16 @@ describe('CopilotPreferences', () => {
       />
     )
 
-    assert.ok(screen.getByText('AI credits'))
-    assert.ok(screen.getByText('(resets monthly)'))
-    assert.strictEqual(screen.queryByText('Chat messages'), null)
+    assert.ok(screen.getByText('AI 积分'))
+    assert.ok(screen.getByText('（每月重置）'))
+    assert.strictEqual(screen.queryByText('聊天消息'), null)
     assert.ok(screen.getByText('20%'))
   })
 
   it('renders a Copilot group with the available models', async () => {
     const view = render(<CopilotPreferences {...defaults()} />)
     const modelPickerButton = getModelPickerButton(view.container)
-    const pickerLabel = __DARWIN__
-      ? 'Commit Message Generation'
-      : 'Commit message generation'
+    const pickerLabel = '提交信息生成'
 
     assert.strictEqual(
       modelPickerButton.getAttribute('aria-label'),
@@ -905,12 +902,12 @@ describe('CopilotPreferences', () => {
     assert.ok(screen.getByText('Lightweight'))
     assert.ok(screen.getAllByText('Auto (default)').length >= 2)
     assert.ok(screen.getByText('Usage Billed Model'))
-    assert.ok(screen.getByText('Use of credits: low'))
+    assert.ok(screen.getByText('额度消耗：low'))
     assert.strictEqual(
       screen.queryByText('Usage Billed Model (low cost)'),
       null
     )
-    assert.strictEqual(screen.queryByText('AI credits per 1M tokens'), null)
+    assert.strictEqual(screen.queryByText('每 1M 个 token 的 AI 积分'), null)
     assert.strictEqual(
       getListItemHeight(screen.getByText('Claude Sonnet (2x)')),
       '30px'
@@ -978,11 +975,11 @@ describe('CopilotPreferences', () => {
     assert.ok(
       screen.getAllByText('Lightweight model. Use of credits: low').length > 0
     )
-    assert.strictEqual(screen.queryByText(/AI credits per/), null)
+    assert.strictEqual(screen.queryByText(/AI 积分/), null)
     assert.ok(!button.textContent?.includes('low cost'))
 
     const costsButton = screen.getByRole('button', {
-      name: 'Show Copilot model credit costs',
+      name: '显示 Copilot 模型积分费用',
     })
 
     assert.strictEqual(costsButton.getAttribute('aria-expanded'), 'false')
@@ -1011,7 +1008,7 @@ describe('CopilotPreferences', () => {
     fireEvent.mouseMove(costsButton, { clientX: 20, clientY: 20 })
     advanceTimersBy(400)
 
-    await waitFor(() => assert.ok(screen.getByText('Show credit costs')))
+    await waitFor(() => assert.ok(screen.getByText('显示积分费用')))
     assert.strictEqual(
       costsButton.getAttribute('aria-describedby'),
       costsPopover.id
@@ -1021,19 +1018,19 @@ describe('CopilotPreferences', () => {
     assert.ok(within(costsPopover).getByText('Lightweight'))
     assert.ok(within(costsPopover).getByText('Context'))
     assert.strictEqual(getCostDetailsValue(costsPopover, 'Context'), '1,5m')
-    assert.ok(within(costsPopover).getByText('Reasoning'))
+    assert.ok(within(costsPopover).getByText('推理'))
     assert.ok(within(costsPopover).getByText('3 levels'))
-    assertElementTextContent(costsPopover, 'h4', 'AI credits per 1,5m tokens')
-    assert.ok(screen.getByText('Input'))
+    assertElementTextContent(costsPopover, 'h4', '每 1,5m 个 token 的 AI 积分')
+    assert.ok(screen.getByText('输入'))
     assert.ok(screen.getByText('200'))
-    assert.ok(screen.getByText('Cached input'))
+    assert.ok(screen.getByText('缓存输入'))
     assert.ok(screen.getByText('20'))
-    assert.ok(screen.getByText('Output'))
+    assert.ok(screen.getByText('输出'))
     assert.ok(screen.getByText('1.200'))
 
     fireEvent.keyDown(costsButton, { key: 'Escape' })
 
-    assert.strictEqual(screen.queryByText('AI credits per 1M tokens'), null)
+    assert.strictEqual(screen.queryByText('每 1M 个 token 的 AI 积分'), null)
   })
 
   it('renders unavailable cost details for missing token prices', () => {
@@ -1055,7 +1052,7 @@ describe('CopilotPreferences', () => {
     )
 
     const costsButton = screen.getAllByRole('button', {
-      name: 'Show Copilot model credit costs',
+      name: '显示 Copilot 模型积分费用',
     })[0]
     assert.ok(costsButton instanceof HTMLButtonElement)
     fireEvent.click(costsButton)
@@ -1065,7 +1062,7 @@ describe('CopilotPreferences', () => {
     )
     assert.ok(costsPopover instanceof HTMLElement)
 
-    assertElementTextContent(costsPopover, 'h4', 'AI credits per 1m tokens')
+    assertElementTextContent(costsPopover, 'h4', '每 1m 个 token 的 AI 积分')
     assert.ok(within(costsPopover).getByText('200'))
     assert.strictEqual(
       within(costsPopover).getAllByText('Unavailable').length,
@@ -1094,11 +1091,11 @@ describe('CopilotPreferences', () => {
     )
     assert.strictEqual(
       screen.queryByRole('button', {
-        name: 'Show Copilot model credit costs',
+        name: '显示 Copilot 模型积分费用',
       }),
       null
     )
-    assert.strictEqual(screen.queryByText(/AI credits per/), null)
+    assert.strictEqual(screen.queryByText(/AI 积分/), null)
   })
 
   it('treats legacy bare-string selections as Copilot models', () => {
@@ -1275,7 +1272,7 @@ describe('CopilotPreferences', () => {
     )
     fireEvent.click(getModelPickerButton(view.container))
     assert.strictEqual(
-      screen.queryByRole('button', { name: 'Configure custom providers…' }),
+      screen.queryByRole('button', { name: '配置自定义提供方…' }),
       null
     )
   })
@@ -1294,7 +1291,7 @@ describe('CopilotPreferences', () => {
 
     fireEvent.click(getModelPickerButton(view.container))
     fireEvent.click(
-      screen.getByRole('button', { name: 'Configure custom providers…' })
+      screen.getByRole('button', { name: '配置自定义提供方…' })
     )
 
     assert.strictEqual(called, 1)

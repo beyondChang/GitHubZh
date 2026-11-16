@@ -38,7 +38,7 @@ describe('banner surfaces', () => {
     const banner = view.container.querySelector('#test-banner.banner')
     const link = screen.getByRole('link', { name: 'Learn more' })
     const dismissButton = screen.getByRole('button', {
-      name: 'Dismiss this message',
+      name: '关闭此消息',
     })
 
     assert.notEqual(banner, null)
@@ -99,7 +99,7 @@ describe('banner surfaces', () => {
     assert.ok(screen.getByText('main'))
     assert.ok(screen.getByText('origin/main'))
     assert.ok(
-      view.container.textContent?.includes('is already up to date with')
+      view.container.textContent?.includes(' 已与 ')
     )
 
     view.rerender(
@@ -107,7 +107,7 @@ describe('banner surfaces', () => {
     )
 
     assert.ok(screen.getByText('release'))
-    assert.ok(view.container.textContent?.includes('is already up to date'))
+    assert.ok(view.container.textContent?.includes(' 已是最新状态'))
   })
 
   it('renders cherry-pick undone messages with singular and plural commit copy', () => {
@@ -122,10 +122,9 @@ describe('banner surfaces', () => {
     )
 
     assert.ok(
-      view.container.textContent?.includes(
-        'Cherry-pick undone. Successfully removed the 1 copied commit from'
-      )
+      view.container.textContent?.includes('已撤销拣选，已成功从')
     )
+    assert.ok(view.container.textContent?.includes('中移除 1 个提交'))
     assert.ok(screen.getByText('main'))
 
     view.rerender(
@@ -137,10 +136,9 @@ describe('banner surfaces', () => {
     )
 
     assert.ok(
-      view.container.textContent?.includes(
-        'Cherry-pick undone. Successfully removed the 3 copied commits from'
-      )
+      view.container.textContent?.includes('已撤销拣选，已成功从')
     )
+    assert.ok(view.container.textContent?.includes('中移除 3 个提交'))
     assert.ok(screen.getByText('release'))
   })
 })

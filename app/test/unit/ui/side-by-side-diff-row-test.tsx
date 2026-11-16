@@ -299,7 +299,7 @@ describe('SideBySideDiffRow', () => {
       },
     })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Expand Up' }))
+    fireEvent.click(screen.getByRole('button', { name: '向上展开' }))
 
     assert.deepEqual(hunkExpansions, [
       { hunkIndex: 2, expansionType: DiffHunkExpansionType.Up },

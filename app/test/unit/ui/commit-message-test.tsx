@@ -49,14 +49,10 @@ import {
 } from '../../helpers/app-store-test-harness'
 const PreviewFeaturesEnv = 'GITHUB_DESKTOP_PREVIEW_FEATURES'
 const previousPreviewFeatures = process.env[PreviewFeaturesEnv]
-const AddCoAuthorsLabel = __DARWIN__ ? 'Add Co-Authors' : 'Add co-authors'
-const SkipHooksLabel = __DARWIN__
-  ? 'Bypass Commit Hooks'
-  : 'Bypass Commit hooks'
-const SignOffLabel = __DARWIN__
-  ? 'Add Signed-off-by Trailer'
-  : 'Add Signed-off-by trailer'
-const AllowEmptyLabel = __DARWIN__ ? 'Allow Empty Commit' : 'Allow empty commit'
+const AddCoAuthorsLabel = '添加共同作者'
+const SkipHooksLabel = '绕过提交钩子'
+const SignOffLabel = '添加 Signed-off-by 尾注'
+const AllowEmptyLabel = '允许空提交'
 
 type CommitMessageProps = React.ComponentProps<typeof CommitMessage>
 type CopilotButtonProps = {
@@ -273,12 +269,12 @@ describe('CommitMessage', () => {
       )
       try {
         fireEvent.click(
-          screen.getByRole('button', { name: 'Commit 1 file to main' })
+          screen.getByRole('button', { name: '提交 1 个文件 to main' })
         )
         await started.promise
-        const summary = screen.getByRole('combobox', { name: 'Commit summary' })
+        const summary = screen.getByRole('combobox', { name: '提交摘要' })
         const description = screen.getByRole('combobox', {
-          name: 'Commit description',
+          name: '提交描述',
         })
         assert.ok(summary instanceof HTMLInputElement)
         assert.ok(description instanceof HTMLTextAreaElement)
@@ -319,7 +315,7 @@ describe('CommitMessage', () => {
 
     const buttonProps = getCopilotButtonProps(component)
 
-    assert.equal(buttonProps.ariaLabel, 'Generating commit details…')
+    assert.equal(buttonProps.ariaLabel, '正在生成提交详情…')
     assert.equal(buttonProps.disabled, true)
 
     await clickCopilotButton(component)
@@ -343,7 +339,7 @@ describe('CommitMessage', () => {
 
     const buttonProps = getCopilotButtonProps(component)
 
-    assert.equal(buttonProps.ariaLabel, 'Cancel generating commit details')
+    assert.equal(buttonProps.ariaLabel, '取消生成提交详情')
     assert.equal(buttonProps.disabled, false)
 
     await clickCopilotButton(component)
@@ -434,16 +430,16 @@ describe('CommitMessage', () => {
 
     function switchToCopilotMode() {
       fireEvent.click(
-        screen.getByRole('button', { name: 'Choose how to commit' })
+        screen.getByRole('button', { name: '选择提交方式' })
       )
-      fireEvent.click(screen.getByText('Commit with Copilot'))
+      fireEvent.click(screen.getByText('使用 Copilot 提交'))
     }
 
     function switchToManualMode() {
       fireEvent.click(
-        screen.getByRole('button', { name: 'Choose how to commit' })
+        screen.getByRole('button', { name: '选择提交方式' })
       )
-      fireEvent.click(screen.getByText('Commit', { selector: '.option-title' }))
+      fireEvent.click(screen.getByText('提交', { selector: '.option-title' }))
     }
 
     it('does not offer commit modes when Copilot-assisted commits are unavailable', () => {
@@ -453,10 +449,10 @@ describe('CommitMessage', () => {
       })
 
       assert.equal(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
-      assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+      assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
       assert.strictEqual(getCommitMode(props.repository), 'copilot')
       assert.strictEqual(requests.length, 0)
     })
@@ -469,7 +465,7 @@ describe('CommitMessage', () => {
       rerender({})
 
       assert.equal(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
     })
@@ -480,7 +476,7 @@ describe('CommitMessage', () => {
       })
 
       assert.equal(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
     })
@@ -488,7 +484,7 @@ describe('CommitMessage', () => {
     it('defaults to the manual commit mode', () => {
       const { view } = renderWithCommitModes()
 
-      assert.ok(screen.getByRole('button', { name: 'Choose how to commit' }))
+      assert.ok(screen.getByRole('button', { name: '选择提交方式' }))
       assert.equal(
         getManualFields(view.container).getAttribute('aria-hidden'),
         null
@@ -508,7 +504,7 @@ describe('CommitMessage', () => {
         'true'
       )
       assert.ok(view.container.querySelector('.copilot-commit-panel'))
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
       assert.strictEqual(getCommitMode(props.repository), 'copilot')
       assert.strictEqual(localStorage.getItem('commit-mode'), null)
     })
@@ -519,7 +515,7 @@ describe('CommitMessage', () => {
       switchToCopilotMode()
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
 
@@ -537,14 +533,14 @@ describe('CommitMessage', () => {
       renderWithCommitModes()
 
       const button = screen.getByRole('button', {
-        name: 'Commit 1 file to main',
+        name: '提交 1 个文件 to main',
       })
       assert.equal(button.getAttribute('aria-disabled'), 'true')
 
       switchToCopilotMode()
 
       const copilotButton = screen.getByRole('button', {
-        name: 'Commit 1 file to main with Copilot',
+        name: '提交 1 个文件 to main with Copilot',
       })
       assert.equal(copilotButton.getAttribute('aria-disabled'), null)
     })
@@ -558,7 +554,7 @@ describe('CommitMessage', () => {
       })
 
       const button = screen.getByRole('button', {
-        name: 'Commit to main with Copilot',
+        name: '提交 to main with Copilot',
       })
       assert.equal(button.getAttribute('aria-disabled'), 'true')
     })
@@ -614,11 +610,11 @@ describe('CommitMessage', () => {
 
       assert.ok(getManualFields(view.container).hasAttribute('inert'))
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: 'Commit summary' }),
+        screen.queryByRole('combobox', { name: '提交摘要' }),
         null
       )
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: 'Commit description' }),
+        screen.queryByRole('combobox', { name: '提交描述' }),
         null
       )
     })
@@ -656,15 +652,15 @@ describe('CommitMessage', () => {
       const second = renderWithCommitModes({
         repository: new Repository(`${process.cwd()}/app`, 124, null, false),
       })
-      assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+      assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
       second.view.unmount()
 
       const restored = renderWithCommitModes({
         repository: firstRepository,
       })
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: 'Commit summary' }),
+        screen.queryByRole('combobox', { name: '提交摘要' }),
         null
       )
       assert.strictEqual(
@@ -685,27 +681,27 @@ describe('CommitMessage', () => {
       })
 
       fireEvent.change(
-        screen.getByRole('combobox', { name: 'Commit summary' }),
+        screen.getByRole('combobox', { name: '提交摘要' }),
         { target: { value: 'My manual title' } }
       )
       fireEvent.change(
-        screen.getByRole('combobox', { name: 'Commit description' }),
+        screen.getByRole('combobox', { name: '提交描述' }),
         { target: { value: 'My manual description' } }
       )
 
       switchToCopilotMode()
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
       switchToManualMode()
 
-      const summary = screen.getByRole('combobox', { name: 'Commit summary' })
+      const summary = screen.getByRole('combobox', { name: '提交摘要' })
       assert.ok(summary instanceof HTMLInputElement)
       assert.strictEqual(summary.value, 'My manual title')
       const description = screen.getByRole('combobox', {
-        name: 'Commit description',
+        name: '提交描述',
       })
       assert.ok(description instanceof HTMLTextAreaElement)
       assert.strictEqual(description.value, 'My manual description')
@@ -717,7 +713,7 @@ describe('CommitMessage', () => {
       assert.ok(exitingPanel?.hasAttribute('inert'))
       assert.strictEqual(
         screen
-          .queryByText('Let Copilot write your commits')
+          .queryByText('让 Copilot 帮您编写提交')
           ?.closest('[aria-hidden="true"]'),
         exitingPanel
       )
@@ -734,32 +730,32 @@ describe('CommitMessage', () => {
       const { rerender } = renderWithCommitModes()
 
       rerender({ commitMode: 'copilot' })
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
       fireEvent.click(
-        screen.getByRole('button', { name: 'Choose how to commit' })
+        screen.getByRole('button', { name: '选择提交方式' })
       )
       assert.strictEqual(
         screen
-          .getByRole('menuitemradio', { name: /Commit with Copilot/ })
+          .getByRole('menuitemradio', { name: /使用 Copilot 提交/ })
           .getAttribute('aria-checked'),
         'true'
       )
 
       fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' })
       rerender({ commitMode: 'manual' })
-      assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+      assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
     })
 
     it('moves focus out of manual fields when the effective mode changes', () => {
       const { rerender } = renderWithCommitModes()
-      screen.getByRole('combobox', { name: 'Commit description' }).focus()
+      screen.getByRole('combobox', { name: '提交描述' }).focus()
 
       rerender({ commitMode: 'copilot' })
 
       assert.strictEqual(
         document.activeElement,
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
     })
@@ -775,7 +771,7 @@ describe('CommitMessage', () => {
       assert.strictEqual(
         document.activeElement,
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
       assert.strictEqual(focusHandled, 1)
@@ -784,13 +780,13 @@ describe('CommitMessage', () => {
     it('supports choosing a mode by keyboard even when the primary action is disabled', () => {
       renderWithCommitModes()
       const dropdown = screen.getByRole('button', {
-        name: 'Choose how to commit',
+        name: '选择提交方式',
       })
       dropdown.focus()
       fireEvent.keyDown(dropdown, { key: 'ArrowUp' })
       fireEvent.keyDown(screen.getByRole('menu'), { key: 'Enter' })
 
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
       assert.strictEqual(document.activeElement, dropdown)
       assert.strictEqual(dropdown.getAttribute('aria-expanded'), 'false')
     })
@@ -817,7 +813,7 @@ describe('CommitMessage', () => {
       const { requests } = renderWithCommitModes()
       switchToCopilotMode()
       const dropdown = screen.getByRole('button', {
-        name: 'Choose how to commit',
+        name: '选择提交方式',
       })
       assert.strictEqual(document.activeElement, dropdown)
       fireEvent.keyDown(dropdown, {
@@ -842,7 +838,7 @@ describe('CommitMessage', () => {
       const { view, rerender } = renderWithCommitModes()
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'View commit author information',
+          name: '查看提交作者信息',
         })
       )
       assert.ok(view.container.querySelector('.popover-component'))
@@ -909,12 +905,12 @@ describe('CommitMessage', () => {
         ],
       })
       fireEvent.click(
-        screen.getByRole('button', { name: 'View commit author information' })
+        screen.getByRole('button', { name: '查看提交作者信息' })
       )
       assert.ok(view.container.querySelector('.popover-component'))
       rerender({ commitMode: 'copilot' })
 
-      const input = screen.getByRole('combobox', { name: /Co-Authors/ })
+      const input = screen.getByRole('combobox', { name: /共同作者/ })
       input.focus()
       const container = input.closest('.focus-container')
       assert.ok(container?.classList.contains('focus-within'))
@@ -935,16 +931,16 @@ describe('CommitMessage', () => {
       switchToCopilotMode()
       rerender({ commitToAmend: createCommit() })
 
-      assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+      assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
       assert.strictEqual(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
       assert.strictEqual(getCommitMode(props.repository), 'copilot')
       assert.strictEqual(requests.length, 0)
 
       rerender({ commitToAmend: null })
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
     })
 
     it('keeps tutorials manual even if an assisted callback is provided', () => {
@@ -960,9 +956,9 @@ describe('CommitMessage', () => {
       storeCommitMode(repository, 'copilot')
       renderWithCommitModes({ repository })
 
-      assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+      assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
       assert.strictEqual(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
     })
@@ -1009,9 +1005,9 @@ describe('CommitMessage', () => {
           commitMode: 'copilot',
           accounts,
         })
-        assert.ok(screen.getByRole('combobox', { name: 'Commit summary' }))
+        assert.ok(screen.getByRole('combobox', { name: '提交摘要' }))
         assert.strictEqual(
-          screen.queryByRole('button', { name: 'Choose how to commit' }),
+          screen.queryByRole('button', { name: '选择提交方式' }),
           null
         )
         view.unmount()
@@ -1022,11 +1018,11 @@ describe('CommitMessage', () => {
       const { rerender } = renderWithCommitModes({ commitMode: 'copilot' })
 
       rerender({ isGeneratingCommitMessage: true })
-      assert.strictEqual(screen.queryByText('Copilot is on it…'), null)
-      assert.ok(screen.getByText('Let Copilot write your commits'))
+      assert.strictEqual(screen.queryByText('Copilot 正在处理…'), null)
+      assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
 
       rerender({ isCreatingCopilotAssistedCommits: true })
-      assert.ok(screen.getByText('Copilot is on it…'))
+      assert.ok(screen.getByText('Copilot 正在处理…'))
     })
 
     for (const busyState of [
@@ -1041,7 +1037,7 @@ describe('CommitMessage', () => {
           commitMode: 'copilot',
         })
         const dropdown = screen.getByRole('button', {
-          name: 'Choose how to commit',
+          name: '选择提交方式',
         })
         fireEvent.click(dropdown)
         assert.ok(screen.getByRole('menu'))
@@ -1054,13 +1050,13 @@ describe('CommitMessage', () => {
         assert.strictEqual(screen.queryByRole('menu'), null)
 
         const optionsButton = screen.getByRole('button', {
-          name: 'Configure commit options',
+          name: '配置提交选项',
         })
         assert.ok(optionsButton.closest('.copilot-commit-panel'))
         assert.strictEqual(optionsButton.getAttribute('aria-disabled'), 'true')
         fireEvent.click(
           screen.getByRole('button', {
-            name: /(?:Commit|Committing) 1 file to main with Copilot/,
+            name: /(?:提交|正在提交) 1 个文件 to main with Copilot/,
           })
         )
         fireEvent.keyDown(window, {
@@ -1080,10 +1076,10 @@ describe('CommitMessage', () => {
         filesToBeCommittedCount: 0,
         allowEmptyCommit: true,
       })
-      assert.ok(screen.getByText('Create an empty commit'))
+      assert.ok(screen.getByText('创建空提交'))
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit to main with Copilot',
+          name: '提交 to main with Copilot',
         })
       )
       assert.strictEqual(requests.length, 1)
@@ -1102,12 +1098,12 @@ describe('CommitMessage', () => {
           generated.push({ files, override }),
       })
       fireEvent.change(
-        screen.getByRole('combobox', { name: 'Commit summary' }),
+        screen.getByRole('combobox', { name: '提交摘要' }),
         { target: { value: 'Manual title' } }
       )
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Generate commit message with Copilot',
+          name: '使用 Copilot 生成提交信息',
         })
       )
       assert.deepStrictEqual(generated, [
@@ -1117,7 +1113,7 @@ describe('CommitMessage', () => {
         },
       ])
       assert.strictEqual(
-        screen.queryByRole('button', { name: 'Choose how to commit' }),
+        screen.queryByRole('button', { name: '选择提交方式' }),
         null
       )
     })
@@ -1139,9 +1135,9 @@ describe('CommitMessage', () => {
           generatedByCopilot: true,
         },
       })
-      const summary = screen.getByRole('combobox', { name: 'Commit summary' })
+      const summary = screen.getByRole('combobox', { name: '提交摘要' })
       const description = screen.getByRole('combobox', {
-        name: 'Commit description',
+        name: '提交描述',
       })
       assert.ok(summary instanceof HTMLInputElement)
       assert.ok(description instanceof HTMLTextAreaElement)
@@ -1242,7 +1238,7 @@ describe('CommitMessage', () => {
     }
 
     function addUncachedCoAuthor(username: string) {
-      const input = screen.getByRole('combobox', { name: /Co-Authors/ })
+      const input = screen.getByRole('combobox', { name: /共同作者/ })
       assert.ok(input instanceof HTMLInputElement)
       fireEvent.change(input, { target: { value: username } })
       input.setSelectionRange(username.length, username.length)
@@ -1278,7 +1274,7 @@ describe('CommitMessage', () => {
         assert.ok(screen.getByRole('option', { name: /Resolved Coauthor/ }))
       )
       fireEvent.click(
-        screen.getByRole('button', { name: 'Commit 1 file to main' })
+        screen.getByRole('button', { name: '提交 1 个文件 to main' })
       )
       assert.deepStrictEqual(commits[0].trailers, [
         {
@@ -1306,7 +1302,7 @@ describe('CommitMessage', () => {
         assert.ok(screen.getByRole('option', { name: /Second Author/ }))
       })
       fireEvent.click(
-        screen.getByRole('button', { name: 'Commit 1 file to main' })
+        screen.getByRole('button', { name: '提交 1 个文件 to main' })
       )
       assert.deepStrictEqual(commits[0].trailers, [
         { token: 'Co-Authored-By', value: 'First Author <first@example.com>' },
@@ -1340,7 +1336,7 @@ describe('CommitMessage', () => {
       assert.ok(screen.getByRole('option', { name: /First Author/ }))
       assert.ok(screen.getByRole('option', { name: /Second Author/ }))
       fireEvent.click(
-        screen.getByRole('button', { name: 'Commit 1 file to main' })
+        screen.getByRole('button', { name: '提交 1 个文件 to main' })
       )
       assert.deepStrictEqual(commits[0].trailers, [
         { token: 'Co-Authored-By', value: 'First Author <first@example.com>' },
@@ -1380,7 +1376,7 @@ describe('CommitMessage', () => {
       )
       assert.ok(screen.getByRole('option', { name: /Second Author/ }))
       fireEvent.click(
-        screen.getByRole('button', { name: 'Commit 1 file to main' })
+        screen.getByRole('button', { name: '提交 1 个文件 to main' })
       )
       assert.deepStrictEqual(commits[0].trailers, [
         {
@@ -1414,7 +1410,7 @@ describe('CommitMessage', () => {
       await new Promise<void>(resolve => setImmediate(resolve))
       flushAuthorProps()
       fireEvent.click(
-        screen.getByRole('button', { name: 'Commit 1 file to main' })
+        screen.getByRole('button', { name: '提交 1 个文件 to main' })
       )
       assert.deepStrictEqual(commits[0].trailers, [
         { token: 'Co-Authored-By', value: 'First Author <first@example.com>' },
@@ -1572,22 +1568,22 @@ describe('CommitMessage', () => {
       await waitFor(() =>
         assert.ok(
           screen.getByRole('button', {
-            name: 'Email address is disallowed. View warning.',
+            name: '不允许使用此电子邮件地址。查看警告。',
           })
         )
       )
       switchToCopilotMode()
       assert.ok(
         screen.getByText(
-          "Your commit author email does not meet this repository's rules."
+          '您的提交作者邮箱不符合此仓库的规则。'
         )
       )
       const settings = screen.getByRole('button', {
-        name: 'Update author email',
+        name: '更新作者邮箱',
       })
       assert.strictEqual(settings.closest('[inert]'), null)
       const commit = screen.getByRole('button', {
-        name: 'Commit 1 file to main with Copilot',
+        name: '提交 1 个文件 to main with Copilot',
       })
       assert.strictEqual(commit.getAttribute('aria-disabled'), 'true')
       assert.strictEqual(
@@ -1622,7 +1618,7 @@ describe('CommitMessage', () => {
         assert.strictEqual(commit.getAttribute('aria-disabled'), null)
       )
       assert.strictEqual(
-        screen.queryByRole('button', { name: 'Update author email' }),
+        screen.queryByRole('button', { name: '更新作者邮箱' }),
         null
       )
       fireEvent.click(commit)
@@ -1648,10 +1644,10 @@ describe('CommitMessage', () => {
         ),
       })
       await waitFor(() =>
-        assert.ok(screen.getByText(/You can bypass these rules/))
+        assert.ok(screen.getByText(/您可以绕过这些规则/))
       )
       const commit = screen.getByRole('button', {
-        name: 'Commit 1 file to main with Copilot',
+        name: '提交 1 个文件 to main with Copilot',
       })
       assert.strictEqual(commit.getAttribute('aria-disabled'), null)
       fireEvent.click(commit)
@@ -1683,7 +1679,7 @@ describe('CommitMessage', () => {
           rerender({ isCreatingCopilotAssistedCommits: true })
         },
       })
-      const input = screen.getByRole('combobox', { name: /Co-Authors/ })
+      const input = screen.getByRole('combobox', { name: /共同作者/ })
       assert.ok(input instanceof HTMLInputElement)
       fireEvent.change(input, { target: { value: 'mo' } })
       await waitFor(() =>
@@ -1743,7 +1739,7 @@ describe('CommitMessage', () => {
         autocompletionProviders: [provider],
         showCoAuthoredBy: true,
       })
-      const input = screen.getByRole('combobox', { name: /Co-Authors/ })
+      const input = screen.getByRole('combobox', { name: /共同作者/ })
       assert.ok(input instanceof HTMLInputElement)
       fireEvent.change(input, { target: { value: 'mo' } })
       assert.ok(complete)
@@ -1780,7 +1776,7 @@ describe('CommitMessage', () => {
           selectedLabel = label
           fireEvent.click(
             screen.getByRole('button', {
-              name: 'Configure commit options',
+              name: '配置提交选项',
             })
           )
         },
@@ -1790,7 +1786,7 @@ describe('CommitMessage', () => {
     it('places the single assisted options control inside the Copilot panel', () => {
       const { view } = renderWithCommitModes({ commitMode: 'copilot' })
       const button = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       const panel = view.container.querySelector('.copilot-commit-panel')
       assert.ok(panel)
@@ -1798,7 +1794,7 @@ describe('CommitMessage', () => {
       assert.strictEqual(button.getAttribute('aria-haspopup'), 'menu')
       assert.strictEqual(
         screen.getAllByRole('button', {
-          name: 'Configure commit options',
+          name: '配置提交选项',
         }).length,
         1
       )
@@ -1817,7 +1813,7 @@ describe('CommitMessage', () => {
         { kind: 'analyzing', runId: 'run', cancelRequested: false },
         true,
         true,
-        'Cancel',
+        '取消',
         false,
       ],
       [
@@ -1831,10 +1827,10 @@ describe('CommitMessage', () => {
         },
         true,
         true,
-        'Cancel',
+        '取消',
         false,
       ],
-      [{ kind: 'rolling-back', runId: 'run' }, true, true, 'Cancel', true],
+      [{ kind: 'rolling-back', runId: 'run' }, true, true, '取消', true],
       ...(['recovery', 'refresh', null] as const).map(
         retry =>
           [
@@ -1852,10 +1848,10 @@ describe('CommitMessage', () => {
             false,
             retry !== null,
             retry === null
-              ? 'Dismiss'
+              ? '忽略'
               : retry === 'recovery'
-              ? 'Retry rollback'
-              : 'Retry refresh',
+              ? '重试回滚'
+              : '重试刷新',
             false,
           ] as const
       ),
@@ -1883,7 +1879,7 @@ describe('CommitMessage', () => {
           onAssistedCommitErrorDetails: () => {},
         })
         const gear = screen.getByRole('button', {
-          name: 'Configure commit options',
+          name: '配置提交选项',
         })
         const panel = view.container.querySelector(
           '.copilot-commit-panel.with-options'
@@ -1914,7 +1910,7 @@ describe('CommitMessage', () => {
         fireEvent.click(runAction)
         assert.strictEqual(acted, actionDisabled ? 0 : 1)
         assert.strictEqual(
-          screen.queryByRole('combobox', { name: 'Commit summary' }),
+          screen.queryByRole('combobox', { name: '提交摘要' }),
           null
         )
         if (state.kind === 'committing') {
@@ -1926,7 +1922,7 @@ describe('CommitMessage', () => {
         }
         if (state.kind === 'error') {
           assert.ok(panel.contains(screen.getByRole('alert')))
-          assert.ok(screen.getByRole('button', { name: 'Details' }))
+          assert.ok(screen.getByRole('button', { name: '详细信息' }))
         }
       })
     }
@@ -1934,17 +1930,17 @@ describe('CommitMessage', () => {
     it('restores summary focus when leaving the focused panel options control', () => {
       const { rerender } = renderWithCommitModes({ commitMode: 'copilot' })
       const button = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       button.focus()
       rerender({ commitMode: 'manual' })
       assert.strictEqual(
         document.activeElement,
-        screen.getByRole('combobox', { name: 'Commit summary' })
+        screen.getByRole('combobox', { name: '提交摘要' })
       )
       assert.ok(button.closest('[inert][aria-hidden="true"]'))
       const manual = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.ok(manual.closest('.manual-commit-fields .action-bar'))
       assert.notStrictEqual(manual, button)
@@ -1952,12 +1948,12 @@ describe('CommitMessage', () => {
 
     it('restores manual focus when assisted execution becomes unavailable while options are focused', () => {
       const { rerender } = renderWithCommitModes({ commitMode: 'copilot' })
-      screen.getByRole('button', { name: 'Configure commit options' }).focus()
+      screen.getByRole('button', { name: '配置提交选项' }).focus()
       rerender({ onCreateCopilotAssistedCommits: undefined })
-      const summary = screen.getByRole('combobox', { name: 'Commit summary' })
+      const summary = screen.getByRole('combobox', { name: '提交摘要' })
       assert.strictEqual(document.activeElement, summary)
       const options = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.ok(options.closest('.manual-commit-fields .action-bar'))
       assert.strictEqual(options.closest('[inert]'), null)
@@ -1974,7 +1970,7 @@ describe('CommitMessage', () => {
       assert.ok(exitingOptions)
       assert.ok(exitingOptions.closest('[inert][aria-hidden="true"]'))
       const visible = screen.getAllByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.strictEqual(visible.length, 1)
       assert.ok(visible[0].closest('.manual-commit-fields .action-bar'))
@@ -1995,7 +1991,7 @@ describe('CommitMessage', () => {
       assert.ok(
         screen
           .getByRole('button', {
-            name: 'Configure commit options',
+            name: '配置提交选项',
           })
           .closest('.copilot-commit-panel')
       )
@@ -2036,7 +2032,7 @@ describe('CommitMessage', () => {
         onUpdateCommitOptions: (_repository, options) => updates.push(options),
       })
       const manual = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.ok(manual.closest('.manual-commit-fields .action-bar'))
       select(SignOffLabel)
@@ -2052,7 +2048,7 @@ describe('CommitMessage', () => {
       )
       switchToCopilotMode()
       const assisted = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.ok(assisted.closest('.copilot-commit-panel'))
       assert.strictEqual(assisted.childElementCount, 1)
@@ -2066,7 +2062,7 @@ describe('CommitMessage', () => {
         menus[1]
           .filter(
             item =>
-              item.type === 'checkbox' && item.label !== 'Push after committing'
+              item.type === 'checkbox' && item.label !== '提交后推送'
           )
           .map(item => ({ label: item.label, checked: item.checked })),
         [SkipHooksLabel, SignOffLabel, AllowEmptyLabel].map(label => ({
@@ -2076,7 +2072,7 @@ describe('CommitMessage', () => {
       )
       switchToManualMode()
       assert.strictEqual(
-        screen.getByRole('button', { name: 'Configure commit options' }),
+        screen.getByRole('button', { name: '配置提交选项' }),
         manual
       )
     })
@@ -2097,17 +2093,17 @@ describe('CommitMessage', () => {
       assert.ok(form)
       assert.strictEqual(form.classList.contains('with-co-authors'), false)
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: /Co-Authors/ }),
+        screen.queryByRole('combobox', { name: /共同作者/ }),
         null
       )
 
       rerender({ showCoAuthoredBy: true })
       assert.strictEqual(form.classList.contains('with-co-authors'), true)
-      assert.ok(screen.getByRole('combobox', { name: /Co-Authors/ }))
+      assert.ok(screen.getByRole('combobox', { name: /共同作者/ }))
 
       rerender({ showCoAuthoredBy: true, autocompletionProviders: [] })
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: /Co-Authors/ }),
+        screen.queryByRole('combobox', { name: /共同作者/ }),
         null
       )
       assert.strictEqual(form.classList.contains('with-co-authors'), false)
@@ -2115,7 +2111,7 @@ describe('CommitMessage', () => {
       rerender({ showCoAuthoredBy: false })
       assert.strictEqual(form.classList.contains('with-co-authors'), false)
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: /Co-Authors/ }),
+        screen.queryByRole('combobox', { name: /共同作者/ }),
         null
       )
 
@@ -2125,7 +2121,7 @@ describe('CommitMessage', () => {
       })
       assert.strictEqual(form.classList.contains('with-co-authors'), false)
       assert.strictEqual(
-        screen.queryByRole('combobox', { name: /Co-Authors/ }),
+        screen.queryByRole('combobox', { name: /共同作者/ }),
         null
       )
     })
@@ -2138,9 +2134,9 @@ describe('CommitMessage', () => {
         pushAfterCommit: true,
         onPushAfterCommitChanged: enabled => choices.push(enabled),
       })
-      select('Push after committing')
+      select('提交后推送')
       await waitFor(() => assert.deepStrictEqual(choices, [false]))
-      const item = menus[0].find(item => item.label === 'Push after committing')
+      const item = menus[0].find(item => item.label === '提交后推送')
       assert.ok(item)
       assert.strictEqual(item.type, 'checkbox')
       assert.strictEqual(item.checked, true)
@@ -2148,12 +2144,12 @@ describe('CommitMessage', () => {
         view.container
           .querySelector('.copilot-commit-panel.with-options')
           ?.contains(
-            screen.getByRole('button', { name: 'Configure commit options' })
+            screen.getByRole('button', { name: '配置提交选项' })
           )
       )
       rerender({ isCreatingCopilotAssistedCommits: true })
       const button = screen.getByRole('button', {
-        name: 'Configure commit options',
+        name: '配置提交选项',
       })
       assert.strictEqual(button.getAttribute('aria-disabled'), 'true')
       fireEvent.click(button)
@@ -2162,10 +2158,10 @@ describe('CommitMessage', () => {
         commitMode: 'manual',
         isCreatingCopilotAssistedCommits: false,
       })
-      select('Push after committing')
+      select('提交后推送')
       await waitFor(() => assert.strictEqual(menus.length, 2))
       assert.strictEqual(
-        menus[1].some(item => item.label === 'Push after committing'),
+        menus[1].some(item => item.label === '提交后推送'),
         true
       )
       await waitFor(() => assert.deepStrictEqual(choices, [false, false]))
@@ -2173,16 +2169,16 @@ describe('CommitMessage', () => {
         commitMode: 'copilot',
         pushAfterCommit: false,
       })
-      select('Push after committing')
+      select('提交后推送')
       assert.strictEqual(
-        menus[2].find(item => item.label === 'Push after committing')?.checked,
+        menus[2].find(item => item.label === '提交后推送')?.checked,
         false
       )
       await waitFor(() => assert.deepStrictEqual(choices, [false, false, true]))
       rerender({ commitMode: 'manual', canPushAfterCommit: false })
-      select('Push after committing')
+      select('提交后推送')
       assert.strictEqual(
-        menus[3].find(item => item.label === 'Push after committing')?.enabled,
+        menus[3].find(item => item.label === '提交后推送')?.enabled,
         false
       )
       assert.deepStrictEqual(choices, [false, false, true])
@@ -2211,11 +2207,11 @@ describe('CommitMessage', () => {
         signOffCommits: true,
       })
       const coAuthorsInput = screen.getByRole('combobox', {
-        name: /Co-Authors/,
+        name: /共同作者/,
       })
       switchToCopilotMode()
       assert.strictEqual(
-        screen.getByRole('combobox', { name: /Co-Authors/ }),
+        screen.getByRole('combobox', { name: /共同作者/ }),
         coAuthorsInput
       )
       assert.strictEqual(coAuthorsInput.closest('.copilot-commit-panel'), null)
@@ -2230,7 +2226,7 @@ describe('CommitMessage', () => {
       )
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
       assert.deepStrictEqual(requests[0].trailers, [
@@ -2287,7 +2283,7 @@ describe('CommitMessage', () => {
       })
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Configure commit options',
+          name: '配置提交选项',
         })
       )
       assert.ok(signOffIndex >= 0)
@@ -2349,7 +2345,7 @@ describe('CommitMessage', () => {
       const beforeScroll = frames.mock.calls.length
       fireEvent.scroll(
         screen.getByRole('combobox', {
-          name: 'Commit description',
+          name: '提交描述',
         })
       )
       assert.strictEqual(frames.mock.calls.length, beforeScroll + 1)
@@ -2382,7 +2378,7 @@ describe('CommitMessage', () => {
       harness.rerender({ commitMode: 'manual' })
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit 1 file to main',
+          name: '提交 1 个文件 to main',
           exact: true,
         })
       )
@@ -2402,7 +2398,7 @@ describe('CommitMessage', () => {
         assert.ok(live)
         assert.strictEqual(
           live.textContent,
-          `Committed Just now - ${commit.summary} (Sha: ${commit.shortSha})`
+          `刚刚提交 - ${commit.summary} (Sha: ${commit.shortSha})`
         )
       })
     })
@@ -2450,7 +2446,7 @@ describe('CommitMessage', () => {
           'span[aria-live="polite"][aria-atomic="true"]'
         )
         assert.ok(live)
-        assert.ok(!live.textContent?.includes('Committed Just now'))
+        assert.ok(!live.textContent?.includes('刚刚提交'))
       })
     }
 
@@ -2472,7 +2468,7 @@ describe('CommitMessage', () => {
           'span[aria-live="polite"][aria-atomic="true"]'
         )
         assert.ok(live)
-        assert.ok(!live.textContent?.includes('Committed Just now'))
+        assert.ok(!live.textContent?.includes('刚刚提交'))
       })
     })
 
@@ -2492,7 +2488,7 @@ describe('CommitMessage', () => {
       })
       fireEvent.click(
         screen.getByRole('button', {
-          name: 'Commit 1 file to main with Copilot',
+          name: '提交 1 个文件 to main with Copilot',
         })
       )
       assert.strictEqual(requests.length, 0)

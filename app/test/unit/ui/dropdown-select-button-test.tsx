@@ -55,7 +55,7 @@ it('preserves the highlighted merge operation when History preview finishes load
     commitsBehind: 2,
   }
   const view = render(<MergeCallToActionWithConflicts {...props} />)
-  fireEvent.keyDown(screen.getByRole('button', { name: 'Merge options' }), {
+  fireEvent.keyDown(screen.getByRole('button', { name: '合并选项' }), {
     key: 'ArrowDown',
   })
   fireEvent.keyDown(screen.getByRole('menu'), { key: 'ArrowDown' })

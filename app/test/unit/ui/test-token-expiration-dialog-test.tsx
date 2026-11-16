@@ -59,7 +59,7 @@ function renderDialog(
 }
 
 function dateInput() {
-  const input = screen.getByLabelText('Expiration (local time)')
+  const input = screen.getByLabelText('过期时间（本地时间）')
   assert.ok(input instanceof HTMLInputElement)
   return input
 }
@@ -73,7 +73,7 @@ function button(name: string) {
 function applyExpiry() {
   // Bypass JSDOM's datetime step validation, which cannot load decimal.js
   // under the test runner's import condition.
-  const form = button('Apply expiry').form
+  const form = button('应用过期时间').form
   assert.ok(form)
   fireEvent.submit(form)
 }
@@ -96,7 +96,7 @@ describe('TestTokenExpirationDialog', () => {
     await waitFor(() => assert.equal(dateInput().disabled, false))
     assert.equal(new Date(dateInput().value).getTime(), initial.expiresAt)
     assert.equal(view.container.textContent?.includes(account.token), false)
-    assert.equal(button('Reset override').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('重置覆盖设置').getAttribute('aria-disabled'), 'true')
     assert.deepEqual(writes, [])
   })
 
@@ -106,11 +106,11 @@ describe('TestTokenExpirationDialog', () => {
     renderDialog(dispatcher)
     await waitFor(() => assert.equal(dateInput().disabled, false))
     const presets: ReadonlyArray<readonly [string, number]> = [
-      ['Expired', -1],
-      ['In 10 min', 10],
-      ['In 1h', 60],
-      ['In 62 min', 62],
-      ['In 8h', 480],
+      ['已过期', -1],
+      ['10 分钟后', 10],
+      ['1 小时后', 60],
+      ['62 分钟后', 62],
+      ['8 小时后', 480],
     ]
     for (const [label, minutes] of presets) {
       fireEvent.click(button(label))
@@ -134,12 +134,12 @@ describe('TestTokenExpirationDialog', () => {
     const chosen = '2030-06-15T12:30:45'
     fireEvent.change(dateInput(), { target: { value: chosen } })
     applyExpiry()
-    await screen.findByText('Expiration override applied.')
+    await screen.findByText('已应用过期时间覆盖。')
     assert.deepEqual(writes, [
       { account, expiresAt: new Date(chosen).getTime() },
     ])
     assert.notEqual(
-      button('Reset override').getAttribute('aria-disabled'),
+      button('重置覆盖设置').getAttribute('aria-disabled'),
       'true'
     )
     assert.ok(screen.getByText(/Original expiry:/))
@@ -151,14 +151,14 @@ describe('TestTokenExpirationDialog', () => {
     renderDialog(dispatcher)
     await waitFor(() => assert.equal(dateInput().disabled, false))
     fireEvent.change(dateInput(), { target: { value: '' } })
-    assert.equal(button('Apply expiry').getAttribute('aria-disabled'), 'true')
-    fireEvent.click(button('Expired'))
+    assert.equal(button('应用过期时间').getAttribute('aria-disabled'), 'true')
+    fireEvent.click(button('已过期'))
     assert.notEqual(
-      button('Apply expiry').getAttribute('aria-disabled'),
+      button('应用过期时间').getAttribute('aria-disabled'),
       'true'
     )
     applyExpiry()
-    await screen.findByText('Expiration override applied.')
+    await screen.findByText('已应用过期时间覆盖。')
     assert.equal(writes[0].expiresAt, now - 60_000)
   })
 
@@ -171,18 +171,18 @@ describe('TestTokenExpirationDialog', () => {
     renderDialog(dispatcher)
     await waitFor(() =>
       assert.notEqual(
-        button('Reset override').getAttribute('aria-disabled'),
+        button('重置覆盖设置').getAttribute('aria-disabled'),
         'true'
       )
     )
-    fireEvent.click(button('Reset override'))
-    await screen.findByText('Original expiration restored.')
+    fireEvent.click(button('重置覆盖设置'))
+    await screen.findByText('已恢复原始过期时间。')
     assert.deepEqual(writes, [{ account, expiresAt: undefined }])
     assert.equal(
       new Date(dateInput().value).getTime(),
       initial.originalExpiresAt
     )
-    assert.equal(button('Reset override').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('重置覆盖设置').getAttribute('aria-disabled'), 'true')
   })
 
   it('disables controls for non-refreshable accounts', async () => {
@@ -192,19 +192,19 @@ describe('TestTokenExpirationDialog', () => {
       expiresAt: undefined,
     })
     renderDialog(dispatcher)
-    await screen.findByText(/This account does not have a refreshable token/)
+    await screen.findByText(/此账号没有可续期的令牌/)
     assert.equal(dateInput().disabled, true)
-    assert.equal(button('In 10 min').getAttribute('aria-disabled'), 'true')
-    assert.equal(button('Apply expiry').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('10 分钟后').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('应用过期时间').getAttribute('aria-disabled'), 'true')
   })
 
   it('explains when no account is signed in', () => {
     renderDialog(createDispatcher().dispatcher, [])
     assert.ok(
-      screen.getByText(/Sign in to an account with a refreshable token/)
+      screen.getByText(/请登录拥有可续期令牌的账号/)
     )
-    assert.equal(button('Apply expiry').getAttribute('aria-disabled'), 'true')
-    assert.equal(screen.queryByLabelText('Account'), null)
+    assert.equal(button('应用过期时间').getAttribute('aria-disabled'), 'true')
+    assert.equal(screen.queryByLabelText('账号'), null)
   })
 
   it('loads an account that signs in while the empty dialog is open', async () => {
@@ -269,7 +269,7 @@ describe('TestTokenExpirationDialog', () => {
     )
     renderDialog(dispatcher, [account, enterprise])
     await waitFor(() => assert.equal(dateInput().disabled, false))
-    fireEvent.change(screen.getByLabelText('Account'), {
+    fireEvent.change(screen.getByLabelText('账号'), {
       target: { value: getAccountKey(enterprise) },
     })
     await waitFor(() =>
@@ -288,7 +288,7 @@ describe('TestTokenExpirationDialog', () => {
     const view = renderDialog(dispatcher)
     await waitFor(() =>
       assert.notEqual(
-        button('Reset override').getAttribute('aria-disabled'),
+        button('重置覆盖设置').getAttribute('aria-disabled'),
         'true'
       )
     )
@@ -307,7 +307,7 @@ describe('TestTokenExpirationDialog', () => {
     await waitFor(() =>
       assert.equal(new Date(dateInput().value).getTime(), initial.expiresAt)
     )
-    assert.equal(button('Reset override').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('重置覆盖设置').getAttribute('aria-disabled'), 'true')
   })
 
   it('shows metadata load errors', async t => {
@@ -324,7 +324,7 @@ describe('TestTokenExpirationDialog', () => {
       (await screen.findByRole('alert', { hidden: true })).textContent,
       'Test controls unavailable'
     )
-    assert.equal(button('Apply expiry').getAttribute('aria-disabled'), 'true')
+    assert.equal(button('应用过期时间').getAttribute('aria-disabled'), 'true')
   })
 
   it('shows apply errors and allows retrying without dismissing', async t => {
@@ -344,7 +344,7 @@ describe('TestTokenExpirationDialog', () => {
       'Token renewal is in progress.'
     )
     assert.notEqual(
-      button('Apply expiry').getAttribute('aria-disabled'),
+      button('应用过期时间').getAttribute('aria-disabled'),
       'true'
     )
   })

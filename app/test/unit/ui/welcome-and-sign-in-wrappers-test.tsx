@@ -187,7 +187,7 @@ describe('welcome and sign-in wrappers', () => {
     )
     assert.ok(screen.getByText('work-account'))
     assert.ok(screen.getByText('github.com'))
-    assert.ok(screen.getByText(/Sign in as/))
+    assert.ok(screen.getByText(/的身份在/))
   })
 
   let restoreIpcSend: (() => void) | undefined
@@ -216,16 +216,14 @@ describe('welcome and sign-in wrappers', () => {
 
     assert.ok(screen.getByText('https://enterprise.example.com'))
     assert.ok(
-      screen.getByText(
-        'Git is requesting permission to sign in to this server:'
-      )
+      screen.getByText('Git 正在请求登录此服务器：')
     )
     assert.ok(
-      screen.getByText('Only continue if you recognize and trust this server.')
+      screen.getByText('仅当您认识并信任此服务器时才继续登录。')
     )
     assert.ok(
       screen.getByText(
-        /Confirm this address appears in your browser\. Otherwise, cancel and contact your repository administrator\./
+        /请确认此地址显示在您的浏览器中。否则，请取消并与您的仓库管理员联系。/
       )
     )
     assert.strictEqual(screen.queryByRole('list'), null)
@@ -236,7 +234,7 @@ describe('welcome and sign-in wrappers', () => {
       'true'
     )
     fireEvent.click(
-      screen.getByRole('link', { name: /sign in using your browser/i })
+      screen.getByRole('link', { name: /使用浏览器登录/i })
     )
 
     assert.deepStrictEqual(dispatcher.enteredEndpoints, [])
@@ -256,8 +254,8 @@ describe('welcome and sign-in wrappers', () => {
       </SignIn>
     )
 
-    const input = screen.getByLabelText('Enterprise address')
-    const continueButton = screen.getByRole('button', { name: 'Continue' })
+    const input = screen.getByLabelText('企业服务器地址')
+    const continueButton = screen.getByRole('button', { name: '继续' })
 
     fireEvent.change(input, {
       target: { value: 'https://enterprise.example.com' },
@@ -282,7 +280,7 @@ describe('welcome and sign-in wrappers', () => {
     )
 
     const browserLink = screen.getByRole('link', {
-      name: 'Sign in using your browser',
+      name: '使用浏览器登录',
     })
 
     fireEvent.click(browserLink)
@@ -328,8 +326,8 @@ describe('welcome and sign-in wrappers', () => {
       />
     )
 
-    assert.ok(screen.getByText('Sign in to your GitHub Enterprise'))
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    assert.ok(screen.getByText('登录到您的 GitHub Enterprise'))
+    fireEvent.click(screen.getByRole('button', { name: '取消' }))
 
     assert.deepEqual(advancedSteps, ['Start'])
   })
@@ -356,15 +354,15 @@ describe('welcome and sign-in wrappers', () => {
       />
     )
 
-    assert.ok(screen.getByText('Configure Git'))
+    assert.ok(screen.getByText('配置 Git'))
     assert.ok(
-      screen.getByText('This is used to identify the commits you create.', {
+      screen.getByText('此信息用于标识您创建的提交。', {
         exact: false,
       })
     )
-    assert.ok(screen.getByRole('button', { name: 'Finish' }))
+    assert.ok(screen.getByRole('button', { name: '完成' }))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    fireEvent.click(screen.getByRole('button', { name: '取消' }))
 
     assert.deepEqual(advancedSteps, ['Start'])
     assert.equal(doneCount, 0)

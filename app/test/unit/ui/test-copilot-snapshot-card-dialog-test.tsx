@@ -48,9 +48,8 @@ describe('TestCopilotSnapshotCardDialog', () => {
     assert.ok(preview instanceof HTMLElement)
 
     assert.ok(within(preview).getByText('Mona Lisa'))
-    assert.ok(within(preview).getByText('@mona'))
-    assert.ok(within(preview).getByText('Chat messages'))
-    assert.ok(within(preview).getByText('Premium requests'))
+    assert.ok(within(preview).getByText('聊天消息'))
+    assert.ok(within(preview).getByText('高级请求'))
   })
 
   it('keeps the preview separate from the scrollable controls', () => {
@@ -68,7 +67,7 @@ describe('TestCopilotSnapshotCardDialog', () => {
     assert.ok(controls instanceof HTMLElement)
     assert.strictEqual(content.children[0], preview)
     assert.strictEqual(content.children[1], controls)
-    assert.strictEqual(controls.contains(screen.getByLabelText('Login')), true)
+    assert.strictEqual(controls.contains(screen.getByLabelText('登录名')), true)
   })
 
   it('uses the first available account as the fake account default', () => {
@@ -84,17 +83,17 @@ describe('TestCopilotSnapshotCardDialog', () => {
     assert.ok(
       screen.getByDisplayValue('https://avatars.githubusercontent.com/u/2')
     )
-    assert.ok(within(preview).getByText('Chat messages'))
-    assert.ok(within(preview).getByText('Premium requests'))
+    assert.ok(within(preview).getByText('聊天消息'))
+    assert.ok(within(preview).getByText('高级请求'))
   })
 
   it('updates the fake account displayed in the preview', () => {
     renderDialog()
 
-    fireEvent.change(screen.getByLabelText('Login'), {
+    fireEvent.change(screen.getByLabelText('登录名'), {
       target: { value: 'octo' },
     })
-    fireEvent.change(screen.getByLabelText('Endpoint'), {
+    fireEvent.change(screen.getByLabelText('终结点'), {
       target: { value: 'https://enterprise.example.com/api/v3' },
     })
 
@@ -109,11 +108,11 @@ describe('TestCopilotSnapshotCardDialog', () => {
     )
     assert.ok(preview instanceof HTMLElement)
 
-    fireEvent.click(screen.getByText('AI credits preset'))
+    fireEvent.click(screen.getByText('AI 积分预设'))
 
-    assert.ok(within(preview).getByText('AI credits'))
-    assert.ok(within(preview).getByText('(resets monthly)'))
-    assert.strictEqual(within(preview).queryByText('Chat messages'), null)
+    assert.ok(within(preview).getByText('AI 积分'))
+    assert.ok(within(preview).getByText('（每月重置）'))
+    assert.strictEqual(within(preview).queryByText('聊天消息'), null)
   })
 
   it('previews rate limit data', () => {
@@ -123,9 +122,9 @@ describe('TestCopilotSnapshotCardDialog', () => {
     )
     assert.ok(preview instanceof HTMLElement)
 
-    fireEvent.click(screen.getByText('Rate limit preset'))
+    fireEvent.click(screen.getByText('速率限制预设'))
 
-    assert.ok(within(preview).getByText('Session limits'))
-    assert.ok(within(preview).getByText('Weekly limits'))
+    assert.ok(within(preview).getByText('会话限制'))
+    assert.ok(within(preview).getByText('每周限制'))
   })
 })

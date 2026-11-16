@@ -53,15 +53,13 @@ describe('tutorial welcome surfaces', () => {
 
     assert.ok(screen.getByText('Welcome to GitHub Desktop'))
     assert.ok(
-      screen.getByText(
-        'Use this tutorial to get comfortable with Git, GitHub, and GitHub Desktop.'
-      )
+      screen.getByText('通过本教程熟悉 Git、GitHub 和 GitHub Desktop。')
     )
     assert.equal(definitions.length, 3)
     assert.deepEqual(images, [
-      'Html syntax icon',
-      'People with discussion bubbles overhead',
-      'Server stack with cloud',
+      'HTML 语法图标',
+      '头顶带有对话气泡的人们',
+      '带有云端的服务器堆栈',
     ])
   })
 
@@ -82,7 +80,7 @@ describe('tutorial welcome surfaces', () => {
 
     const view = render(
       <TutorialStepInstructions
-        summaryText="Create a branch"
+        summaryText="创建分支"
         isComplete={isComplete}
         sectionId={TutorialStep.CreateBranch}
         isNextStepTodo={isNextStepTodo}
@@ -100,7 +98,7 @@ describe('tutorial welcome surfaces', () => {
     assert.notEqual(details, null)
     assert.equal(details?.getAttribute('open'), '')
     assert.equal(blueCircle?.textContent, '2')
-    assert.ok(screen.getByText('Create a branch'))
+    assert.ok(screen.getByText('创建分支'))
     assert.ok(screen.getByRole('button', { name: 'Skip' }))
     assert.ok(screen.getByText('Create a branch to isolate your work.'))
 
@@ -151,15 +149,13 @@ describe('tutorial welcome surfaces', () => {
     )
 
     const heading = screen.getByRole('heading', { name: "You're done!" })
-    const openExploreLabel = __DARWIN__ ? 'Open in Browser' : 'Open in browser'
-    const createRepositoryLabel = __DARWIN__
-      ? 'Create Repository'
-      : 'Create repository'
-    const addRepositoryLabel = __DARWIN__ ? 'Add Repository' : 'Add repository'
+    const openExploreLabel = '在浏览器中打开'
+    const createRepositoryLabel = '创建仓库'
+    const addRepositoryLabel = '添加仓库'
 
     assert.equal(document.activeElement, heading)
     assert.equal(announcements, 1)
-    assert.ok(screen.getByRole('img', { name: 'Hands clapping' }))
+    assert.ok(screen.getByRole('img', { name: '鼓掌的双手' }))
 
     screen.getByRole('button', { name: openExploreLabel }).click()
     screen.getByRole('button', { name: createRepositoryLabel }).click()

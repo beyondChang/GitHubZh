@@ -53,15 +53,15 @@ describe('Accounts preferences', () => {
       assert.ok(screen.getByText(`@${account.login}`, { exact: false }))
     }
     fireEvent.click(
-      screen.getByRole('button', { name: 'Add GitHub.com account' })
+      screen.getByRole('button', { name: '添加 GitHub.com 账号' })
     )
     fireEvent.click(
-      screen.getByRole('button', { name: 'Add GitHub Enterprise account' })
+      screen.getByRole('button', { name: '添加 GitHub Enterprise 账号' })
     )
     assert.strictEqual(dotComSignIns, 1)
     assert.strictEqual(enterpriseSignIns, 1)
 
-    const signOutButtons = screen.getAllByRole('button', { name: /sign out/i })
+    const signOutButtons = screen.getAllByRole('button', { name: /退出登录/ })
     assert.strictEqual(signOutButtons.length, accounts.length)
     fireEvent.click(signOutButtons[1])
     assert.deepStrictEqual(signedOut, [accounts[1]])

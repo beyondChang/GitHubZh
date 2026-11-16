@@ -32,9 +32,9 @@ it('offers the ordinary Push retry without retaining a commit-run capability', t
     view.unmount()
     ipcRenderer.send = previousSend
   })
-  assert.ok(screen.getByText('Failed to push'))
+  assert.ok(screen.getByText('推送失败'))
   fireEvent.click(
-    screen.getByRole('button', { name: 'Retry push', hidden: true })
+    screen.getByRole('button', { name: '重试推送', hidden: true })
   )
   assert.strictEqual(received, retry)
   assert.deepStrictEqual(Object.keys(retry), ['type', 'repository'])

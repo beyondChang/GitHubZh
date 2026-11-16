@@ -23,7 +23,7 @@ describe('PasswordTextBox', () => {
 
     const input = screen.getByLabelText('Password') as HTMLInputElement
     const toggle = screen.getByRole('button', {
-      name: 'Toggle password visibility',
+      name: '切换密码可见性',
     })
 
     assert.equal(input.type, 'password')

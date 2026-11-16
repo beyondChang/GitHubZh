@@ -118,7 +118,7 @@ describe('CopilotCommitPanel', () => {
   it('asks the user to select changes when none are selected', () => {
     render(<CopilotCommitPanel filesSelectedCount={0} isWorking={false} />)
 
-    assert.ok(screen.getByText(/Select the changes you want to commit/))
+    assert.ok(screen.getByText(/选择您想要提交的更改/))
   })
 
   it('renders optional controls inside the panel without changing its caption', () => {
@@ -133,7 +133,7 @@ describe('CopilotCommitPanel', () => {
     assert.ok(
       panel.contains(screen.getByRole('button', { name: 'Configure options' }))
     )
-    assert.ok(screen.getByText('Let Copilot write your commits'))
+    assert.ok(screen.getByText('让 Copilot 帮您编写提交'))
     view.rerender(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />
     )
@@ -149,12 +149,12 @@ describe('CopilotCommitPanel', () => {
       <CopilotCommitPanel filesSelectedCount={3} isWorking={false} />
     )
 
-    assert.ok(screen.getByText(/split the 3 selected files into commits/))
+    assert.ok(screen.getByText(/把选中的 3 个文件拆分为提交/))
 
     view.rerender(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />
     )
-    assert.ok(screen.getByText(/split the 1 selected file into commits/))
+    assert.ok(screen.getByText(/把选中的 1 个文件拆分为提交/))
   })
 
   it('describes an empty commit without claiming to analyze nonexistent changes', () => {
@@ -165,9 +165,9 @@ describe('CopilotCommitPanel', () => {
         allowEmptyCommit={true}
       />
     )
-    assert.ok(screen.getByText('Create an empty commit'))
-    assert.ok(screen.getByText(/without file changes or Copilot analysis/))
-    assert.strictEqual(screen.queryByText(/Select the changes/), null)
+    assert.ok(screen.getByText('创建空提交'))
+    assert.ok(screen.getByText(/不含文件更改或 Copilot 分析/))
+    assert.strictEqual(screen.queryByText(/选择您想要提交的更改/), null)
   })
 
   it('celebrates its entrance and then idles', () => {
@@ -185,7 +185,7 @@ describe('CopilotCommitPanel', () => {
     const view = render(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />
     )
-    const button = screen.getByRole('button', { name: 'Animate Copilot' })
+    const button = screen.getByRole('button', { name: '让 Copilot 做出反应' })
     assert.ok(button instanceof HTMLButtonElement)
     assert.strictEqual(button.type, 'button')
     assert.strictEqual(button.tabIndex, 0)
@@ -207,7 +207,7 @@ describe('CopilotCommitPanel', () => {
     const view = render(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />
     )
-    const button = screen.getByRole('button', { name: 'Animate Copilot' })
+    const button = screen.getByRole('button', { name: '让 Copilot 做出反应' })
     advanceThroughPhases(33, 1056)
     const sparkles = view.container.querySelector('.sparkles')
 
@@ -230,7 +230,7 @@ describe('CopilotCommitPanel', () => {
     const view = render(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />
     )
-    const button = screen.getByRole('button', { name: 'Animate Copilot' })
+    const button = screen.getByRole('button', { name: '让 Copilot 做出反应' })
     button.focus()
     view.rerender(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={true} />
@@ -266,7 +266,7 @@ describe('CopilotCommitPanel', () => {
     const panel = view.container.querySelector('.copilot-commit-panel')
     assert.ok(panel?.classList.contains('working'))
     assert.ok(view.container.querySelector('.copilot-sprite-thinking'))
-    assert.ok(screen.getByText('Copilot is on it…'))
+    assert.ok(screen.getByText('Copilot 正在处理…'))
 
     view.rerender(
       <CopilotCommitPanel filesSelectedCount={1} isWorking={false} />

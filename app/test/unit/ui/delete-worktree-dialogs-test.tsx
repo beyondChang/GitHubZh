@@ -89,7 +89,7 @@ describe('DeleteWorktreeDialog', () => {
       />
     )
 
-    assert.equal(screen.queryByText('Do not show this message again'), null)
+    assert.equal(screen.queryByText('不再显示此消息'), null)
   })
 
   it('offers to silence the prompt for an ordinary worktree', () => {
@@ -105,7 +105,7 @@ describe('DeleteWorktreeDialog', () => {
       />
     )
 
-    assert.notEqual(screen.queryByText('Do not show this message again'), null)
+    assert.notEqual(screen.queryByText('不再显示此消息'), null)
   })
 })
 
@@ -125,7 +125,7 @@ describe('DeleteWorktreeFailedDialog', () => {
       />
     )
 
-    submit(view, 'Forcefully delete')
+    submit(view, '强制删除')
 
     await waitFor(() => assert.equal(calls.length, 1))
     assert.deepStrictEqual(calls[0], { ...options, force: true })

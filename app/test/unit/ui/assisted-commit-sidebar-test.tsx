@@ -92,14 +92,14 @@ describe('real assisted Changes sidebar wiring', () => {
       view.unmount()
     })
     fireEvent.click(
-      screen.getByRole('button', { name: /Commit.*with Copilot/ })
+      screen.getByRole('button', { name: /提交.*with Copilot/ })
     )
     await analyzing.promise
     await waitFor(() =>
-      assert.ok(screen.getByRole('button', { name: 'Cancel' }))
+      assert.ok(screen.getByRole('button', { name: '取消' }))
     )
     const options = screen.getByRole('button', {
-      name: 'Configure commit options',
+      name: '配置提交选项',
     })
     assert.ok(options.closest('.copilot-commit-panel.with-options'))
     assert.strictEqual(options.getAttribute('aria-disabled'), 'true')
@@ -108,12 +108,12 @@ describe('real assisted Changes sidebar wiring', () => {
     view = render(element())
     mounted = true
     assert.ok(
-      screen.getByText('Planning selected changes…', { selector: '.title' })
+      screen.getByText('正在规划所选更改…', { selector: '.title' })
     )
-    assert.ok(screen.getByRole('button', { name: 'Cancel' }))
+    assert.ok(screen.getByRole('button', { name: '取消' }))
     assert.ok(
       screen
-        .getByRole('button', { name: 'Configure commit options' })
+        .getByRole('button', { name: '配置提交选项' })
         .closest('.copilot-commit-panel.with-options')
     )
     finish.resolve()
@@ -131,7 +131,7 @@ describe('real assisted Changes sidebar wiring', () => {
     await waitFor(() =>
       assert.notStrictEqual(
         screen
-          .getByRole('button', { name: 'Configure commit options' })
+          .getByRole('button', { name: '配置提交选项' })
           .getAttribute('aria-disabled'),
         'true'
       )

@@ -72,11 +72,11 @@ describe('rulesets and publish surfaces', () => {
 
     const publishButton = screen.getByRole('button', { name: 'Publish' })
     const helpLink = screen.getByRole('link', {
-      name: 'Learn more about remote repositories.',
+      name: '详细了解远程仓库。',
     })
 
     assert.ok(
-      screen.getByText('Publish your repository to GitHub. Need help?', {
+      screen.getByText('将您的仓库发布到 GitHub。需要帮助吗？', {
         exact: false,
       })
     )

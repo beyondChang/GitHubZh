@@ -110,7 +110,7 @@ describe('TextBox', () => {
     assert.equal(document.activeElement, input)
     assert.deepEqual(changedValues, [''])
     assert.equal(clearedCount, 1)
-    assert.ok(view.container.textContent?.includes('Input cleared'))
+    assert.ok(view.container.textContent?.includes('已清除输入'))
   })
 
   it('clears or blurs search inputs when escape is pressed', () => {

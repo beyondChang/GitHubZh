@@ -208,7 +208,7 @@ async function flushImmediate() {
 }
 
 async function openAccountPicker() {
-  fireEvent.click(screen.getByRole('button', { name: 'Account', hidden: true }))
+  fireEvent.click(screen.getByRole('button', { name: '账号', hidden: true }))
   advanceTimersBy(300)
   await flushImmediate()
 }
@@ -251,26 +251,26 @@ describe('RepositoryAccountDialog', () => {
     assert.ok(view.container.querySelector('.account-picker .placeholder'))
     await openAccountPicker()
     assert.deepStrictEqual(listedAccounts(), ['@personal GitHub.com'])
-    click('Use account')
+    click('使用该账号')
     assert.deepStrictEqual(view.completed, [])
     chooseListedAccount(personal.login)
-    click('Use account')
+    click('使用该账号')
     assert.deepStrictEqual(view.completed, [personal])
     assert.deepStrictEqual(view.order, ['complete', 'dismiss'])
   })
 
   it('cancels without an account', async () => {
     const view = await renderAccountDialog()
-    click('Cancel')
+    click('取消')
     assert.deepStrictEqual(view.completed, [undefined])
     assert.deepStrictEqual(view.order, ['complete', 'dismiss'])
   })
 
   it('targets the assigned signed-out identity and completes after sign-in', async () => {
     const view = await renderAccountDialog(createRepository('personal'), [work])
-    assert.ok(screen.getByText(/assigned to @personal on GitHub\.com\./))
+    assert.ok(screen.getByText(/分配给了 @personal/))
     assert.strictEqual(screen.queryByText(/api\.github\.com/), null)
-    click('Sign in')
+    click('登录')
     assert.deepStrictEqual(
       view.showAccountSignInDialog.mock.calls[0].arguments.slice(0, 2),
       [endpoint, 'personal']
@@ -286,19 +286,19 @@ describe('RepositoryAccountDialog', () => {
 
   it('accepts the assigned identity with different login casing', async () => {
     const view = await renderAccountDialog(createRepository('Personal'), [])
-    click('Sign in')
+    click('登录')
     view.finishSignIn({ kind: 'success', account: personal })
     assert.deepStrictEqual(view.completed, [personal])
   })
 
   it('keeps the prompt on cancelled targeted sign-in and allows another account', async () => {
     const view = await renderAccountDialog(createRepository('personal'), [work])
-    click('Sign in')
+    click('登录')
     view.finishSignIn({ kind: 'cancelled' })
     assert.deepStrictEqual(view.completed, [])
-    click('Choose another account')
+    click('选择其他账号')
     await selectAccount('work')
-    click('Use account')
+    click('使用该账号')
     assert.deepStrictEqual(view.completed, [work])
   })
 
@@ -309,26 +309,26 @@ describe('RepositoryAccountDialog', () => {
 
   it('offers another account only when one is signed in on the endpoint', async () => {
     await renderAccountDialog(createRepository('personal'), [enterprise])
-    assert.ok(queryButton('Sign in'))
-    assert.strictEqual(queryButton('Choose another account'), null)
+    assert.ok(queryButton('登录'))
+    assert.strictEqual(queryButton('选择其他账号'), null)
   })
 
   it('names GitHub.com rather than its API endpoint when choosing an account', async () => {
     await renderAccountDialog(createRepository(), [personal])
-    assert.ok(screen.getByText(/for repository on GitHub\.com\./))
+    assert.ok(screen.getByText(/位于 GitHub\.com/))
     assert.strictEqual(screen.queryByText(/api\.github\.com/), null)
   })
 
   it('names the enterprise host rather than its API endpoint', async () => {
     await renderAccountDialog(createRepository(null, enterpriseEndpoint), [])
-    assert.ok(screen.getByText(/for repository on enterprise\.example\.com\./))
+    assert.ok(screen.getByText(/位于 enterprise\.example\.com/))
     assert.strictEqual(screen.queryByText(/\/api\/v3/), null)
   })
 
   it('names the enterprise host for a signed-out assigned account', async () => {
     await renderAccountDialog(createRepository('work', enterpriseEndpoint), [])
     assert.ok(
-      screen.getByText(/assigned to @work on enterprise\.example\.com\./)
+      screen.getByText(/分配给了 @work/)
     )
     assert.strictEqual(screen.queryByText(/\/api\/v3/), null)
   })
@@ -353,11 +353,11 @@ describe('ConfirmAccountSignOut', () => {
       const checkbox = screen.getByRole('checkbox', { hidden: true })
       assert.ok(checkbox instanceof HTMLInputElement)
       assert.strictEqual(checkbox.checked, false)
-      assert.ok(screen.getByText(/2 repositories are assigned to @personal/))
+      assert.ok(screen.getByText(/2 个仓库分配给了 @personal/))
       if (action === 'clear') {
         fireEvent.click(checkbox)
       }
-      click(action === 'cancel' ? 'Cancel' : 'Sign out')
+      click(action === 'cancel' ? '取消' : '退出登录')
       assert.deepStrictEqual(results, [
         action === 'cancel' ? undefined : action === 'clear',
       ])

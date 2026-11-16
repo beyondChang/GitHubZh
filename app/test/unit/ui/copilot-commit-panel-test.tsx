@@ -8,12 +8,12 @@ import { fireEvent, render, screen } from '../../helpers/ui/render'
 
 describe('Copilot commit run panel', () => {
   for (const [kind, caption] of [
-    ['preparing', 'Preparing selected changes'],
-    ['capturing', 'Freezing selected changes'],
-    ['analyzing', 'Planning selected changes'],
-    ['summarizing-selection', 'Writing one message'],
-    ['validating', 'Checking the complete commit plan'],
-    ['finishing', 'Refreshing local commits'],
+    ['preparing', '正在准备所选更改…'],
+    ['capturing', '正在锁定所选更改…'],
+    ['analyzing', '正在规划所选更改…'],
+    ['summarizing-selection', '正在为所有所选更改编写提交信息…'],
+    ['validating', '正在检查完整的提交计划…'],
+    ['finishing', '正在刷新本地提交…'],
   ] as const) {
     it(`announces ${kind} and exposes keyboard-reachable Cancel`, async () => {
       let cancelled = 0
@@ -26,7 +26,7 @@ describe('Copilot commit run panel', () => {
         />
       )
       assert.ok(screen.getByText(new RegExp(caption), { selector: '.title' }))
-      const button = screen.getByRole('button', { name: 'Cancel' })
+      const button = screen.getByRole('button', { name: '取消' })
       button.focus()
       assert.strictEqual(document.activeElement, button)
       fireEvent.click(button)
@@ -56,7 +56,7 @@ describe('Copilot commit run panel', () => {
       })
     )
     assert.ok(screen.getByText('Exact generated title'))
-    assert.ok(screen.getByRole('button', { name: 'Cancel' }))
+    assert.ok(screen.getByRole('button', { name: '取消' }))
     assert.strictEqual(screen.queryByText(/Committed/), null)
   })
 
@@ -70,11 +70,11 @@ describe('Copilot commit run panel', () => {
       />
     )
     assert.ok(
-      screen.getByText('Cancelling the commit run…', { selector: '.title' })
+      screen.getByText('正在取消本次提交运行…', { selector: '.title' })
     )
     assert.notStrictEqual(
       screen
-        .getByRole('button', { name: 'Cancel' })
+        .getByRole('button', { name: '取消' })
         .getAttribute('aria-disabled'),
       'true'
     )
@@ -87,11 +87,11 @@ describe('Copilot commit run panel', () => {
       />
     )
     assert.ok(
-      screen.getByText('Undoing commits from this run…', { selector: '.title' })
+      screen.getByText('正在撤销本次运行创建的提交…', { selector: '.title' })
     )
     assert.strictEqual(
       screen
-        .getByRole('button', { name: 'Cancel' })
+        .getByRole('button', { name: '取消' })
         .getAttribute('aria-disabled'),
       'true'
     )
@@ -120,14 +120,14 @@ describe('Copilot commit run panel', () => {
     )
     assert.ok(screen.getByRole('alert'))
     assert.strictEqual(screen.queryByText('External HEAD changed'), null)
-    assert.ok(screen.getByText(/Review and reselect/))
-    assert.strictEqual(screen.queryByRole('button', { name: 'Dismiss' }), null)
+    assert.ok(screen.getByText(/部分已选更改发生移动或变更/))
+    assert.strictEqual(screen.queryByRole('button', { name: '忽略' }), null)
     assert.strictEqual(
       view.container.querySelector('.copilot-commit-panel.working'),
       null
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Retry rollback' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Details' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试回滚' }))
+    fireEvent.click(screen.getByRole('button', { name: '详细信息' }))
     assert.strictEqual(retry, 1)
     assert.strictEqual(details, 1)
   })
@@ -142,7 +142,7 @@ describe('Copilot commit run panel', () => {
     )
     const live = () =>
       view.container.querySelector('[aria-live="polite"]')?.textContent
-    assert.match(live() ?? '', /Planning selected changes/)
+    assert.match(live() ?? '', /正在规划所选更改/)
     view.rerender(
       <CopilotCommitPanel
         filesSelectedCount={1}
@@ -165,7 +165,7 @@ describe('Copilot commit run panel', () => {
         runState={{ kind: 'rolling-back', runId: 'run' }}
       />
     )
-    assert.match(live() ?? '', /Undoing commits/)
+    assert.match(live() ?? '', /正在撤销本次运行创建的提交/)
   })
 
   for (const retry of [null, 'recovery', 'refresh'] as const) {
@@ -184,7 +184,7 @@ describe('Copilot commit run panel', () => {
         )
         const live = view.container.querySelector('[aria-live="polite"]')
         assert.ok(live)
-        assert.match(live.textContent ?? '', /Planning selected changes/)
+        assert.match(live.textContent ?? '', /正在规划所选更改/)
         view.rerender(
           <CopilotCommitPanel
             filesSelectedCount={1}
@@ -263,15 +263,15 @@ describe('Copilot commit run panel', () => {
       const button = screen.getByRole('button', {
         name:
           retry === null
-            ? 'Dismiss'
+            ? '忽略'
             : retry === 'recovery'
-            ? 'Retry rollback'
-            : 'Retry refresh',
+            ? '重试回滚'
+            : '重试刷新',
       })
       assert.strictEqual(button.getAttribute('aria-disabled'), 'true')
       fireEvent.click(button)
       assert.strictEqual(acted, 0)
-      assert.ok(screen.getByText('Finishing repository refresh…'))
+      assert.ok(screen.getByText('正在完成仓库刷新…'))
     })
   }
 
@@ -293,14 +293,14 @@ describe('Copilot commit run panel', () => {
         runState={{ kind: 'idle' }}
       />
     )
-    assert.ok(screen.getByText('Create an empty commit'))
-    assert.strictEqual(screen.queryByRole('button', { name: 'Cancel' }), null)
+    assert.ok(screen.getByText('创建空提交'))
+    assert.strictEqual(screen.queryByRole('button', { name: '取消' }), null)
     assert.strictEqual(
       view.container
         .querySelector('.copilot-animation')
         ?.getAttribute('aria-hidden'),
       'true'
     )
-    assert.ok(screen.getByRole('button', { name: 'Animate Copilot' }))
+    assert.ok(screen.getByRole('button', { name: '让 Copilot 做出反应' }))
   })
 })
