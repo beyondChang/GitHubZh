@@ -222,7 +222,7 @@ export class NoChanges extends React.Component<
 
     return (
       <>
-        {parentMenusText} menu or{' '}
+        {parentMenusText} 菜单，或使用{' '}
         {this.renderDiscoverabilityKeyboardShortcut(menuItem)}
       </>
     )

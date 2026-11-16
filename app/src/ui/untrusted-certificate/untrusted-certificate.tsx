@@ -37,37 +37,26 @@ export class UntrustedCertificate extends React.Component<
 
     return (
       <Dialog
-        title={__DARWIN__ ? 'Untrusted Server' : 'Untrusted server'}
+        title="服务器不受信任"
         onDismissed={this.props.onDismissed}
         onSubmit={this.onContinue}
         type={__DARWIN__ ? 'warning' : 'error'}
       >
         <DialogContent>
           <p>
-            GitHub Desktop cannot verify the identity of {host}. The certificate
-            ({this.props.certificate.subjectName}) is invalid or untrusted.{' '}
-            <strong>
-              This may indicate attackers are trying to steal your data.
-            </strong>
+            GitHub Desktop 无法验证 {host} 的身份。证书 （
+            {this.props.certificate.subjectName}）无效或不受信任。{' '}
+            <strong>这可能表明攻击者正试图窃取您的数据。</strong>
           </p>
-          <p>In some cases, this may be expected. For example:</p>
+          <p>在某些情况下，这可能是预期行为。例如：</p>
           <ul>
-            <li>If this is a GitHub Enterprise trial.</li>
-            <li>
-              If your GitHub Enterprise instance is run on an unusual top-level
-              domain.
-            </li>
+            <li>如果这是 GitHub Enterprise 试用版。</li>
+            <li>如果您的 GitHub Enterprise 实例运行在不寻常的顶级域名上。</li>
           </ul>
-          <p>
-            If you are unsure of what to do, cancel and contact your system
-            administrator.
-          </p>
+          <p>如果您不确定该怎么做，请取消并联系您的系统管理员。</p>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup
-            destructive={true}
-            okButtonText={__DARWIN__ ? 'View Certificate' : 'Add certificate'}
-          />
+          <OkCancelButtonGroup destructive={true} okButtonText="添加证书" />
         </DialogFooter>
       </Dialog>
     )

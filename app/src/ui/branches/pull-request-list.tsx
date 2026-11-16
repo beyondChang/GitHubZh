@@ -323,7 +323,7 @@ export class PullRequestList extends React.Component<
   private renderListHeader = () => {
     return (
       <div className="filter-list-group-header">
-        Pull requests in {this.getRepositoryName()}
+        {this.getRepositoryName()} 中的拉取请求
       </div>
     )
   }

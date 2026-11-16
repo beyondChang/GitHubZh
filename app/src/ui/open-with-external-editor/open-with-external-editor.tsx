@@ -105,7 +105,7 @@ export class OpenWithExternalEditor extends React.Component<
 
     return (
       <Select
-        label="Select an editor"
+        label="选择编辑器"
         value={
           this.state.useCustomEditor
             ? CustomIntegrationValue
@@ -121,8 +121,8 @@ export class OpenWithExternalEditor extends React.Component<
         {enableCustomIntegration() && (
           <option key={CustomIntegrationValue} value={CustomIntegrationValue}>
             {__DARWIN__
-              ? 'Configure Custom Editor…'
-              : 'Configure custom editor…'}
+              ? '配置自定义编辑器…'
+              : '配置自定义编辑器…'}
           </option>
         )}
       </Select>
@@ -148,7 +148,7 @@ export class OpenWithExternalEditor extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Open With…' : 'Open with…'
+    const title = __DARWIN__ ? '打开方式…' : '打开方式…'
     const disabled =
       (!this.state.useCustomEditor && this.state.selectedEditor === null) ||
       (this.state.useCustomEditor && !this.state.customEditor.path)
@@ -166,7 +166,7 @@ export class OpenWithExternalEditor extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Open"
+            okButtonText="打开"
             okButtonDisabled={disabled}
             onCancelButtonClick={this.props.onDismissed}
           />

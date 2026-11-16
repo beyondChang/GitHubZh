@@ -186,7 +186,7 @@ export function showTestUI(
   function testAppError() {
     return dispatcher.postError(
       new Error(
-        'Test Error - to use default error handler' + crypto.randomUUID()
+        '测试错误 - 用于默认错误处理程序' + crypto.randomUUID()
       )
     )
   }
@@ -238,8 +238,8 @@ export function showTestUI(
       ],
       repository,
       context: {
-        summary: 'Test summary',
-        description: 'Test description',
+        summary: '测试摘要',
+        description: '测试描述',
       },
     })
   }
@@ -319,8 +319,8 @@ export function showTestUI(
       type: PopupType.OversizedFiles,
       oversizedFiles: ['test/app.tsx', 'test/popup.tsx'],
       context: {
-        summary: 'Test summary',
-        description: 'Test description',
+        summary: '测试摘要',
+        description: '测试描述',
       },
       repository,
     })
@@ -419,12 +419,12 @@ export function showTestUI(
     const userContributions: ReadonlyArray<ReleaseNote> = [
       {
         kind: 'fixed',
-        message: 'A totally awesome fix that fixes something - #123. Thanks!',
+        message: '修复了某个问题的超棒修复 - #123。谢谢！',
       },
       {
         kind: 'added',
         message:
-          'You can now do this new thing that was added here - #456. Thanks!',
+          '您现在可以执行此处新增的这项新操作了 - #456。谢谢！',
       },
     ]
 
@@ -436,7 +436,7 @@ export function showTestUI(
         dispatcher.showPopup({
           type: PopupType.ThankYou,
           userContributions,
-          friendlyName: 'Test User',
+          friendlyName: '测试用户',
           latestVersion: getVersion(),
         }),
       onThrowCardAway: () => {
@@ -452,7 +452,7 @@ export function showTestUI(
       userContributions: [
         {
           kind: 'new',
-          message: '[New] Added fake thank you dialog',
+          message: '【新功能】添加了模拟致谢对话框',
         },
       ],
       friendlyName: 'kind contributor',

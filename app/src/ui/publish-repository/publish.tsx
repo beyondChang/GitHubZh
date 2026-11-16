@@ -212,14 +212,14 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
       <>
         <CallToAction actionTitle={signInTitle} onAction={this.signInDotCom}>
           <div>
-            Sign in to your GitHub.com account to publish your repository.
+            登录您的 GitHub.com 账号以发布仓库。
           </div>
         </CallToAction>
         <Row className="sign-in-enterprise">
           <LinkButton onClick={this.signInEnterprise}>
             {__DARWIN__
-              ? 'Sign In to GitHub Enterprise'
-              : 'Sign in to GitHub Enterprise'}
+              ? '登录 GitHub Enterprise'
+              : '登录 GitHub Enterprise'}
           </LinkButton>
         </Row>
       </>

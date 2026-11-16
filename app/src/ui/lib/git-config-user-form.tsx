@@ -146,7 +146,7 @@ export class GitConfigUserForm extends React.Component<
       <div>
         <Row>
           <TextBox
-            label="Name"
+            label="名称"
             value={this.props.name}
             disabled={this.props.disabled}
             onValueChanged={this.props.onNameChanged}
@@ -176,12 +176,12 @@ export class GitConfigUserForm extends React.Component<
       this.props.accounts.some(isEnterpriseAccount)
 
     const accountSuffix = (account: Account) =>
-      isDotComAccount(account) ? '(GitHub.com)' : '(GitHub Enterprise)'
+      isDotComAccount(account) ? '（GitHub.com）' : '（GitHub Enterprise）'
 
     return (
       <Row>
         <Select
-          label="Email"
+          label="电子邮件"
           value={
             this.state.emailIsOther ? OtherEmailSelectValue : this.props.email
           }
@@ -194,7 +194,7 @@ export class GitConfigUserForm extends React.Component<
             </option>
           ))}
           <option key={OtherEmailSelectValue} value={OtherEmailSelectValue}>
-            {OtherEmailSelectValue}
+            其他
           </option>
         </Select>
       </Row>

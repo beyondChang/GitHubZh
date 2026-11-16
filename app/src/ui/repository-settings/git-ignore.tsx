@@ -16,18 +16,18 @@ export class GitIgnore extends React.Component<IGitIgnoreProps, {}> {
     return (
       <DialogContent>
         <p id="ignored-files-description">
-          Editing <Ref>.gitignore</Ref>. This file specifies intentionally
-          untracked files that Git should ignore. Files already tracked by Git
-          are not affected.{' '}
+          正在编辑 <Ref>.gitignore</Ref>。该文件指定了 Git 应
+          忽略的、刻意不纳入版本控制的文件。已被 Git 跟踪的
+          文件不受影响。{' '}
           <LinkButton onClick={this.props.onShowExamples}>
-            Learn more about gitignore files
+            详细了解 gitignore 文件
           </LinkButton>
         </p>
 
         <TextArea
-          ariaLabel="Ignored files"
+          ariaLabel="忽略的文件"
           ariaDescribedBy="ignored-files-description"
-          placeholder="Ignored files"
+          placeholder="忽略的文件"
           value={this.props.text || ''}
           onValueChanged={this.props.onIgnoreTextChanged}
           textareaClassName="gitignore"

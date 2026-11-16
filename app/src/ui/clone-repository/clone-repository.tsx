@@ -823,7 +823,7 @@ export class CloneRepository extends React.Component<
     const { path } = request
 
     if (path == null) {
-      const error = new Error(`Directory could not be created at this path.`)
+      const error = new Error(`无法在此路径创建目录。`)
       this.setState({ loading: false })
       this.setSelectedTabState({ error })
       return
@@ -839,7 +839,7 @@ export class CloneRepository extends React.Component<
     const cloneInfo = await this.resolveCloneInfo(request)
     if (!cloneInfo) {
       const error = new Error(
-        `We couldn't find that repository. Check that you are logged in, the network is accessible, and the URL or repository alias are spelled correctly.`
+        `我们找不到该仓库。请确认您已登录、网络可访问，并且 URL 或仓库别名拼写正确。`
       )
       this.setState({ loading: false })
       this.setSelectedTabState({ error })

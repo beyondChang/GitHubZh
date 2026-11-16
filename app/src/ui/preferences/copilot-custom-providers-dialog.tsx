@@ -29,7 +29,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
       <Dialog
         id="copilot-custom-providers-dialog"
         className="copilot-settings-dialog"
-        title={__DARWIN__ ? 'Custom Providers' : 'Custom providers'}
+        title={__DARWIN__ ? '自定义提供方' : '自定义提供方'}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >
@@ -37,13 +37,13 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
           <div className="copilot-section">
             {this.renderProviders()}
             <Button onClick={this.onAddProviderClick}>
-              {__DARWIN__ ? 'Add Provider…' : 'Add provider…'}
+              {__DARWIN__ ? '添加提供方…' : '添加提供方…'}
             </Button>
           </div>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Done"
+            okButtonText="完成"
             cancelButtonVisible={false}
           />
         </DialogFooter>
@@ -55,8 +55,8 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
     if (this.props.providers.length === 0) {
       return (
         <p className="copilot-byok-empty">
-          Add a custom provider to use your own API keys with OpenAI-compatible
-          endpoints, Azure, Anthropic, or local providers like Ollama.
+          添加自定义提供方，以便在 OpenAI 兼容的终结点、Azure、Anthropic 或
+          Ollama 等本地提供方中使用您自己的 API 密钥。
         </p>
       )
     }
@@ -70,7 +70,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
 
   private renderProvider = (provider: IBYOKProvider) => {
     const modelCount = provider.models.length
-    const modelLabel = modelCount === 1 ? '1 model' : `${modelCount} models`
+    const modelLabel = modelCount === 1 ? '1 个模型' : `${modelCount} 个模型`
     const isLocal = isLocalBaseUrl(provider.baseUrl)
 
     return (
@@ -79,7 +79,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
           <div className="copilot-byok-entry-title">
             <span>{provider.name}</span>
             {isLocal && (
-              <span className="copilot-byok-provider-badge">Local</span>
+              <span className="copilot-byok-provider-badge">本地</span>
             )}
           </div>
           <span className="copilot-byok-entry-meta">
@@ -89,13 +89,13 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
         <div className="copilot-byok-entry-actions">
           <Button
             onClick={this.onEditProviderClick(provider)}
-            ariaLabel={`Edit ${provider.name}`}
+            ariaLabel={`编辑 ${provider.name}`}
           >
             <Octicon symbol={octicons.pencil} />
           </Button>
           <Button
             onClick={this.onDeleteProviderClick(provider)}
-            ariaLabel={`Remove ${provider.name}`}
+            ariaLabel={`移除 ${provider.name}`}
           >
             <Octicon symbol={octicons.trash} />
           </Button>
@@ -107,7 +107,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
   private formatProviderType(provider: IBYOKProvider): string {
     switch (provider.type) {
       case 'openai':
-        return 'OpenAI-compatible'
+        return '兼容 OpenAI'
       case 'azure':
         return 'Azure'
       case 'anthropic':

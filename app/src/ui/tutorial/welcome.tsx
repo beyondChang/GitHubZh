@@ -17,34 +17,33 @@ export class TutorialWelcome extends React.Component {
     return (
       <div id="tutorial-welcome">
         <div className="header">
-          <h1>Welcome to GitHub Desktop</h1>
+          <h1>欢迎使用 GitHub Desktop</h1>
           <p>
-            Use this tutorial to get comfortable with Git, GitHub, and GitHub
-            Desktop.
+            通过本教程熟悉 Git、GitHub 和 GitHub Desktop。
           </p>
         </div>
         <ul className="definitions">
           <li>
-            <img src={CodeImage} alt="Html syntax icon" />
+            <img src={CodeImage} alt="HTML 语法图标" />
             <p>
-              <strong>Git</strong> is the version control system.
+              <strong>Git</strong> 是版本控制系统。
             </p>
           </li>
           <li>
             <img
               src={TeamDiscussionImage}
-              alt="People with discussion bubbles overhead"
+              alt="头顶带有对话气泡的人们"
             />
             <p>
-              <strong>GitHub</strong> is where you store your code and
-              collaborate with others.
+              <strong>GitHub</strong> 是您存储代码并
+              与他人协作的地方。
             </p>
           </li>
           <li>
-            <img src={CloudServerImage} alt="Server stack with cloud" />
+            <img src={CloudServerImage} alt="带有云端的服务器堆栈" />
             <p>
-              <strong>GitHub Desktop</strong> helps you work with GitHub
-              locally.
+              <strong>GitHub Desktop</strong> 帮助您在本地使用
+              GitHub。
             </p>
           </li>
         </ul>

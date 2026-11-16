@@ -81,7 +81,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
           )
         })}
         <Button onClick={this.props.onEnterpriseSignIn}>
-          Add GitHub Enterprise account
+          添加 GitHub Enterprise 账号
         </Button>
       </>
     )

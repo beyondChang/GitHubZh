@@ -180,14 +180,11 @@ export class Diff extends React.Component<IDiffProps, IDiffState> {
       <div className="panel empty large-diff">
         <img src={NoDiffImage} className="blankslate-image" alt="" />
         <div className="description">
-          <p>The diff is too large to be displayed by default.</p>
-          <p>
-            You can try to show it anyway, but performance may be negatively
-            impacted.
-          </p>
+          <p>此差异过大，默认无法显示。</p>
+          <p>您仍然可以尝试显示，但性能可能会受到影响。</p>
         </div>
         <Button onClick={this.showLargeDiff}>
-          {__DARWIN__ ? 'Show Diff' : 'Show diff'}
+          {__DARWIN__ ? '显示差异' : '显示差异'}
         </Button>
       </div>
     )
@@ -197,7 +194,7 @@ export class Diff extends React.Component<IDiffProps, IDiffState> {
     return (
       <div className="panel empty large-diff">
         <img src={NoDiffImage} alt="" />
-        <p>The diff is too large to be displayed.</p>
+        <p>此差异过大，无法显示。</p>
       </div>
     )
   }
@@ -222,7 +219,7 @@ export class Diff extends React.Component<IDiffProps, IDiffState> {
         this.props.file.status.kind === AppFileStatusKind.New ||
         this.props.file.status.kind === AppFileStatusKind.Untracked
       ) {
-        return <div className="panel empty">The file is empty</div>
+        return <div className="panel empty">此文件为空</div>
       }
 
       if (this.props.file.status.kind === AppFileStatusKind.Renamed) {
@@ -231,15 +228,11 @@ export class Diff extends React.Component<IDiffProps, IDiffState> {
           return (
             <div className="panel renamed">
               <Octicon symbol={OcticonSymbol.alert} />
-              The file was renamed and includes changes.
+              文件已重命名且包含更改。
             </div>
           )
         }
-        return (
-          <div className="panel renamed">
-            The file was renamed but not changed
-          </div>
-        )
+        return <div className="panel renamed">文件已重命名但内容未更改</div>
       }
 
       if (
@@ -247,17 +240,15 @@ export class Diff extends React.Component<IDiffProps, IDiffState> {
         isManualConflict(this.props.file.status)
       ) {
         return (
-          <div className="panel empty">
-            The file is in conflict and must be resolved via the command line.
-          </div>
+          <div className="panel empty">文件存在冲突，必须通过命令行解决。</div>
         )
       }
 
       if (this.props.hideWhitespaceInDiff) {
-        return <div className="panel empty">Only whitespace changes found</div>
+        return <div className="panel empty">仅发现空白字符更改</div>
       }
 
-      return <div className="panel empty">No content changes found</div>
+      return <div className="panel empty">未发现内容更改</div>
     }
 
     return this.renderTextDiff(diff)

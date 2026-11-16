@@ -30,9 +30,7 @@ export class PushNeedsPullWarning extends React.Component<
   public render() {
     return (
       <Dialog
-        title={
-          __DARWIN__ ? 'Newer Commits on Remote' : 'Newer commits on remote'
-        }
+        title="远程有更新的提交"
         dismissDisabled={this.state.isLoading}
         disabled={this.state.isLoading}
         onDismissed={this.props.onDismissed}
@@ -42,15 +40,14 @@ export class PushNeedsPullWarning extends React.Component<
       >
         <DialogContent>
           <p>
-            GitHub Desktop is unable to push commits to this branch because
-            there are commits on the remote that are not present on your local
-            branch. Fetch these new commits before pushing in order to reconcile
-            them with your local commits.
+            GitHub Desktop
+            无法向此分支推送提交，因为远程存在本地分支中没有的提交。
+            请先获取这些新提交，然后才能推送，以便将它们与本地提交合并。
           </p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Fetch"
+            okButtonText="获取"
             okButtonDisabled={this.state.isLoading}
           />
         </DialogFooter>

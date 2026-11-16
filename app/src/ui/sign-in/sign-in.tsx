@@ -31,16 +31,16 @@ interface ISignInState {
 }
 
 const SignInWithBrowserTitle = __DARWIN__
-  ? 'Sign in Using Your Browser'
-  : 'Sign in using your browser'
+  ? '使用浏览器登录'
+  : '使用浏览器登录'
 
-const DefaultTitle = 'Sign in'
+const DefaultTitle = '登录'
 
 const browserSignInInfoContent = (
   <p>
-    Your browser will redirect you back to GitHub Desktop once you've signed in.
-    If your browser asks for your permission to launch GitHub Desktop, please
-    allow it.
+    登录后，您的浏览器会将您重定向回 GitHub Desktop。
+    如果浏览器询问您是否允许启动 GitHub Desktop，请
+    予以允许。
   </p>
 )
 
@@ -116,8 +116,8 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
     let primaryButtonText: string
     const stepKind = state.kind
     const continueWithBrowserLabel = __DARWIN__
-      ? 'Continue With Browser'
-      : 'Continue with browser'
+      ? '使用浏览器继续'
+      : '使用浏览器继续'
 
     switch (state.kind) {
       case SignInStep.EndpointEntry:
@@ -148,7 +148,7 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       <DialogContent>
         <Row>
           <TextBox
-            label="Enterprise address"
+            label="企业版地址"
             value={this.state.endpoint}
             onValueChanged={this.onEndpointChanged}
             placeholder="https://example.ghe.com"
@@ -172,8 +172,8 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       <DialogContent>
         {state.expectedLogin !== undefined && (
           <p>
-            Sign in as <Ref>{state.expectedLogin}</Ref> on{' '}
-            <Ref>{new URL(getHTMLURL(state.endpoint)).host}</Ref> to continue.
+            以 <Ref>{state.expectedLogin}</Ref> 的身份在{' '}
+            <Ref>{new URL(getHTMLURL(state.endpoint)).host}</Ref> 上登录以继续。
           </p>
         )}
         {browserSignInInfoContent}

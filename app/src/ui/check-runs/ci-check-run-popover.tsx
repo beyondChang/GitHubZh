@@ -254,8 +254,8 @@ export class CICheckRunPopover extends React.PureComponent<
     return (
       <div className="loading-check-runs">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
-        <div className="title">Stand By</div>
-        <div className="call-to-action">Check runs incoming!</div>
+        <div className="title">请稍候</div>
+        <div className="call-to-action">正在接收检查结果！</div>
       </div>
     )
   }
@@ -290,11 +290,13 @@ export class CICheckRunPopover extends React.PureComponent<
 
     const valueMap = getCheckStatusCountMap(checkRuns)
 
-    const ariaLabel = `Completeness indicator. ${
+    const ariaLabel = `完成度指示器。${
       valueMap.get(APICheckStatus.Completed) ?? 0
-    } completed, ${valueMap.get(APICheckStatus.InProgress) ?? 0} in progress, ${
+    } 项已完成，${
+      valueMap.get(APICheckStatus.InProgress) ?? 0
+    } 项进行中，${
       valueMap.get(APICheckStatus.Queued) ?? 0
-    } queued.`
+    } 项排队中。`
 
     return <Donut ariaLabel={ariaLabel} valueMap={valueMap} />
   }
@@ -307,18 +309,18 @@ export class CICheckRunPopover extends React.PureComponent<
   ): JSX.Element {
     switch (true) {
       case loading:
-        return <>Checks Summary</>
+        return <>检查摘要</>
       case somePendingNoFailures:
         return (
-          <span className="pending">Some checks haven't completed yet</span>
+          <span className="pending">部分检查尚未完成</span>
         )
       case allFailure:
-        return <span className="failure">All checks have failed</span>
+        return <span className="failure">所有检查均失败</span>
       case allSuccess:
-        return <>All checks have passed</>
+        return <>所有检查均已通过</>
     }
 
-    return <span className="failure">Some checks were not successful</span>
+    return <span className="failure">部分检查未成功</span>
   }
 
   private renderHeader = (): JSX.Element => {

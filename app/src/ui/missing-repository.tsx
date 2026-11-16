@@ -80,14 +80,14 @@ export class MissingRepository extends React.Component<
     if (!isPathUnsafe) {
       buttons.push(
         <Button key="locate" onClick={this.locate} type="submit">
-          Locate…
+          定位…
         </Button>
       )
 
       if (this.canCloneAgain()) {
         buttons.push(
           <Button key="clone-again" onClick={this.cloneAgain}>
-            Clone Again
+            再次克隆
           </Button>
         )
       }
@@ -100,14 +100,14 @@ export class MissingRepository extends React.Component<
           disabled={this.state.isTrustingPath}
         >
           {this.state.isTrustingPath && <Loading />}
-          {__DARWIN__ ? 'Trust Repository' : 'Trust repository'}
+          信任此仓库
         </Button>
       )
     }
 
     buttons.push(
       <Button key="remove" onClick={this.remove}>
-        Remove
+        移除
       </Button>
     )
 
@@ -115,19 +115,14 @@ export class MissingRepository extends React.Component<
       return (
         <UiView id="missing-repository-view">
           <div className="title-container">
-            <div className="title">
-              {this.props.repository.name} is potentially unsafe
-            </div>
+            <div className="title">{this.props.repository.name} 可能不安全</div>
             <div className="details">
               <p>
-                The Git repository at <Ref>{unsafePath}</Ref> appears to be
-                owned by another user on your machine. Adding untrusted
-                repositories may automatically execute files in the repository.
+                位于 <Ref>{unsafePath}</Ref> 的 Git
+                仓库似乎由您计算机上的其他用户
+                所有。添加不受信任的仓库可能会自动执行仓库中的文件。
               </p>
-              <p>
-                If you trust the owner of the directory you can add an exception
-                for this directory in order to continue.
-              </p>
+              <p>如果您信任该目录的所有者，可以为该目录添加例外以继续。</p>
             </div>
           </div>
 
@@ -139,11 +134,11 @@ export class MissingRepository extends React.Component<
     return (
       <UiView id="missing-repository-view">
         <div className="title-container">
-          <div className="title">Can't find "{this.props.repository.name}"</div>
+          <div className="title">找不到“{this.props.repository.name}”</div>
           <div className="details">
-            It was last seen at{' '}
-            <span className="path">{this.props.repository.path}</span>.{' '}
-            <LinkButton onClick={this.checkAgain}>Check&nbsp;again.</LinkButton>
+            上次出现于{' '}
+            <span className="path">{this.props.repository.path}</span>。{' '}
+            <LinkButton onClick={this.checkAgain}>重新检查。</LinkButton>
           </div>
         </div>
 

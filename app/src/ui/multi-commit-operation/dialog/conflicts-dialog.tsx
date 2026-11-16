@@ -242,19 +242,18 @@ export class ConflictsDialog extends React.Component<
     }
 
     if (countResolved === 0) {
-      return <DialogSuccess>All resolutions have been undone.</DialogSuccess>
+      return <DialogSuccess>所有解决操作均已撤销。</DialogSuccess>
     }
 
     if (conflictedFilesCount === 0) {
       return (
-        <DialogSuccess>All conflicted files have been resolved. </DialogSuccess>
+        <DialogSuccess>所有冲突文件均已解决。 </DialogSuccess>
       )
     }
 
-    const conflictPluralized = countResolved === 1 ? 'file has' : 'files have'
     return (
       <DialogSuccess>
-        {countResolved} conflicted {conflictPluralized} been resolved.
+        {countResolved} 个冲突文件已解决。
       </DialogSuccess>
     )
   }
@@ -291,12 +290,12 @@ export class ConflictsDialog extends React.Component<
         disabled={this.state.isAborting}
         tooltip={
           this.state.isAborting
-            ? 'Cannot resolve while operation is being aborted'
-            : 'Use Copilot to suggest resolutions for conflicted files'
+            ? '正在中止操作，无法解决冲突'
+            : '使用 Copilot 为冲突文件提供解决建议'
         }
       >
         <Octicon symbol={octicons.copilot} />
-        {' Resolve with Copilot'}
+        {' 使用 Copilot 解决冲突'}
       </Button>
     )
 
@@ -306,7 +305,7 @@ export class ConflictsDialog extends React.Component<
 
     return (
       <div className="copilot-resolve-button-with-call-out">
-        <span className="call-to-action-bubble">New</span>
+        <span className="call-to-action-bubble">新功能</span>
         {button}
       </div>
     )
@@ -359,7 +358,7 @@ export class ConflictsDialog extends React.Component<
 
     const tooltipString =
       conflictedFiles.length > 0
-        ? 'Resolve all changes before continuing'
+        ? '请先解决所有更改再继续'
         : undefined
 
     return (

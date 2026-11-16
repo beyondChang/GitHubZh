@@ -276,10 +276,10 @@ export class SelectedCommits extends React.Component<
 
   private renderFileHeader() {
     const fileCount = this.props.changesetData.files.length
-    const filesPlural = fileCount === 1 ? 'file' : 'files'
+    const filesPlural = '个文件已更改'
     return (
       <div className="file-list-header">
-        {fileCount} changed {filesPlural}
+        {fileCount} {filesPlural}
       </div>
     )
   }
@@ -318,7 +318,7 @@ export class SelectedCommits extends React.Component<
             maximumWidth={commitSummaryWidth.max}
             onResize={this.onCommitSummaryResize}
             onReset={this.onCommitSummaryReset}
-            description="Selected commit file list"
+            description="已选提交的文件列表"
           >
             {this.renderFileList()}
           </Resizable>
@@ -460,7 +460,7 @@ function NoCommitSelected() {
   return (
     <div className="panel blankslate">
       <img src={BlankSlateImage} className="blankslate-image" alt="" />
-      No commit selected
+      未选择提交
     </div>
   )
 }

@@ -103,7 +103,7 @@ export class RepositorySettings extends React.Component<
         `RepositorySettings: unable to read root .gitignore file for ${this.props.repository.path}`,
         e
       )
-      this.setState({ errors: [`Could not read root .gitignore: ${e}`] })
+      this.setState({ errors: [`无法读取根目录的 .gitignore：${e}`] })
     }
 
     const localCommitterName = await getConfigValue(
@@ -308,14 +308,14 @@ export class RepositorySettings extends React.Component<
     return (
       <div className="repository-account">
         <Select
-          label="Account"
+          label="账号"
           value={this.selectedAccount?.login ?? login ?? ''}
           onChange={this.onAccountChanged}
         >
-          <option value="">None (unassigned)</option>
+          <option value="">无（未分配）</option>
           {signedOut && (
             <option value={login ?? ''} disabled={true}>
-              @{login} (signed out)
+              @{login}（已退出登录）
             </option>
           )}
           {accounts.map(account => (
@@ -325,8 +325,8 @@ export class RepositorySettings extends React.Component<
           ))}
         </Select>
         <p className="repository-account-description">
-          The account used for GitHub API requests and HTTPS authentication.
-          This does not change your Git author name or email.
+          用于 GitHub API 请求和 HTTPS 身份验证的账号。这不会更改您的 Git
+          作者姓名或电子邮件地址。
         </p>
       </div>
     )
@@ -365,7 +365,7 @@ export class RepositorySettings extends React.Component<
           this.state.selectedLogin
         )
       } catch (e) {
-        errors.push(`Failed saving the repository account: ${e}`)
+        errors.push(`保存仓库账户失败：${e}`)
       }
     }
 
@@ -384,7 +384,7 @@ export class RepositorySettings extends React.Component<
             `RepositorySettings: unable to set remote URL at ${this.props.repository.path}`,
             e
           )
-          errors.push(`Failed setting the remote URL: ${e}`)
+          errors.push(`设置远程 URL 失败：${e}`)
         }
       }
     }
@@ -400,7 +400,7 @@ export class RepositorySettings extends React.Component<
           `RepositorySettings: unable to save gitignore at ${this.props.repository.path}`,
           e
         )
-        errors.push(`Failed saving the .gitignore file: ${e}`)
+        errors.push(`保存 .gitignore 文件失败：${e}`)
       }
     }
 
@@ -459,7 +459,7 @@ export class RepositorySettings extends React.Component<
         `RepositorySettings: unable to update Git identity at ${this.props.repository.path}`,
         error
       )
-      errors.push(`Failed updating Git identity: ${error}`)
+      errors.push(`更新 Git 身份失败：${error}`)
     }
 
     if (shouldRefreshAuthor) {

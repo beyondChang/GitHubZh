@@ -60,16 +60,16 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
         <div className="content">
           <div className="header">
             <div className="text">
-              <h1 ref={this.header}>You're done!</h1>
+              <h1 ref={this.header}>您已完成！</h1>
               <p>
-                You’ve learned the basics on how to use GitHub Desktop. Here are
-                some suggestions for what to do next.
+                您已经了解了如何使用 GitHub Desktop 的基本操作。以下是一些
+                后续建议。
               </p>
             </div>
             <img
               src={ClappingHandsImage}
               className="image"
-              alt="Hands clapping"
+              alt="鼓掌的双手"
             />
           </div>
           <SuggestedActionGroup>

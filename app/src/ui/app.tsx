@@ -670,14 +670,14 @@ export class App extends React.Component<IAppProps, IAppState> {
 
     if (isWindowsAndNoLongerSupportedByElectron()) {
       log.error(
-        `Can't check for updates on Windows 8.1 or older. Next available update only supports Windows 10 and later`
+        `无法在 Windows 8.1 或更早版本上检查更新。下一个可用更新仅支持 Windows 10 及更高版本`
       )
       return
     }
 
     if (isMacOSAndNoLongerSupportedByElectron()) {
       log.error(
-        `Can't check for updates on macOS 12 or older. Next available update only supports macOS 13 and later`
+        `无法在 macOS 12 或更早版本上检查更新。下一个可用更新仅支持 macOS 13 及更高版本`
       )
       return
     }
@@ -1548,7 +1548,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   ) => {
     showCertificateTrustDialog(
       certificate,
-      'Could not securely connect to the server, because its certificate is not trusted. Attackers might be trying to steal your information.\n\nTo connect unsafely, which may put your data at risk, you can “Always trust” the certificate and try again.'
+      '由于证书不受信任，无法与服务器建立安全连接。攻击者可能正试图窃取您的信息。\n\n若要以不安全的方式连接（可能会使您的数据面临风险），您可以“始终信任”该证书并重试。'
     )
   }
 
@@ -2938,7 +2938,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             onAccepted={onAccepted}
             onDismissed={onPopupDismissedFn}
           >
-            Review and edit the generated message carefully before use.
+            使用前请仔细检查并编辑生成的信息。
           </CopilotDisclaimer>
         )
       }
@@ -2949,12 +2949,11 @@ export class App extends React.Component<IAppProps, IAppState> {
             onAccepted={popup.onAccepted}
             onDismissed={onPopupDismissedFn}
           >
-            Copilot will plan your selected changes, and GitHub Desktop will
-            create one or more local commits with their generated messages.
-            Copilot will not edit your files. You can cancel before local
-            acceptance to undo commits created by this run. If Push after
-            committing is enabled, all local commits are kept once pushing
-            starts, even if the push fails.
+            Copilot 将为您选定的更改制定计划，GitHub Desktop 将
+            使用生成的提交信息创建一个或多个本地提交。
+            Copilot 不会编辑您的文件。如果在本地接受之前取消，
+            即可撤销本次运行创建的提交。如果启用了提交后推送，
+            一旦开始推送，所有本地提交都将被保留，即使推送失败。
           </CopilotDisclaimer>
         )
       }
@@ -2971,8 +2970,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             onAccepted={onAccepted}
             onDismissed={onPopupDismissedFn}
           >
-            Review the suggested resolutions carefully before applying them to
-            your files.
+            将建议的解决方案应用到您的文件之前，请仔细检查它们。
           </CopilotDisclaimer>
         )
       }
@@ -3595,7 +3593,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       title = alias ?? repository.name
     } else if (this.state.repositories.length > 0) {
       icon = octicons.repo
-      title = __DARWIN__ ? 'Select a Repository' : 'Select a repository'
+      title = __DARWIN__ ? '选择仓库' : '选择仓库'
     } else {
       icon = octicons.repo
       title = __DARWIN__ ? 'No Repositories' : 'No repositories'
@@ -3629,7 +3627,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       <ToolbarDropdown
         icon={icon}
         title={title}
-        description={__DARWIN__ ? 'Current Repository' : 'Current repository'}
+        description={__DARWIN__ ? '当前仓库' : '当前仓库'}
         tooltip={tooltip}
         foldoutStyle={foldoutStyle}
         onContextMenu={this.onRepositoryToolbarButtonContextMenu}
@@ -4377,5 +4375,5 @@ export class App extends React.Component<IAppProps, IAppState> {
 }
 
 function NoRepositorySelected() {
-  return <div className="panel blankslate">No repository selected</div>
+  return <div className="panel blankslate">未选择仓库</div>
 }

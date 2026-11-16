@@ -130,14 +130,13 @@ export class DiscardChanges extends React.Component<
     if (this.props.files.length > MaxFilesToList) {
       return (
         <p id="discard-changes-confirmation-file-list">
-          Are you sure you want to discard all {this.props.files.length} changed
-          files?
+          确定要放弃所有 {this.props.files.length} 个已更改的文件吗？
         </p>
       )
     } else {
       return (
         <div id="discard-changes-confirmation-file-list">
-          <p>Are you sure you want to discard all changes to:</p>
+          <p>确定要放弃对以下文件的所有更改吗：</p>
           <div className="file-list">
             <ul>
               {this.props.files.map(p => (

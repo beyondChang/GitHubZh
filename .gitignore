@@ -19,3 +19,7 @@ junit*.xml
 *.swp
 tslint-rules/
 playwright-videos/
+
+# Local dev logs
+build.log
+start.log

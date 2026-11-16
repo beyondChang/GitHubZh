@@ -30,7 +30,7 @@ import {
 import { revealInFileManager } from '../../../lib/app-shell'
 import { DialogPreferredFocusClassName } from '../../dialog'
 
-const defaultConflictsResolvedMessage = 'No conflicts remaining'
+const defaultConflictsResolvedMessage = '没有剩余冲突'
 
 /**
  * Renders an unmerged file status and associated buttons for the merge conflicts modal
@@ -161,7 +161,7 @@ const renderResolvedFile: React.FunctionComponent<{
           )}
           ariaDescribedBy={props.path}
         >
-          Undo
+          撤销
         </Button>
       )}
       <div className="green-circle">
@@ -205,7 +205,7 @@ const renderManualConflictedFile: React.FunctionComponent<{
   let conflictTypeString = manualConflictString
 
   if ([entry.us, entry.them].includes(GitStatusEntry.Deleted)) {
-    let targetBranch = 'target branch'
+    let targetBranch = '目标分支'
     if (entry.us === GitStatusEntry.Deleted && ourBranch !== undefined) {
       targetBranch = ourBranch
     }
@@ -213,7 +213,7 @@ const renderManualConflictedFile: React.FunctionComponent<{
     if (entry.them === GitStatusEntry.Deleted && theirBranch !== undefined) {
       targetBranch = theirBranch
     }
-    conflictTypeString = `File does not exist on ${targetBranch}.`
+    conflictTypeString = `在 ${targetBranch} 上不存在该文件。`
   }
 
   const resolveButtonClassName = props.isFirstConflictedFile
@@ -232,7 +232,7 @@ const renderManualConflictedFile: React.FunctionComponent<{
           onClick={onDropdownClick}
           onKeyDown={onDropdownKeyDown}
         >
-          Resolve
+          解决
           <Octicon symbol={octicons.triangleDown} />
         </Button>
       </div>
@@ -274,7 +274,7 @@ const renderConflictedFileWithConflictMarkers: React.FunctionComponent<{
   )
   const message =
     humanReadableConflicts === 1
-      ? `1 conflict`
+      ? `1 个冲突`
       : `${humanReadableConflicts} conflicts`
 
   const disabled = props.resolvedExternalEditor === null
@@ -321,7 +321,7 @@ const renderConflictedFileWithConflictMarkers: React.FunctionComponent<{
           onClick={onDropdownClick}
           onKeyDown={onDropdownKeyDown}
           className="small-button button-group-item arrow-menu"
-          ariaLabel="File resolution options"
+          ariaLabel="文件解决选项"
           ariaHaspopup="menu"
           ariaExpanded={props.isFileResolutionOptionsMenuOpen}
         >
@@ -531,10 +531,10 @@ function editorButtonTooltip(editorName: string | null): string | undefined {
   }
 
   if (__DARWIN__) {
-    return `No editor configured in Preferences > Advanced`
+    return `未在“偏好设置 > 高级”中配置编辑器`
   } else {
-    return `No editor configured in Options > Advanced`
+    return `未在“选项 > 高级”中配置编辑器`
   }
 }
 
-const manualConflictString = 'Manual conflict'
+const manualConflictString = '手动冲突'

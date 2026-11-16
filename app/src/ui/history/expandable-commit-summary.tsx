@@ -359,7 +359,6 @@ export class ExpandableCommitSummary extends React.Component<
       return
     }
 
-    const commitsPluralized = excludedCommitsCount > 1 ? 'commits' : 'commit'
 
     return (
       <div className="commit-unreachable-info">
@@ -369,9 +368,9 @@ export class ExpandableCommitSummary extends React.Component<
           onMouseOver={this.onHighlightShasNotInDiff}
           onMouseOut={this.onRemoveHighlightOfShas}
         >
-          {excludedCommitsCount} unreachable {commitsPluralized}
+          {excludedCommitsCount} 个不可达提交
         </LinkButton>{' '}
-        not included.
+        未包含在内。
       </div>
     )
   }
@@ -443,7 +442,7 @@ export class ExpandableCommitSummary extends React.Component<
       <div className="ecs-meta-item commit-ref">
         <Octicon symbol={octicons.gitCommit} />
         <div className="ref selectable">{isExpanded ? sha : shortSha}</div>
-        <CopyButton ariaLabel="Copy the full SHA" copyContent={sha} />
+        <CopyButton ariaLabel="复制完整 SHA" copyContent={sha} />
       </div>
     )
   }
@@ -468,11 +467,11 @@ export class ExpandableCommitSummary extends React.Component<
       shasInDiff
     )
     const numInDiff = selectedCommits.length - commitsNotInDiff
-    const commitsPluralized = numInDiff > 1 ? 'commits' : 'commit'
+    const commitsPluralized = '个提交'
 
     return (
       <>
-        Showing changes from{' '}
+        正在显示以下提交的更改：{' '}
         {commitsNotInDiff > 0 ? (
           <LinkButton
             className="commits-in-diff"
@@ -553,13 +552,13 @@ export class ExpandableCommitSummary extends React.Component<
       <div className="ecs-meta-item lines-added-deleted">
         {isExpanded ? <Octicon symbol={octicons.diff} /> : null}
         <div className="lines-added">
-          {!isExpanded ? <>+{linesAdded}</> : <>{linesAdded} added lines</>}
+          {!isExpanded ? <>+{linesAdded}</> : <>{linesAdded} 行新增</>}
         </div>
         <div className="lines-deleted">
           {!isExpanded ? (
             <>-{linesDeleted}</>
           ) : (
-            <>{linesDeleted} removed lines</>
+            <>{linesDeleted} 行删除</>
           )}
         </div>
       </div>

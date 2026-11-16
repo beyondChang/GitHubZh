@@ -121,19 +121,19 @@ export function renderBanner(
         />
       )
     case BannerType.SquashUndone: {
-      const pluralized = banner.commitsCount === 1 ? 'commit' : 'commits'
+
       return (
         <SuccessBanner
           key="squash-undone"
           timeout={5000}
           onDismissed={onDismissed}
         >
-          Squash of {banner.commitsCount} {pluralized} undone.
+          已撤销对 {banner.commitsCount} 个提交的压缩。
         </SuccessBanner>
       )
     }
     case BannerType.SuccessfulReorder: {
-      const pluralized = banner.count === 1 ? 'commit' : 'commits'
+
 
       return (
         <SuccessBanner
@@ -143,20 +143,20 @@ export function renderBanner(
           onUndo={banner.onUndo}
         >
           <span>
-            Successfully reordered {banner.count} {pluralized}.
+            已成功重新排序 {banner.count} 个提交。
           </span>
         </SuccessBanner>
       )
     }
     case BannerType.ReorderUndone: {
-      const pluralized = banner.commitsCount === 1 ? 'commit' : 'commits'
+
       return (
         <SuccessBanner
           key="reorder-undone"
           timeout={5000}
           onDismissed={onDismissed}
         >
-          Reorder of {banner.commitsCount} {pluralized} undone.
+          已撤销对 {banner.commitsCount} 个提交的重新排序。
         </SuccessBanner>
       )
     }

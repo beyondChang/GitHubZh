@@ -339,12 +339,12 @@ export class BranchList extends React.Component<
     return (
       <div className="branches-list-item-tooltip list-item-tooltip">
         <div>
-          <div className="label">Full Name: </div>
+          <div className="label">全名：</div>
           {name}
         </div>
         {absoluteDate && (
           <div>
-            <div className="label">Last Modified: </div>
+            <div className="label">最后修改时间：</div>
             {absoluteDate}
           </div>
         )}

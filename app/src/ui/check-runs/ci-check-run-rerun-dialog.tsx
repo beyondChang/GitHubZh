@@ -169,14 +169,12 @@ export class CICheckRunRerunDialog extends React.Component<
       this.props.checkRuns.length === 1 ? (
         <strong>{this.props.checkRuns[0].name}</strong>
       ) : (
-        'these workflows'
+        '这些工作流'
       )
-    const dependentAdj = this.props.checkRuns.length === 1 ? 'its' : 'their'
 
     return (
       <div className="re-run-dependents-message">
-        A new attempt of {name} will be started, including all of {dependentAdj}{' '}
-        dependents:
+        将启动 {name} 的新一次运行，其中包括它的所有依赖项：
       </div>
     )
   }
@@ -189,42 +187,35 @@ export class CICheckRunRerunDialog extends React.Component<
       return null
     }
 
-    const pluralize = `check${this.state.nonRerunnable.length !== 1 ? 's' : ''}`
-    const verb = this.state.nonRerunnable.length !== 1 ? 'are' : 'is'
+    const pluralize = '项检查'
     const warningPrefix =
       this.state.rerunnable.length === 0
-        ? `There are no ${
-            this.props.failedOnly ? 'failed ' : ''
-          }checks that can be re-run`
-        : `There ${verb} ${this.state.nonRerunnable.length} ${
-            this.props.failedOnly ? 'failed ' : ''
-          }${pluralize} that cannot be re-run`
+        ? `没有可以重新运行的${this.props.failedOnly ? '失败' : ''}检查`
+        : `有 ${this.state.nonRerunnable.length} 项${
+            this.props.failedOnly ? '失败的' : ''
+          }${pluralize}无法重新运行`
     return (
       <div className="non-re-run-info warning-helper-text">
         <Octicon symbol={octicons.alert} />
 
-        {`${warningPrefix}. A check run cannot be re-run if the check is more than one month old,
-          the check or its dependent has not completed, or the check is not configured to be
-          re-run.`}
+        {`${warningPrefix}。如果检查的创建时间超过一个月、检查或其依赖项尚未完成，或者该检查未配置为可重新运行，则无法重新运行。`}
       </div>
     )
   }
 
   public getTitle = (showDescriptor: boolean = true) => {
     const { checkRuns, failedOnly } = this.props
-    const s = checkRuns.length === 1 ? '' : 's'
-    const c = __DARWIN__ ? 'C' : 'c'
 
     let descriptor = ''
     if (showDescriptor && checkRuns.length === 1) {
-      descriptor = __DARWIN__ ? 'Single ' : 'single '
+      descriptor = '单个'
     }
 
     if (showDescriptor && failedOnly) {
-      descriptor = __DARWIN__ ? 'Failed ' : 'failed '
+      descriptor = '失败的'
     }
 
-    return `Re-run ${descriptor}${c}heck${s}`
+    return `重新运行${descriptor}检查`
   }
 
   private renderDialogContent = () => {
@@ -232,10 +223,8 @@ export class CICheckRunRerunDialog extends React.Component<
       return (
         <div className="loading-rerun-checks">
           <img src={BlankSlateImage} className="blankslate-image" alt="" />
-          <div className="title">Please wait</div>
-          <div className="call-to-action">
-            Determining which checks can be re-run.
-          </div>
+          <div className="title">请稍候</div>
+          <div className="call-to-action">正在确定哪些检查可以重新运行。</div>
         </div>
       )
     }

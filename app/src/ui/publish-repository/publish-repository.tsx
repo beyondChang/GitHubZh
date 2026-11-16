@@ -126,7 +126,7 @@ export class PublishRepository extends React.Component<
     const options = new Array<JSX.Element>()
     options.push(
       <option value={-1} key={-1}>
-        None
+        无
       </option>
     )
 
@@ -212,7 +212,7 @@ export class PublishRepository extends React.Component<
     return (
       <Row className="warning-helper-text">
         <Octicon symbol={octicons.alert} />
-        Will be created as {sanitizedName}
+        将创建为 {sanitizedName}
       </Row>
     )
   }

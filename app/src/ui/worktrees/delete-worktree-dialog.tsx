@@ -44,13 +44,7 @@ export class DeleteWorktreeDialog extends React.Component<
     const isMissing = this.props.options.isMissing === true
     const name = Path.basename(this.props.worktreePath)
 
-    const title = isMissing
-      ? __DARWIN__
-        ? 'Remove Missing Worktree'
-        : 'Remove missing worktree'
-      : __DARWIN__
-      ? 'Delete Worktree'
-      : 'Delete worktree'
+    const title = isMissing ? '移除缺失的工作树' : '删除工作树'
 
     return (
       <Dialog
@@ -68,18 +62,18 @@ export class DeleteWorktreeDialog extends React.Component<
           <p id="delete-worktree-confirmation">
             {isMissing ? (
               <>
-                The folder for the worktree <Ref>{name}</Ref> no longer exists.
-                Remove it from this repository?
+                工作树 <Ref>{name}</Ref>{' '}
+                的文件夹已不存在。要从该仓库中移除它吗？
               </>
             ) : (
               <>
-                Are you sure you want to delete the worktree <Ref>{name}</Ref>?
+                您确定要删除工作树 <Ref>{name}</Ref> 吗？
               </>
             )}
           </p>
           {!isMissing && (
             <Checkbox
-              label="Do not show this message again"
+              label="不再显示此消息"
               value={
                 this.state.confirmWorktreeRemoval
                   ? CheckboxValue.Off
@@ -92,7 +86,7 @@ export class DeleteWorktreeDialog extends React.Component<
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={isMissing ? 'Remove' : 'Delete'}
+            okButtonText={isMissing ? '移除' : '删除'}
           />
         </DialogFooter>
       </Dialog>

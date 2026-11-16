@@ -11,11 +11,11 @@ export function getVerbForPullRequestReview(
 ) {
   switch (review.state) {
     case 'APPROVED':
-      return 'approved'
+      return '已批准'
     case 'CHANGES_REQUESTED':
-      return 'requested changes on'
+      return '要求更改'
     case 'COMMENTED':
-      return 'reviewed'
+      return '已审核'
   }
 }
 

@@ -56,11 +56,11 @@ export class TestTokenExpirationDialog extends React.Component<
 > {
   private requestId = 0
   private readonly presets = [
-    { label: 'Expired', onClick: () => this.usePreset(-1) },
-    { label: 'In 10 min', onClick: () => this.usePreset(10) },
-    { label: 'In 1h', onClick: () => this.usePreset(60) },
-    { label: 'In 62 min', onClick: () => this.usePreset(62) },
-    { label: 'In 8h', onClick: () => this.usePreset(480) },
+    { label: '已过期', onClick: () => this.usePreset(-1) },
+    { label: '10 分钟后', onClick: () => this.usePreset(10) },
+    { label: '1 小时后', onClick: () => this.usePreset(60) },
+    { label: '62 分钟后', onClick: () => this.usePreset(62) },
+    { label: '8 小时后', onClick: () => this.usePreset(480) },
   ]
 
   public constructor(props: ITestTokenExpirationDialogProps) {
@@ -107,27 +107,26 @@ export class TestTokenExpirationDialog extends React.Component<
     return (
       <Dialog
         id="test-token-expiration"
-        title="Test Token Expiration"
+        title="测试令牌过期"
         onSubmit={this.onApply}
         onDismissed={this.props.onDismissed}
       >
         {error !== null && <DialogError>{error}</DialogError>}
         <DialogContent>
           <p>
-            Change Desktop&apos;s local access-token expiration, not
-            GitHub&apos;s actual token lifetime. Overrides reset on token
-            renewal or app restart. No credentials are displayed or saved by
-            this dialog.
+            更改 Desktop 本地访问令牌的过期时间，而不是 GitHub
+            令牌的实际有效期。覆盖设置会在令牌续期或应用重启时
+            重置。此对话框不会显示或保存任何凭据。
           </p>
           {this.props.accounts.length === 0 ? (
             <p>
-              Sign in to an account with a refreshable token to test expiration.
+              请登录拥有可续期令牌的账号以测试过期行为。
             </p>
           ) : (
             <>
               <Row>
                 <Select
-                  label="Account"
+                  label="账号"
                   value={this.state.accountKey}
                   disabled={busy}
                   onChange={this.onAccountChanged}
@@ -145,20 +144,20 @@ export class TestTokenExpirationDialog extends React.Component<
               {expiration !== null && (
                 <>
                   <p>
-                    Current local expiry:{' '}
+                    当前本地过期时间：{' '}
                     {describeExpiration(expiration.expiresAt)}
-                    {expiration.isOverridden && ' (overridden)'}
+                    {expiration.isOverridden && '（已覆盖）'}
                   </p>
                   {expiration.isOverridden && (
                     <p>
-                      Original expiry:{' '}
+                      原始到期时间：{' '}
                       {describeExpiration(expiration.originalExpiresAt)}
                     </p>
                   )}
                   {!expiration.isRefreshable && (
                     <p>
-                      This account does not have a refreshable token. Sign in
-                      again with short-lived tokens enabled to test expiration.
+                      此账号没有可续期的令牌。请启用短期令牌后
+                      重新登录，以测试过期行为。
                     </p>
                   )}
                 </>
@@ -166,7 +165,7 @@ export class TestTokenExpirationDialog extends React.Component<
               <Row>
                 <div className="text-box-component">
                   <label htmlFor="test-token-expiration-date-time">
-                    Expiration (local time)
+                    过期时间（本地时间）
                   </label>
                   <input
                     id="test-token-expiration-date-time"
@@ -192,9 +191,9 @@ export class TestTokenExpirationDialog extends React.Component<
                 ))}
               </Row>
               <p>
-                Ordinary requests refresh within 10 minutes of expiry. Copilot
-                session creation refreshes within 61 minutes and 1 second.
-                Renewal happens when authenticated work next requests a token.
+                普通请求会在到期前 10 分钟内续期。Copilot
+                会话创建会在 61 分钟 1 秒内续期。
+                续期会在经过身份验证的操作下次请求令牌时发生。
               </p>
               <Row>
                 <Button
@@ -202,14 +201,14 @@ export class TestTokenExpirationDialog extends React.Component<
                   disabled={busy || expiration?.isOverridden !== true}
                   onClick={this.onReset}
                 >
-                  Reset override
+                  重置覆盖设置
                 </Button>
                 <Button
                   type="button"
                   disabled={busy}
                   onClick={this.loadExpiration}
                 >
-                  Reload details
+                  重新加载详情
                 </Button>
               </Row>
             </>
@@ -218,11 +217,11 @@ export class TestTokenExpirationDialog extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Apply expiry"
+            okButtonText="应用过期时间"
             okButtonDisabled={
               disabled || this.getChosenExpiration() === undefined
             }
-            cancelButtonText="Close"
+            cancelButtonText="关闭"
           />
         </DialogFooter>
       </Dialog>
@@ -269,7 +268,7 @@ export class TestTokenExpirationDialog extends React.Component<
           error:
             error instanceof Error
               ? error.message
-              : 'Unable to read token expiration. See the log for details.',
+              : '无法读取令牌过期时间。详情请查看日志。',
           busy: false,
         })
       }
@@ -297,7 +296,7 @@ export class TestTokenExpirationDialog extends React.Component<
   private onApply = async () => {
     const expiresAt = this.getChosenExpiration()
     if (expiresAt === undefined) {
-      this.setState({ error: 'Choose a valid token expiration date and time.' })
+      this.setState({ error: '请选择有效的令牌过期日期和时间。' })
       return
     }
     await this.updateExpiration(expiresAt)
@@ -308,7 +307,7 @@ export class TestTokenExpirationDialog extends React.Component<
   private async updateExpiration(expiresAt: number | undefined) {
     const account = this.getSelectedAccount()
     if (account === undefined) {
-      this.setState({ error: 'Select a signed-in account.' })
+      this.setState({ error: '请选择一个已登录的账户。' })
       return
     }
     const id = ++this.requestId
@@ -326,8 +325,8 @@ export class TestTokenExpirationDialog extends React.Component<
           busy: false,
           message:
             expiresAt === undefined
-              ? 'Original expiration restored.'
-              : 'Expiration override applied.',
+              ? '已恢复原始过期时间。'
+              : '已应用过期时间覆盖。',
         })
       }
     } catch (error) {
@@ -337,7 +336,7 @@ export class TestTokenExpirationDialog extends React.Component<
           error:
             error instanceof Error
               ? error.message
-              : 'Unable to change token expiration. See the log for details.',
+              : '无法更改令牌过期时间。详情请查看日志。',
           busy: false,
         })
       }

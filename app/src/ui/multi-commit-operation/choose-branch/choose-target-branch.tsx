@@ -177,7 +177,7 @@ export class ChooseTargetBranchDialog extends React.Component<
 
   public render() {
     const tooltip = this.selectedBranchIsCurrentBranch()
-      ? 'You are not able to cherry-pick from and to the same branch'
+      ? '您无法从同一个分支拣选到该分支'
       : undefined
 
     const pluralize = ''

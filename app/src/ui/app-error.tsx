@@ -112,7 +112,7 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
           <p>{error.message}</p>
           {files.length > 0 && (
             <>
-              <p>Files that exceed the limit</p>
+              <p>超出限制的文件</p>
               <ul>
                 {files.map(file => (
                   <li key={file}>{file}</li>
@@ -121,9 +121,9 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
             </>
           )}
           <p>
-            See{' '}
+            请参阅{' '}
             <LinkButton uri="https://gh.io/lfs">https://gh.io/lfs</LinkButton>{' '}
-            for more information on managing large files on GitHub
+            了解有关在 GitHub 上管理大文件的更多信息
           </p>
         </>
       )
@@ -166,27 +166,27 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
 
     switch (getDugiteError(error)) {
       case DugiteError.PushWithFileSizeExceedingLimit:
-        return 'File size limit exceeded'
+        return '文件大小超出限制'
     }
 
     switch (getRetryActionType(error)) {
       case RetryActionType.Clone:
-        return 'Clone failed'
+        return '克隆失败'
       case RetryActionType.Push:
-        return 'Failed to push'
+        return '推送失败'
     }
 
     if (isErrorWithMetaData(error)) {
       const { gitContext } = error.metadata
       switch (gitContext?.kind) {
         case 'create-repository':
-          return `Failed creating repository`
+          return `创建仓库失败`
         case 'commit':
-          return `Commit failed`
+          return `提交失败`
       }
     }
 
-    return 'Error'
+    return '错误'
   }
 
   private renderContentAfterErrorMessage(error: Error) {
@@ -199,7 +199,7 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
     if (retryAction && retryAction.type === RetryActionType.Clone) {
       return (
         <p>
-          Would you like to retry cloning <Ref>{retryAction.name}</Ref>?
+          您想重试克隆 <Ref>{retryAction.name}</Ref> 吗？
         </p>
       )
     }
@@ -258,9 +258,9 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
       return (
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Retry push"
+            okButtonText="重试推送"
             onOkButtonClick={this.onRetryAction}
-            cancelButtonText="Close"
+            cancelButtonText="关闭"
             onCancelButtonClick={this.onCloseButtonClick}
           />
         </DialogFooter>
@@ -274,7 +274,7 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText={__DARWIN__ ? 'Retry Clone' : 'Retry clone'}
+          okButtonText="重试克隆"
           onOkButtonClick={this.onRetryAction}
           onCancelButtonClick={this.onCloseButtonClick}
         />
@@ -286,9 +286,9 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText="Close"
+          okButtonText="关闭"
           onOkButtonClick={this.onCloseButtonClick}
-          cancelButtonText={__DARWIN__ ? 'Open Preferences' : 'Open options'}
+          cancelButtonText="打开选项"
           onCancelButtonClick={this.showPreferencesDialog}
         />
       </DialogFooter>

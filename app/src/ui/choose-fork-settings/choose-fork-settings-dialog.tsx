@@ -98,7 +98,7 @@ export class ChooseForkSettings extends React.Component<
         </DialogContent>
 
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText="Continue" />
+          <OkCancelButtonGroup okButtonText="继续" />
         </DialogFooter>
       </Dialog>
     )

@@ -207,20 +207,19 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
     const hasMergeBase = mergeStatus?.kind !== ComputedAction.Invalid
     const message = hasMergeBase ? (
       <>
-        <Ref>{baseBranch.name}</Ref> is up to date with all commits from{' '}
-        <Ref>{currentBranch.name}</Ref>.
+        <Ref>{baseBranch.name}</Ref> 已包含来自{' '}
+        <Ref>{currentBranch.name}</Ref> 的所有提交，最新。
       </>
     ) : (
       <>
-        <Ref>{baseBranch.name}</Ref> and <Ref>{currentBranch.name}</Ref> are
-        entirely different commit histories.
+        <Ref>{baseBranch.name}</Ref> 和 <Ref>{currentBranch.name}</Ref> 具有完全不同的提交历史。
       </>
     )
     return (
       <div className="open-pull-request-message">
         <div>
           <Octicon symbol={octicons.gitPullRequest} />
-          <h3>There are no changes.</h3>
+          <h3>没有任何更改。</h3>
           {message}
         </div>
       </div>
@@ -238,8 +237,8 @@ export class OpenPullRequestDialog extends React.Component<IOpenPullRequestDialo
       <div className="open-pull-request-message">
         <div>
           <Octicon symbol={octicons.gitPullRequest} />
-          <h3>Could not find a default branch to compare against.</h3>
-          Select a base branch above.
+          <h3>找不到可比较的默认分支。</h3>
+          请在上方选择一个基础分支。
         </div>
       </div>
     )

@@ -24,19 +24,19 @@ export function generateWorktreeContextMenuItems(
 
   if (onRenameWorktree !== undefined) {
     items.push({
-      label: 'Rename…',
+      label: '重命名…',
       action: () => onRenameWorktree(path),
       enabled: canMutate,
     })
   }
 
   items.push({
-    label: __DARWIN__ ? 'Copy Worktree Name' : 'Copy worktree name',
+    label: '复制工作树名称',
     action: () => writeClipboardText(name),
   })
 
   items.push({
-    label: __DARWIN__ ? 'Copy Worktree Path' : 'Copy worktree path',
+    label: '复制工作树路径',
     action: () => writeClipboardText(path),
   })
 
@@ -44,7 +44,7 @@ export function generateWorktreeContextMenuItems(
 
   if (onRemoveWorktree !== undefined) {
     items.push({
-      label: 'Delete…',
+      label: '删除…',
       action: () => onRemoveWorktree(path),
       enabled: canMutate,
     })

@@ -101,11 +101,10 @@ export class PushBranchCommits extends React.Component<
       return (
         <DialogContent>
           <p id="push-branch-commits-title">
-            Your branch must be published before opening a pull request.
+            必须先发布您的分支，然后才能打开拉取请求。
           </p>
           <p id="push-branch-commits-message">
-            Would you like to publish <Ref>{this.props.branch.name}</Ref> now
-            and open a pull request?
+            您现在要发布 <Ref>{this.props.branch.name}</Ref> 并打开拉取请求吗？
           </p>
         </DialogContent>
       )
@@ -116,11 +115,11 @@ export class PushBranchCommits extends React.Component<
     return (
       <DialogContent>
         <p id="push-branch-commits-title">
-          You have {localCommits} that haven't been pushed to the remote yet.
+          您有 {localCommits} 尚未推送到远程。
         </p>
         <p id="push-branch-commits-message">
-          Would you like to push your changes to{' '}
-          <Ref>{this.props.branch.name}</Ref> before creating your pull request?
+          您要在创建拉取请求之前将更改推送到 <Ref>{this.props.branch.name}</Ref>
+          吗？
         </p>
       </DialogContent>
     )
@@ -128,27 +127,25 @@ export class PushBranchCommits extends React.Component<
 
   private renderDialogTitle() {
     if (renderPublishView(this.props.unPushedCommits)) {
-      return __DARWIN__ ? 'Publish Branch?' : 'Publish branch?'
+      return __DARWIN__ ? '发布分支？' : '发布分支？'
     }
 
-    return __DARWIN__ ? `Push Local Changes?` : `Push local changes?`
+    return __DARWIN__ ? `推送本地更改？` : `推送本地更改？`
   }
 
   private renderButtonGroup() {
     if (renderPublishView(this.props.unPushedCommits)) {
       return (
         <OkCancelButtonGroup
-          okButtonText={__DARWIN__ ? 'Publish Branch' : 'Publish branch'}
+          okButtonText={__DARWIN__ ? '发布分支' : '发布分支'}
         />
       )
     }
 
     return (
       <OkCancelButtonGroup
-        okButtonText={__DARWIN__ ? 'Push Commits' : 'Push commits'}
-        cancelButtonText={
-          __DARWIN__ ? 'Create Without Pushing' : 'Create without pushing'
-        }
+        okButtonText={__DARWIN__ ? '推送提交' : '推送提交'}
+        cancelButtonText={__DARWIN__ ? '创建但不推送' : '创建但不推送'}
         onCancelButtonClick={this.onCreateWithoutPushButtonClick}
       />
     )

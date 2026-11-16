@@ -450,7 +450,7 @@ export class CreateRepository extends React.Component<
       const wd = status.workingDirectory
       const files = wd.files
       if (files.length > 0) {
-        await createCommit(repository, 'Initial commit', files)
+        await createCommit(repository, '初始提交', files)
       }
     } catch (e) {
       log.error(`createRepository: initial commit failed at ${fullPath}`, e)
@@ -553,8 +553,8 @@ export class CreateRepository extends React.Component<
 
     return (
       <DialogError>
-        Directory could not be created at this path. You may not have
-        permissions to create a directory here.
+        无法在此路径创建目录。您可能没有
+        在此创建目录的权限。
       </DialogError>
     )
   }
@@ -571,14 +571,13 @@ export class CreateRepository extends React.Component<
         <InputError
           id="existing-repository-path-error"
           trackedUserInput={fullPath}
-          ariaLiveMessage={`The directory ${fullPath} appears to be a Git repository. Would you like to add this repository instead?`}
+          ariaLiveMessage={`目录 ${fullPath} 似乎是一个 Git 仓库。您想改为添加此仓库吗？`}
         >
-          The directory <Ref>{fullPath}</Ref>appears to be a Git repository.
-          Would you like to{' '}
+          目录 <Ref>{fullPath}</Ref> 似乎是一个 Git 仓库。您想改为
           <LinkButton onClick={this.onAddRepositoryClicked}>
-            add this repository
+            添加此仓库
           </LinkButton>{' '}
-          instead?
+          吗？
         </InputError>
       </Row>
     )
@@ -596,12 +595,11 @@ export class CreateRepository extends React.Component<
         <InputWarning
           id="path-is-subfolder-of-repository"
           trackedUserInput={fullPath}
-          ariaLiveMessage={`The directory ${fullPath} appears to be a subfolder Git repository. Did you know about submodules?`}
+          ariaLiveMessage={`目录 ${fullPath} 似乎是一个子文件夹 Git 仓库。您了解子模块吗？`}
         >
-          The directory <Ref>{fullPath}</Ref>appears to be a subfolder of Git
-          repository.
+          目录 <Ref>{fullPath}</Ref> 似乎是一个 Git 仓库的子文件夹。
           <LinkButton uri={submoduleDocsUrl}>
-            Learn about submodules.
+            了解子模块。
           </LinkButton>
         </InputWarning>
       </Row>
@@ -625,11 +623,11 @@ export class CreateRepository extends React.Component<
         <InputWarning
           id="readme-overwrite-warning"
           trackedUserInput={this.state.createWithReadme}
-          ariaLiveMessage="This directory contains a README.md file already. Checking
-          this box will result in the existing file being overwritten."
+          ariaLiveMessage="此目录已包含一个 README.md 文件。勾选
+          此复选框将导致现有文件被覆盖。"
         >
-          This directory contains a <Ref>README.md</Ref> file already. Checking
-          this box will result in the existing file being overwritten.
+          此目录已包含一个 <Ref>README.md</Ref> 文件。勾选
+          此复选框将导致现有文件被覆盖。
         </InputWarning>
       </Row>
     )
@@ -644,7 +642,7 @@ export class CreateRepository extends React.Component<
 
     return (
       <div id="create-repo-path-msg">
-        The repository will be created at <Ref>{fullPath}</Ref>.
+        仓库将创建在 <Ref>{fullPath}</Ref>。
       </div>
     )
   }

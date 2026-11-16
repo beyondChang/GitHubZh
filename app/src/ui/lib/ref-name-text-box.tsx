@@ -213,9 +213,9 @@ export class RefNameTextBox extends React.Component<
           id="branch-name-error"
           className="warning-helper-text"
           trackedUserInput={proposedValue}
-          ariaLiveMessage={`Error: ${proposedValue} is not a valid name.`}
+          ariaLiveMessage={`错误：${proposedValue} 不是有效的名称。`}
         >
-          <Ref>{proposedValue}</Ref> is not a valid name.
+          <Ref>{proposedValue}</Ref> 不是有效的名称。
         </InputError>
       )
     }
@@ -233,18 +233,18 @@ export class RefNameTextBox extends React.Component<
   }
 
   private getWarningMessageAsString(sanitizedValue: string): string {
-    return `Warning: Will be ${
-      this.props.warningMessageVerb ?? 'created '
-    } as ${sanitizedValue}. Spaces and invalid characters have been replaced by hyphens.`
+    return `警告：将被${
+      this.props.warningMessageVerb ?? '创建'
+    }为 ${sanitizedValue}。空格和无效字符已被替换为连字符。`
   }
 
   private renderWarningMessage(sanitizedValue: string) {
     return (
       <>
-        Will be {this.props.warningMessageVerb ?? 'created'} as{' '}
+        将被{this.props.warningMessageVerb ?? '创建'}为{' '}
         <Ref>{sanitizedValue}</Ref>.{' '}
         <span className="sr-only">
-          Spaces and invalid characters have been replaced by hyphens.
+          空格和无效字符已被替换为连字符。
         </span>
       </>
     )

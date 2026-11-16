@@ -68,7 +68,6 @@ import { IMatches } from '../../lib/fuzzy-find'
 import { TextBox } from '../lib/text-box'
 import { Button } from '../lib/button'
 import { LinkButton } from '../lib/link-button'
-import { plural } from '../lib/plural'
 import {
   isCommittingFileHiddenByFilter,
   getNoResultsMessage,
@@ -473,9 +472,9 @@ export class FilterChangesList extends React.Component<
       isCommitting || rebaseConflictState !== null || isUncommittableSubmodule
 
     const checkboxTooltip = isUncommittableSubmodule
-      ? 'This submodule change cannot be added to a commit in this repository because it contains changes that have not been committed.'
+      ? '由于该子模块包含尚未提交的更改，因此无法将此子模块更改添加到本仓库的提交中。'
       : isPartiallyCommittableSubmodule
-      ? 'Only changes that have been committed within the submodule will be added to this repository. You need to commit any other modified or untracked changes in the submodule before including them in this repository.'
+      ? '只有已在子模块中提交的更改才会添加到此仓库。您需要先提交子模块中其他已修改或未跟踪的更改，然后才能将它们包含到此仓库中。'
       : undefined
 
     return (
@@ -540,13 +539,7 @@ export class FilterChangesList extends React.Component<
 
   private getDiscardChangesMenuItemLabel = (files: ReadonlyArray<string>) => {
     const label =
-      files.length === 1
-        ? __DARWIN__
-          ? `Discard Changes`
-          : `Discard changes`
-        : __DARWIN__
-        ? `Discard ${files.length} Selected Changes`
-        : `Discard ${files.length} selected changes`
+      files.length === 1 ? `放弃更改` : `放弃 ${files.length} 个已选更改`
 
     return this.props.askForConfirmationOnDiscardChanges ? `${label}…` : label
   }
@@ -864,7 +857,7 @@ export class FilterChangesList extends React.Component<
     prepopulateCommitSummary: boolean
   ) {
     if (!prepopulateCommitSummary) {
-      return 'Summary (required)'
+      return '摘要（必填）'
     }
 
     const firstFile = files[0]
@@ -1335,9 +1328,8 @@ export class FilterChangesList extends React.Component<
       files.length === 0 || isCommitting || rebaseConflictState !== null
 
     const checkAllLabel = `${
-      visibleFiles !== files.length ? `${formatNumber(visibleFiles)} of ` : ''
-    }
-    ${formatNumber(files.length)} changed file${plural(files.length)}`
+      visibleFiles !== files.length ? `${formatNumber(visibleFiles)} / ` : ''
+    }${formatNumber(files.length)} 个已更改文件`
 
     return (
       <div className="checkbox-container">
@@ -1397,7 +1389,7 @@ export class FilterChangesList extends React.Component<
 
   private getListAriaLabel = () => {
     const { files } = this.props.workingDirectory
-    return `${formatNumber(files.length)} changed file${plural(files.length)}`
+    return `${formatNumber(files.length)} 个已更改文件`
   }
 
   public render() {
@@ -1522,7 +1514,7 @@ export class FilterChangesList extends React.Component<
             className="clear-filters-button"
             onClick={this.onClearAllFilters}
           >
-            Clear filters
+            清除筛选条件
           </Button>
         )}
       </div>

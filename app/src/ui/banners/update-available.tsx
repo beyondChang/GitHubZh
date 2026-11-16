@@ -73,13 +73,10 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.isX64ToARM64ImmediateAutoUpdate) {
       return (
         <span onSubmit={this.updateNow}>
-          An optimized version of GitHub Desktop is available for your{' '}
-          {__DARWIN__ ? 'Apple silicon' : 'Arm64'} machine and will be installed
-          at the next launch or{' '}
-          <LinkButton onClick={this.updateNow}>
-            restart GitHub Desktop
-          </LinkButton>{' '}
-          now.
+          适用于您的 {__DARWIN__ ? 'Apple 芯片' : 'Arm64'} 机器的 GitHub Desktop
+          优化版本已经推出，并将在下次启动时或现在{' '}
+          <LinkButton onClick={this.updateNow}>重启 GitHub Desktop</LinkButton>{' '}
+          安装。
         </span>
       )
     }
@@ -87,7 +84,7 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.isUpdateShowcaseVisible) {
       const version =
         this.props.newReleases !== null
-          ? ` with GitHub Desktop ${this.props.newReleases[0].latestVersion}`
+          ? `（GitHub Desktop ${this.props.newReleases[0].latestVersion}）`
           : ''
 
       return (
@@ -99,12 +96,12 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
               emoji={this.props.emoji}
             />
           </span>
-          Exciting new features have been added{version}. See{' '}
-          <LinkButton onClick={this.showReleaseNotes}>what's new</LinkButton> or{' '}
+          添加了令人振奋的新功能{version}。请查看{' '}
+          <LinkButton onClick={this.showReleaseNotes}>新功能介绍</LinkButton>或{' '}
           <LinkButton onClick={this.dismissUpdateShowCaseVisibility}>
-            dismiss
+            忽略
           </LinkButton>
-          .
+          。
         </span>
       )
     }
@@ -112,30 +109,26 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.prioritizeUpdate) {
       return (
         <span onSubmit={this.updateNow}>
-          This version of GitHub Desktop is missing{' '}
+          此版本的 GitHub Desktop 缺少{' '}
           {this.props.prioritizeUpdateInfoUrl ? (
             <LinkButton uri={this.props.prioritizeUpdateInfoUrl}>
-              important updates
+              重要更新
             </LinkButton>
           ) : (
-            'important updates'
+            '重要更新'
           )}
-          . Please{' '}
-          <LinkButton onClick={this.updateNow}>
-            restart GitHub Desktop
-          </LinkButton>{' '}
-          now to install pending updates.
+          。请{' '}
+          <LinkButton onClick={this.updateNow}>重启 GitHub Desktop</LinkButton>{' '}
+          以安装待处理的更新。
         </span>
       )
     }
 
     return (
       <span onSubmit={this.updateNow}>
-        An updated version of GitHub Desktop is available and will be installed
-        at the next launch. See{' '}
-        <LinkButton onClick={this.showReleaseNotes}>what's new</LinkButton> or{' '}
-        <LinkButton onClick={this.updateNow}>restart GitHub Desktop</LinkButton>
-        .
+        GitHub Desktop 的更新版本已推出，并将在下次启动时安装。请参阅{' '}
+        <LinkButton onClick={this.showReleaseNotes}>新功能</LinkButton>或{' '}
+        <LinkButton onClick={this.updateNow}>重启 GitHub Desktop</LinkButton>。
       </span>
     )
   }

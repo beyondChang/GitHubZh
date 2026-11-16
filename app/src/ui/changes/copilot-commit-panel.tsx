@@ -220,20 +220,20 @@ export class CopilotCommitPanel extends React.Component<
     if (state?.kind === 'error') {
       return (
         <div className="assisted-commit-error" role="alert">
-          <div className="title">Commit run stopped</div>
+          <div className="title">提交运行已停止</div>
           <div className="description">
             {state.retry === 'recovery'
-              ? 'Recovery needs attention before you can continue.'
+              ? '继续之前需要先处理恢复问题。'
               : state.retry === 'refresh'
-              ? 'Refresh the repository before continuing.'
-              : 'Open Details for more information.'}
+              ? '继续之前请刷新仓库。'
+              : '打开“详细信息”查看更多信息。'}
           </div>
           {state.settling && (
-            <div className="description">Finishing repository refresh…</div>
+            <div className="description">正在完成仓库刷新…</div>
           )}
           {state.selectionNeedsReview && (
             <div className="description">
-              Some selected changes moved or changed. Review and reselect them.
+              部分已选更改发生移动或变更。请检查并重新选择。
             </div>
           )}
           <div className="assisted-commit-actions">
@@ -242,9 +242,7 @@ export class CopilotCommitPanel extends React.Component<
                 onClick={this.props.onRetryRecovery}
                 disabled={state.settling}
               >
-                {state.retry === 'recovery'
-                  ? 'Retry rollback'
-                  : 'Retry refresh'}
+                {state.retry === 'recovery' ? '重试回滚' : '重试刷新'}
               </Button>
             )}
             {state.retry === null && this.props.onDismissError !== undefined && (
@@ -252,11 +250,11 @@ export class CopilotCommitPanel extends React.Component<
                 onClick={this.props.onDismissError}
                 disabled={state.settling}
               >
-                Dismiss
+                忽略
               </Button>
             )}
             {this.props.onErrorDetails !== undefined && (
-              <Button onClick={this.props.onErrorDetails}>Details</Button>
+              <Button onClick={this.props.onErrorDetails}>详细信息</Button>
             )}
           </div>
         </div>
@@ -279,7 +277,7 @@ export class CopilotCommitPanel extends React.Component<
                   state.kind === 'closing'
                 }
               >
-                Cancel
+                取消
               </Button>
             </div>
           )}
@@ -290,9 +288,9 @@ export class CopilotCommitPanel extends React.Component<
     if (isWorking) {
       return (
         <>
-          <div className="title working">Copilot is on it…</div>
+          <div className="title working">Copilot 正在处理…</div>
           <div className="description">
-            Splitting your changes into commits and writing their messages.
+            正在将您的更改拆分为提交并撰写提交信息。
           </div>
         </>
       )
@@ -301,9 +299,9 @@ export class CopilotCommitPanel extends React.Component<
     if (filesSelectedCount === 0 && allowEmptyCommit) {
       return (
         <>
-          <div className="title">Create an empty commit</div>
+          <div className="title">创建空提交</div>
           <div className="description">
-            Create one commit without file changes or Copilot analysis.
+            创建一个不含文件更改或 Copilot 分析的空提交。
           </div>
         </>
       )
@@ -311,14 +309,12 @@ export class CopilotCommitPanel extends React.Component<
 
     const description =
       filesSelectedCount === 0
-        ? 'Select the changes you want to commit and Copilot will split them into commits and write their messages.'
-        : `Copilot will split the ${filesSelectedCount} selected ${
-            filesSelectedCount === 1 ? 'file' : 'files'
-          } into commits and write their messages.`
+        ? '选择您想要提交的更改，Copilot 将把它们拆分为提交并撰写提交信息。'
+        : `Copilot 将把选中的 ${filesSelectedCount} 个文件拆分为提交并撰写提交信息。`
 
     return (
       <>
-        <div className="title">Let Copilot write your commits</div>
+        <div className="title">让 Copilot 帮您编写提交</div>
         <div className="description">{description}</div>
       </>
     )
@@ -348,7 +344,7 @@ export class CopilotCommitPanel extends React.Component<
             type="button"
             className={headClassName}
             ref={this.headRef}
-            aria-label="Animate Copilot"
+            aria-label="让 Copilot 做出反应"
             aria-disabled={isThinking}
             onMouseEnter={this.onHeadMouseEnter}
             onClick={this.onHeadClick}
@@ -373,7 +369,7 @@ export class CopilotCommitPanel extends React.Component<
                 this.props.runState.kind !== 'idle'
               ? getRunStatus(this.props.runState)
               : this.props.isWorking
-              ? 'Copilot is splitting your changes into commits'
+              ? 'Copilot 正在将您的更改拆分为提交'
               : null
           }
         />
@@ -392,33 +388,33 @@ function getRunStatus(
     state.kind !== 'closing' &&
     state.cancelRequested
   ) {
-    return 'Cancelling the commit run…'
+    return '正在取消本次提交运行…'
   }
   switch (state.kind) {
     case 'awaiting-consent':
-      return 'Waiting for your consent'
+      return '正在等待您的同意'
     case 'preparing':
-      return 'Preparing selected changes…'
+      return '正在准备所选更改…'
     case 'capturing':
-      return 'Freezing selected changes…'
+      return '正在锁定所选更改…'
     case 'analyzing':
-      return 'Planning selected changes…'
+      return '正在规划所选更改…'
     case 'summarizing-selection':
-      return 'Writing one message for all selected changes…'
+      return '正在为所有所选更改编写提交信息…'
     case 'validating':
-      return 'Checking the complete commit plan…'
+      return '正在检查完整的提交计划…'
     case 'committing':
       return `Creating commit ${state.index + 1} of ${state.total}: ${
         state.title
       }`
     case 'rolling-back':
-      return 'Undoing commits from this run…'
+      return '正在撤销本次运行创建的提交…'
     case 'refreshing':
-      return 'Refreshing selected changes…'
+      return '正在刷新所选更改…'
     case 'closing':
-      return 'Finalizing local commits…'
+      return '正在完成本地提交…'
     case 'finishing':
-      return 'Refreshing local commits…'
+      return '正在刷新本地提交…'
     case 'error':
       return `Commit run stopped: ${state.error.message}`
     default:

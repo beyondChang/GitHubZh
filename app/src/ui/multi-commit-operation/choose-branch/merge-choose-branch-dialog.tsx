@@ -172,7 +172,7 @@ export class MergeChooseBranchDialog extends React.Component<
   }
 
   private renderLoadingMergeMessage() {
-    return <>Checking for ability to merge automatically...</>
+    return <>正在检查是否可以自动合并…</>
   }
 
   private renderCleanMergeMessage(
@@ -185,19 +185,19 @@ export class MergeChooseBranchDialog extends React.Component<
         <React.Fragment>
           <strong>{currentBranch.name}</strong>
           {` `}
-          is already up to date with <strong>{branch.name}</strong>
+          已经与 <strong>{branch.name}</strong> 保持最新
         </React.Fragment>
       )
     }
 
-    const pluralized = commitCount === 1 ? 'commit' : 'commits'
+
     return (
       <React.Fragment>
-        This will merge
-        <strong>{` ${formatNumber(commitCount)} ${pluralized}`}</strong>
-        {` from `}
+        这将合并
+        <strong>{` ${formatNumber(commitCount)} 个提交`}</strong>
+        {` 来自 `}
         <strong>{branch.name}</strong>
-        {` into `}
+        {` 到 `}
         <strong>{currentBranch.name}</strong>
       </React.Fragment>
     )
@@ -206,7 +206,7 @@ export class MergeChooseBranchDialog extends React.Component<
   private renderInvalidMergeMessage() {
     return (
       <React.Fragment>
-        Unable to merge unrelated histories in this repository
+        无法在此仓库中合并无关的历史记录
       </React.Fragment>
     )
   }
@@ -216,14 +216,14 @@ export class MergeChooseBranchDialog extends React.Component<
     currentBranch: Branch,
     count: number
   ) {
-    const pluralized = count === 1 ? 'file' : 'files'
+
     return (
       <React.Fragment>
-        There will be
-        <strong>{` ${formatNumber(count)} conflicted ${pluralized}`}</strong>
-        {` when merging `}
+        合并时将有
+        <strong>{` ${formatNumber(count)} 个存在冲突的文件`}</strong>
+        {` ，从 `}
         <strong>{branch.name}</strong>
-        {` into `}
+        {` 到 `}
         <strong>{currentBranch.name}</strong>
       </React.Fragment>
     )

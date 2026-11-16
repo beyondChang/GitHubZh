@@ -148,11 +148,11 @@ export class RebaseChooseBranchDialog extends React.Component<
   }
 
   private renderLoadingRebaseMessage() {
-    return <>Checking for ability to rebase automatically…</>
+    return <>正在检查是否可以自动变基…</>
   }
 
   private renderInvalidRebaseMessage() {
-    return <>Unable to start rebase. Check you have chosen a valid branch.</>
+    return <>无法开始变基。请检查您是否选择了有效的分支。</>
   }
 
   private renderCleanRebaseMessage(
@@ -163,12 +163,11 @@ export class RebaseChooseBranchDialog extends React.Component<
   ) {
     // The current branch is behind the base branch
     if (commitsBehindCount > 0 && commitsAheadCount <= 0) {
-      const pluralized = commitsBehindCount === 1 ? 'commit' : 'commits'
       return (
         <>
-          This will fast-forward <strong>{currentBranch.name}</strong> by
-          <strong>{` ${commitsBehindCount} ${pluralized}`}</strong>
-          {` to match `}
+          这将使 <strong>{currentBranch.name}</strong> 快进
+          <strong>{` ${commitsBehindCount} 个提交`}</strong>
+          {`，以匹配 `}
           <strong>{baseBranch.name}</strong>
         </>
       )
@@ -176,14 +175,14 @@ export class RebaseChooseBranchDialog extends React.Component<
 
     // The current branch is behind and ahead of the base branch
     if (commitsBehindCount > 0 && commitsAheadCount > 0) {
-      const pluralized = commitsAheadCount === 1 ? 'commit' : 'commits'
       return (
         <>
-          This will update <strong>{currentBranch.name}</strong>
-          {` by applying its `}
-          <strong>{` ${commitsAheadCount} ${pluralized}`}</strong>
-          {` on top of `}
+          这将更新 <strong>{currentBranch.name}</strong>
+          {`，通过应用其 `}
+          <strong>{` ${commitsAheadCount} 个提交`}</strong>
+          {` 在 `}
           <strong>{baseBranch.name}</strong>
+          {` 之上`}
         </>
       )
     }
@@ -194,7 +193,7 @@ export class RebaseChooseBranchDialog extends React.Component<
       <>
         <strong>{currentBranch.name}</strong>
         {` `}
-        is already up to date with <strong>{baseBranch.name}</strong>
+        已经与 <strong>{baseBranch.name}</strong> 保持最新
       </>
     )
   }

@@ -42,19 +42,17 @@ export class ChangeRepositoryAlias extends React.Component<
       >
         <DialogContent>
           <p id="change-repository-alias-description">
-            Choose a new alias for the repository "{nameOf(repository)}".{' '}
+            为仓库"{nameOf(repository)}"选择新别名。{' '}
           </p>
           <p>
             <TextBox
-              ariaLabel="Alias"
+              ariaLabel="别名"
               value={this.state.newAlias}
               onValueChanged={this.onNameChanged}
             />
           </p>
           {repository.gitHubRepository !== null && (
-            <p className="description">
-              This will not affect the original repository name on GitHub.
-            </p>
+            <p className="description">这不会影响 GitHub 上的原始仓库名称。</p>
           )}
         </DialogContent>
 

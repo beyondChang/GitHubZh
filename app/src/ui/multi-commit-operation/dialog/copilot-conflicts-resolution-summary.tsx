@@ -150,7 +150,7 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
           repository={this.props.gitHubRepository ?? undefined}
           onMarkdownLinkClicked={this.props.onMarkdownLinkClicked}
           underlineLinks={true}
-          title="Copilot conflict resolution summary"
+          title="Copilot 冲突解决摘要"
           customCSS={summaryMarkdownCSS}
         />
       </div>
@@ -165,7 +165,7 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
 
     return (
       <div className="copilot-conflicts-summary-references">
-        <h3 className="copilot-conflicts-summary-references-title">Context</h3>
+        <h3 className="copilot-conflicts-summary-references-title">上下文</h3>
         <ul className="copilot-conflicts-summary-reference-list">
           {references.map((ref, i) => (
             <li
@@ -252,13 +252,13 @@ function renderReference(
           <span className="copilot-conflicts-summary-reference-commit-ref">
             <span className="ref selectable">{ref.commit.shortSha}</span>
             <CopyButton
-              ariaLabel="Copy the full SHA"
+              ariaLabel="复制完整 SHA"
               copyContent={ref.commit.sha}
             />
           </span>
           {!ref.commit.isOnRemote && (
             <span className="copilot-conflicts-summary-reference-tag">
-              local only
+              仅限本地
             </span>
           )}
         </>

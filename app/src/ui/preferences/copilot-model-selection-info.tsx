@@ -118,28 +118,28 @@ export class CopilotModelSelectionInfo extends React.Component<
               {selectionInfo.contextWindow === null
                 ? null
                 : this.renderCostDetailsRow(
-                    'Context',
+                    '上下文',
                     selectionInfo.contextWindow
                   )}
               {selectionInfo.reasoningEffortLevels === null
                 ? null
                 : this.renderCostDetailsRow(
-                    'Reasoning',
+                    '推理',
                     selectionInfo.reasoningEffortLevels
                   )}
             </dl>
           ) : null}
 
           <div className="copilot-model-picker-cost-details-section">
-            <h4>AI credits per {tokenPriceDetails.batchSize} tokens</h4>
+            <h4>每 {tokenPriceDetails.batchSize} 个 token 的 AI 积分</h4>
             <dl>
-              {this.renderCostDetailsRow('Input', tokenPriceDetails.inputPrice)}
+              {this.renderCostDetailsRow('输入', tokenPriceDetails.inputPrice)}
               {this.renderCostDetailsRow(
-                'Cached input',
+                '缓存输入',
                 tokenPriceDetails.cachePrice
               )}
               {this.renderCostDetailsRow(
-                'Output',
+                '输出',
                 tokenPriceDetails.outputPrice
               )}
             </dl>
@@ -163,14 +163,14 @@ export class CopilotModelSelectionInfo extends React.Component<
             ariaControls={costDetailsContentId}
             ariaDescribedBy={costDetailsContentId}
             ariaExpanded={this.state.showCostDetails}
-            ariaLabel="Show Copilot model credit costs"
+            ariaLabel="显示 Copilot 模型积分费用"
             className="copilot-model-picker-selection-info-button"
             applyTooltipAriaDescribedBy={false}
             onButtonRef={this.onCostDetailsButtonRef}
             onClick={this.onCostDetailsButtonClick}
             onKeyDown={this.onCostDetailsButtonKeyDown}
             size="small"
-            tooltip="Show credit costs"
+            tooltip="显示积分费用"
           >
             <Octicon symbol={octicons.info} />
           </Button>

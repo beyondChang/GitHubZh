@@ -521,7 +521,7 @@ export class CommitMessage extends React.Component<
       this.props.mostRecentLocalCommit !== null
     ) {
       this.setState({
-        isCommittingStatusMessage: `Committed Just now - ${this.props.mostRecentLocalCommit.summary} (Sha: ${this.props.mostRecentLocalCommit.shortSha})`,
+        isCommittingStatusMessage: `刚刚提交 - ${this.props.mostRecentLocalCommit.summary} (Sha: ${this.props.mostRecentLocalCommit.shortSha})`,
       })
     }
 
@@ -787,7 +787,7 @@ export class CommitMessage extends React.Component<
       this.props.onShowPopup({
         type: PopupType.Error,
         error: new Error(
-          'The selected changes or commit options changed. Review your selection and try again.'
+          '所选更改或提交选项已发生变化。请检查您的选择并重试。'
         ),
       })
       return
@@ -832,7 +832,7 @@ export class CommitMessage extends React.Component<
         this.props.onShowPopup({
           type: PopupType.Error,
           error: new Error(
-            'The selected changes or commit options changed. Review your selection and try again.'
+            '所选更改或提交选项已发生变化。请检查您的选择并重试。'
           ),
         })
         return
@@ -1667,11 +1667,11 @@ export class CommitMessage extends React.Component<
     if (commitToAmend !== null) {
       return (
         <CommitWarning icon={CommitWarningIcon.Information}>
-          Your changes will modify your <strong>most recent commit</strong>.{' '}
+          您的更改将修改您最近的<strong>提交</strong>。
           <LinkButton onClick={this.props.onStopAmending}>
-            Stop amending
+            停止修补提交
           </LinkButton>{' '}
-          to make these changes as a new commit.
+          以将这些更改作为一个新提交。
         </CommitWarning>
       )
     } else {
@@ -1747,12 +1747,11 @@ export class CommitMessage extends React.Component<
     if (showNoWriteAccess) {
       return (
         <CommitWarning icon={CommitWarningIcon.Warning}>
-          You don't have write access to <strong>{repository.name}</strong>.
-          Want to{' '}
+          您没有 <strong>{repository.name}</strong> 的写入权限。您想要
           <LinkButton onClick={this.props.onShowCreateForkDialog}>
-            create a fork
+            创建 fork
           </LinkButton>
-          ?
+          吗？
         </CommitWarning>
       )
     } else if (showBranchProtected) {
@@ -1766,9 +1765,8 @@ export class CommitMessage extends React.Component<
 
       return (
         <CommitWarning icon={CommitWarningIcon.Warning}>
-          <strong>{branch}</strong> is a protected branch. Want to{' '}
-          <LinkButton onClick={this.onSwitchBranch}>switch branches</LinkButton>
-          ?
+          <strong>{branch}</strong> 是受保护的分支。是否要{' '}
+          <LinkButton onClick={this.onSwitchBranch}>切换分支</LinkButton>？
         </CommitWarning>
       )
     } else if (repoRuleWarningToDisplay === 'publish') {
@@ -1778,22 +1776,20 @@ export class CommitMessage extends React.Component<
         <CommitWarning
           icon={canBypass ? CommitWarningIcon.Warning : CommitWarningIcon.Error}
         >
-          The branch name <strong>{branch}</strong> fails{' '}
+          分支名称 <strong>{branch}</strong> 未通过
           <RepoRulesetsForBranchLink
             repository={repository.gitHubRepository}
             branch={branch}
           >
-            one or more rules
-          </RepoRulesetsForBranchLink>{' '}
-          that {canBypass ? 'would' : 'will'} prevent it from being published
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
+            一条或多条规则
+          </RepoRulesetsForBranchLink>
+          ，这些规则{canBypass ? '将' : '会'}阻止其被发布
+          {canBypass && '，但您可以绕过它们。请谨慎操作！'}
           {!canBypass && (
             <>
-              . Want to{' '}
-              <LinkButton onClick={this.onSwitchBranch}>
-                switch branches
-              </LinkButton>
-              ?
+              。您想要
+              <LinkButton onClick={this.onSwitchBranch}>切换分支</LinkButton>
+              吗？
             </>
           )}
         </CommitWarning>
@@ -1809,14 +1805,13 @@ export class CommitMessage extends React.Component<
             repository={repository.gitHubRepository}
             branch={branch}
           >
-            One or more rules
+            一条或多条规则
           </RepoRulesetsForBranchLink>{' '}
-          apply to the branch <strong>{branch}</strong> that require signed
-          commits
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
-          {!canBypass && '.'}{' '}
+          应用于分支 <strong>{branch}</strong>，并要求提交必须签名
+          {canBypass && '，但您可以绕过它们。请谨慎操作！'}
+          {!canBypass && '。'}{' '}
           <LinkButton uri="https://docs.github.com/authentication/managing-commit-signature-verification/signing-commits">
-            Learn more about commit signing.
+            详细了解提交签名。
           </LinkButton>
         </CommitWarning>
       )
@@ -1831,18 +1826,16 @@ export class CommitMessage extends React.Component<
             repository={repository.gitHubRepository}
             branch={branch}
           >
-            One or more rules
+            一条或多条规则
           </RepoRulesetsForBranchLink>{' '}
-          apply to the branch <strong>{branch}</strong> that{' '}
-          {canBypass ? 'would' : 'will'} prevent pushing
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
+          应用于分支 <strong>{branch}</strong>，并且
+          {canBypass ? '将' : '会'}阻止推送
+          {canBypass && '，但您可以绕过它们。请谨慎操作！'}
           {!canBypass && (
             <>
-              . Want to{' '}
-              <LinkButton onClick={this.onSwitchBranch}>
-                switch branches
-              </LinkButton>
-              ?
+              。您想要
+              <LinkButton onClick={this.onSwitchBranch}>切换分支</LinkButton>
+              吗？
             </>
           )}
         </CommitWarning>
@@ -2019,7 +2012,7 @@ export class CommitMessage extends React.Component<
           <Octicon className="copilot-icon" symbol={octicons.copilot} />
         )}
         {this.getCommittingButtonText()}
-        <span className="sr-only"> with Copilot</span>
+        <span className="sr-only"> 使用 Copilot</span>
       </>
     )
   }
@@ -2201,13 +2194,13 @@ export class CommitMessage extends React.Component<
 
     const text =
       hookName === 'pre-auto-gc' && status === 'finished'
-        ? 'Optimizing repository…'
+        ? '正在优化仓库…'
         : status === 'started'
-        ? `${hookName} hook running…`
+        ? `${hookName} 钩子正在运行…`
         : status === 'finished'
-        ? `${hookName} hook finished`
+        ? `${hookName} 钩子已运行完成`
         : status === 'failed'
-        ? `${hookName} hook failed`
+        ? `${hookName} 钩子运行失败`
         : assertNever(status, `Unknown hook status: ${status}`)
 
     const cn = classNames('commit-progress', {
@@ -2217,7 +2210,7 @@ export class CommitMessage extends React.Component<
       <div className={cn}>
         <div className="description">{text}</div>
         {onShowCommitProgress && (
-          <Button tooltip="Show commit progress" onClick={onShowCommitProgress}>
+          <Button tooltip="显示提交进度" onClick={onShowCommitProgress}>
             <Octicon symbol={octicons.terminal} />
           </Button>
         )}

@@ -54,7 +54,7 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
         <div className="content">
           <div className="interstitial-header">
             <div className="text">
-              <h1>Submodule changes</h1>
+              <h1>子模块更改</h1>
             </div>
           </div>
           {this.renderSubmoduleInfo()}
@@ -84,14 +84,14 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
     return this.renderSubmoduleDiffItem(
       { octicon: octicons.info, className: 'info-icon' },
       <>
-        This is a submodule based on the repository{' '}
+        这是一个基于以下仓库的子模块：
         <LinkButton
           uri={`https://${repoIdentifier.hostname}/${repoIdentifier.owner}/${repoIdentifier.name}`}
         >
           {repoIdentifier.owner}/{repoIdentifier.name}
           {hostname}
         </LinkButton>
-        .
+        。
       </>
     )
   }
@@ -100,34 +100,34 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
     const { diff, readOnly } = this.props
     const { oldSHA, newSHA } = diff
 
-    const verb = readOnly ? 'was' : 'has been'
+    const verb = readOnly ? '此前已' : '已'
     const suffix = readOnly
       ? ''
-      : ' This change can be committed to the parent repository.'
+      : ' 此更改可以提交到父仓库。'
 
     if (oldSHA !== null && newSHA !== null) {
       return this.renderSubmoduleDiffItem(
         { octicon: octicons.diffModified, className: 'modified-icon' },
         <>
-          This submodule changed its commit from{' '}
-          {this.renderCommitSHA(oldSHA, 'previous')} to{' '}
-          {this.renderCommitSHA(newSHA, 'new')}.{suffix}
+          此子模块的提交从{' '}
+          {this.renderCommitSHA(oldSHA, 'previous')} 更改为{' '}
+          {this.renderCommitSHA(newSHA, 'new')}。{suffix}
         </>
       )
     } else if (oldSHA === null && newSHA !== null) {
       return this.renderSubmoduleDiffItem(
         { octicon: octicons.diffAdded, className: 'added-icon' },
         <>
-          This submodule {verb} added pointing at commit{' '}
-          {this.renderCommitSHA(newSHA)}.{suffix}
+          此子模块{verb}添加，指向提交{' '}
+          {this.renderCommitSHA(newSHA)}。{suffix}
         </>
       )
     } else if (oldSHA !== null && newSHA === null) {
       return this.renderSubmoduleDiffItem(
         { octicon: octicons.diffRemoved, className: 'removed-icon' },
         <>
-          This submodule {verb} removed while it was pointing at commit{' '}
-          {this.renderCommitSHA(oldSHA)}.{suffix}
+          此子模块{verb}移除，当时指向提交{' '}
+          {this.renderCommitSHA(oldSHA)}。{suffix}
         </>
       )
     }
@@ -136,13 +136,13 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
   }
 
   private renderCommitSHA(sha: string, which?: 'previous' | 'new') {
-    const whichInfix = which === undefined ? '' : ` ${which}`
+    const whichInfix = which === undefined ? '' : which === 'previous' ? '先前' : '新'
 
     return (
       <>
         <Ref>{shortenSHA(sha)}</Ref>
         <CopyButton
-          ariaLabel={`Copy the full${whichInfix} SHA`}
+          ariaLabel={`复制${whichInfix}提交的完整 SHA`}
           copyContent={sha}
         />
       </>
@@ -158,17 +158,16 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
 
     const changes =
       diff.status.untrackedChanges && diff.status.modifiedChanges
-        ? 'modified and untracked'
+        ? '已修改和未跟踪'
         : diff.status.untrackedChanges
-        ? 'untracked'
-        : 'modified'
+        ? '未跟踪'
+        : '已修改'
 
     return this.renderSubmoduleDiffItem(
       { octicon: octicons.fileDiff, className: 'untracked-icon' },
       <>
-        This submodule has {changes} changes. Those changes must be committed
-        inside of the submodule before they can be part of the parent
-        repository.
+        此子模块包含{changes}的更改。这些更改必须先提交到子模块中，
+        然后才能成为父仓库的一部分。
       </>
     )
   }
@@ -196,9 +195,9 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
     return (
       <span>
         <SuggestedAction
-          title="Open this submodule on GitHub Desktop"
-          description="You can open this submodule on GitHub Desktop as a normal repository to manage and commit any changes in it."
-          buttonText={__DARWIN__ ? 'Open Repository' : 'Open repository'}
+          title="在 GitHub Desktop 中打开此子模块"
+          description="您可以在 GitHub Desktop 中将此子模块作为普通仓库打开，以管理并提交其中的任何更改。"
+          buttonText={__DARWIN__ ? '打开仓库' : '打开仓库'}
           type="primary"
           onClick={this.onOpenSubmoduleClick}
         />

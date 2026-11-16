@@ -222,24 +222,25 @@ export class CommitList extends React.Component<
         return
       }
 
-      const plural = keyboardReorderData.commits.length === 1 ? '' : 's'
+      const plural =
+        keyboardReorderData.commits.length === 1 ? '该提交' : '这些提交'
 
       if (insertionIndexPath !== null) {
         const { row } = insertionIndexPath
 
         const insertionPoint =
           row < this.props.commitSHAs.length
-            ? `before commit ${row + 1}`
-            : `after commit ${row}`
+            ? `第 ${row + 1} 个提交之前`
+            : `第 ${row} 个提交之后`
 
         this.setState({
-          reorderingMessage: `Press Enter to insert the selected commit${plural} ${insertionPoint} or Escape to cancel.`,
+          reorderingMessage: `按 Enter 将${plural}插入到${insertionPoint}，或按 Escape 取消。`,
         })
         return
       }
 
       this.setState({
-        reorderingMessage: `Use the Up and Down arrow keys to choose a new location for the selected commit${plural}, then press Enter to confirm or Escape to cancel.`,
+        reorderingMessage: `使用向上和向下方向键为${plural}选择新位置，然后按 Enter 确认或按 Escape 取消。`,
       })
     },
     500
@@ -534,7 +535,7 @@ export class CommitList extends React.Component<
       <div className="commit-list-item-tooltip list-item-tooltip">
         {authorList}
         <div>
-          <div className="label">Date: </div>
+          <div className="label">日期：</div>
           {absoluteDate}
         </div>
         {showUnpushedIndicator ? (
@@ -655,12 +656,11 @@ export class CommitList extends React.Component<
       >
         <h4>{reorderCommitsHintTitle}</h4>
         <p>
-          Use <KeyboardShortcut darwinKeys={['↑']} keys={['↑']} />
-          <KeyboardShortcut darwinKeys={['↓']} keys={['↓']} /> to choose a new
-          location.
+          使用 <KeyboardShortcut darwinKeys={['↑']} keys={['↑']} />
+          <KeyboardShortcut darwinKeys={['↓']} keys={['↓']} /> 选择新位置。
         </p>
         <p>
-          Press <KeyboardShortcut darwinKeys={['⏎']} keys={['⏎']} /> to confirm.
+          按 <KeyboardShortcut darwinKeys={['⏎']} keys={['⏎']} /> 确认。
         </p>
       </Popover>
     )

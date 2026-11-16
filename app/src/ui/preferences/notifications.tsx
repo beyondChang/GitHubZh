@@ -102,7 +102,7 @@ export class Notifications extends React.Component<
       return (
         <>
           {' '}
-          You need to{' '}
+          您需要{' '}
           <LinkButton onClick={this.onGrantNotificationPermission}>
             授予权限
           </LinkButton>{' '}
@@ -120,8 +120,8 @@ export class Notifications extends React.Component<
     if (warnNotificationsDenied) {
       return (
         <div className="setting-hint-warning">
-          <span className="warning-icon">⚠️</span> GitHub Desktop has no
-          permission to display notifications. Please, enable them in the{' '}
+          <span className="warning-icon">⚠️</span> GitHub Desktop 没有显示通知的
+          权限。请在{' '}
           <LinkButton uri={notificationSettingsURL}>
             通知设置
           </LinkButton>

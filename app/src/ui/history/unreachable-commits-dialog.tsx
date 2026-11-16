@@ -95,8 +95,8 @@ export class UnreachableCommitsDialog extends React.Component<
         onTabClicked={this.onTabClicked}
         selectedIndex={this.state.selectedTab}
       >
-        <span>Unreachable</span>
-        <span>Reachable</span>
+        <span>不可达</span>
+        <span>可达</span>
       </TabBar>
     )
   }
@@ -136,22 +136,21 @@ export class UnreachableCommitsDialog extends React.Component<
 
   private renderUnreachableCommitsMessage = () => {
     const count = this.getShasToDisplay().length
-    const commitsPluralized = count > 1 ? 'commits' : 'commit'
-    const pronounPluralized = count > 1 ? `they're` : `it's`
+    const commitsPluralized = '提交'
+    const pronounPluralized = count > 1 ? '这些提交' : '该提交'
     return (
       <div className="message">
-        You will{' '}
+        您将
         {this.state.selectedTab === UnreachableCommitsTab.Unreachable
-          ? 'not'
-          : ''}{' '}
-        see changes from the following {commitsPluralized} because{' '}
-        {pronounPluralized}{' '}
+          ? '不会'
+          : ''}
+        看到以下{commitsPluralized}的更改，因为{pronounPluralized}
         {this.state.selectedTab === UnreachableCommitsTab.Unreachable
-          ? 'not'
-          : ''}{' '}
-        in the ancestry path of the most recent commit in your selection.{' '}
+          ? '不'
+          : ''}
+        位于所选最新提交的祖先路径中。
         <LinkButton uri="https://github.com/desktop/desktop/blob/development/docs/learn-more/unreachable-commits.md">
-          Learn more about unreachable commits.
+          详细了解不可达提交。
         </LinkButton>
       </div>
     )
@@ -161,7 +160,7 @@ export class UnreachableCommitsDialog extends React.Component<
     return (
       <Dialog
         className="unreachable-commits"
-        title={__DARWIN__ ? 'Commit Reachability' : 'Commit reachability'}
+        title={__DARWIN__ ? '提交可达性' : '提交可达性'}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >

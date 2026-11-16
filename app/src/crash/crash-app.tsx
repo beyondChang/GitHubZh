@@ -134,8 +134,8 @@ export class CrashApp extends React.Component<CrashAppProps, ICrashAppState> {
   private renderTitle() {
     const message =
       this.state.type === 'launch'
-        ? 'GitHub Desktop failed to launch'
-        : 'GitHub Desktop encountered an error'
+        ? 'GitHub Desktop 启动失败'
+        : 'GitHub Desktop 遇到错误'
 
     return (
       <header>
@@ -149,19 +149,17 @@ export class CrashApp extends React.Component<CrashAppProps, ICrashAppState> {
     if (this.state.type === 'launch') {
       return (
         <p>
-          GitHub Desktop encountered a catastrophic error that prevents it from
-          launching. This has been reported to the team, but if you encounter
-          this repeatedly please report this issue to the GitHub Desktop{' '}
-          <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
+          GitHub Desktop 遇到了一个无法启动的灾难性错误。此问题已报告给团队，但如果您反复
+          遇到此问题，请向 GitHub Desktop 的{' '}
+          <LinkButton uri={issuesUri}>问题跟踪器</LinkButton>报告。
         </p>
       )
     } else {
       return (
         <p>
-          GitHub Desktop has encountered an unrecoverable error and will need to
-          restart. This has been reported to the team, but if you encounter this
-          repeatedly please report this issue to the GitHub Desktop{' '}
-          <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
+          GitHub Desktop 遇到了一个无法恢复的错误，需要重新启动。此问题已报告给团队，但如果您反复
+          遇到此问题，请向 GitHub Desktop 的{' '}
+          <LinkButton uri={issuesUri}>问题跟踪器</LinkButton>报告。
         </p>
       )
     }
@@ -186,9 +184,9 @@ export class CrashApp extends React.Component<CrashAppProps, ICrashAppState> {
     // We don't support restarting in dev mode since we can't
     // control the life time of the dev server.
     if (__DEV__) {
-      quitText = __DARWIN__ ? 'Quit' : 'Exit'
+      quitText = __DARWIN__ ? '退出' : '退出'
     } else {
-      quitText = __DARWIN__ ? 'Quit and Restart' : 'Exit and restart'
+      quitText = __DARWIN__ ? '退出并重新启动' : '退出并重新启动'
     }
 
     return (

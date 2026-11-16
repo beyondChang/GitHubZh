@@ -13,11 +13,11 @@ interface INoRemoteProps {
 export class NoRemote extends React.Component<INoRemoteProps, {}> {
   public render() {
     return (
-      <CallToAction actionTitle="Publish" onAction={this.props.onPublish}>
+      <CallToAction actionTitle="发布" onAction={this.props.onPublish}>
         <div className="no-remote-publish-message">
-          Publish your repository to GitHub. Need help?{' '}
+          将您的仓库发布到 GitHub。需要帮助吗？{' '}
           <LinkButton uri={HelpURL}>
-            Learn more about remote repositories.
+            详细了解远程仓库。
           </LinkButton>
         </div>
       </CallToAction>

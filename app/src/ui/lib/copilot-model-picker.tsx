@@ -141,7 +141,7 @@ const getListItemSubtitle = (item: ICopilotModelListItem) => {
   const modelPickerPriceCategory = getModelPickerPriceCategory(item)
   return modelPickerPriceCategory === null
     ? null
-    : `Use of credits: ${modelPickerPriceCategory}`
+    : `额度消耗：${modelPickerPriceCategory}`
 }
 
 export const getCopilotModelPickerSelectionInfo = (
@@ -428,7 +428,7 @@ export class CopilotModelPicker extends React.Component<
   }
 
   private renderNoItems = () => {
-    return <div className="copilot-model-list-empty">No models found.</div>
+    return <div className="copilot-model-list-empty">未找到模型。</div>
   }
 
   private getItemAriaLabel = (item: ICopilotModelListItem) => {
@@ -464,11 +464,11 @@ export class CopilotModelPicker extends React.Component<
     return (
       <PopoverDropdown
         className="copilot-model-picker"
-        contentTitle="Choose a model"
+        contentTitle="选择模型"
         contentHeaderAccessory={
           this.props.onConfigureCustomProviders === undefined ? undefined : (
             <LinkButton onClick={this.onConfigureCustomProviders}>
-              Configure custom providers…
+              配置自定义提供方…
             </LinkButton>
           )
         }
@@ -493,7 +493,7 @@ export class CopilotModelPicker extends React.Component<
           onSelectionChanged={this.onSelectionChanged}
           getItemAriaLabel={this.getItemAriaLabel}
           getGroupAriaLabel={this.getGroupAriaLabel}
-          placeholderText="Filter models"
+          placeholderText="筛选模型"
           renderNoItems={this.renderNoItems}
         />
       </PopoverDropdown>

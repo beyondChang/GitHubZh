@@ -68,11 +68,7 @@ export class PushProtectionErrorDialog extends React.Component<
   public render() {
     return (
       <Dialog
-        title={
-          __DARWIN__
-            ? 'Push Blocked: Secret Detected'
-            : 'Push blocked: secret detected'
-        }
+        title="推送被阻止：检测到密钥"
         onDismissed={this.props.onDismissed}
         onSubmit={this.props.onDismissed}
         type="error"
@@ -84,27 +80,25 @@ export class PushProtectionErrorDialog extends React.Component<
           <div id="push-protection-error-dialog-description">
             <p>
               <LinkButton uri="https://docs.github.com/code-security/secret-scanning/protecting-pushes-with-secret-scanning">
-                Secret Scanning
+                密钥扫描
               </LinkButton>{' '}
-              found secret(s) in the commit(s) you attempted to push.{' '}
+              在您尝试推送的提交中发现了密钥。{' '}
             </p>
             <p>
-              Allowing secrets risks exposure. Consider{' '}
+              允许密钥存在会带来泄露风险。建议
               <LinkButton
                 onClick={this.props.onRemediationInstructionsLinkClick}
                 uri="https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-in-the-github-ui#resolving-a-blocked-commit"
               >
-                removing the secret from your commit and commit history.
+                从您的提交和提交历史中移除该密钥。
               </LinkButton>
             </p>
-            Exposing this secret can allow someone to:
+            暴露此密钥可能允许他人：
             <ul>
-              <li>Verify the identity of the secret(s)</li>
-              <li>Know which resources the secret(s) can access</li>
-              <li>Act on behalf of the secret's owner</li>
-              <li>
-                Push the secret(s) to this repository without being blocked
-              </li>
+              <li>验证该密钥的身份</li>
+              <li>了解该密钥可以访问哪些资源</li>
+              <li>以该密钥所有者的身份执行操作</li>
+              <li>在不被阻止的情况下将密钥推送到此仓库</li>
             </ul>
             {this.renderSecrets()}
           </div>
@@ -145,7 +139,7 @@ export class PushProtectionErrorDialog extends React.Component<
           uri={secret.bypassURL}
           onClick={this.props.onDelegatedBypassLinkClick}
         >
-          Bypass
+          绕过
         </LinkButton>
       )
     }
@@ -153,8 +147,7 @@ export class PushProtectionErrorDialog extends React.Component<
     if (this.state.secretsBypassed.get(secret.id)) {
       return (
         <span className="bypass-success">
-          Bypassed{' '}
-          <Octicon symbol={octicons.check} className="bypass-success" />{' '}
+          已绕过 <Octicon symbol={octicons.check} className="bypass-success" />{' '}
         </span>
       )
     }
@@ -164,7 +157,7 @@ export class PushProtectionErrorDialog extends React.Component<
         ariaLabel={`Bypass ${secret.description}`}
         onClick={this.bypassSecret(secret)}
       >
-        Bypass
+        绕过
       </LinkButton>
     )
   }
@@ -180,7 +173,7 @@ export class PushProtectionErrorDialog extends React.Component<
       </li>
     ))
     return (
-      <ul aria-label="Secrets" className="secret-list">
+      <ul aria-label="密钥" className="secret-list">
         {listItems}
       </ul>
     )

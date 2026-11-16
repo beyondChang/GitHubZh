@@ -117,6 +117,7 @@ export function buildDefaultMenuTemplate({
       },
       {
         label: '克隆仓库…',
+        id: 'clone-repository',
         accelerator: 'CmdOrCtrl+Shift+O',
         click: emit('clone-repository'),
       },

@@ -1419,13 +1419,13 @@ export class SideBySideDiff extends React.Component<
 
     const items: IMenuItem[] = [
       {
-        label: 'Copy',
+        label: '复制',
         // When using role="copy", the enabled attribute is not taken into account.
         role: selectionLength > 0 ? 'copy' : undefined,
         enabled: selectionLength > 0,
       },
       {
-        label: __DARWIN__ ? 'Select All' : 'Select all',
+        label: '全选',
         action: () => this.onSelectAll(),
       },
     ]
@@ -1480,7 +1480,7 @@ export class SideBySideDiff extends React.Component<
 
     return this.diffToRestore === null
       ? {
-          label: __DARWIN__ ? 'Expand Whole File' : 'Expand whole file',
+          label: __DARWIN__ ? '展开整个文件' : '展开整个文件',
           action: this.onExpandWholeFile,
           // If there is only one hunk that can't be expanded, disable this item
           enabled:
@@ -1489,8 +1489,8 @@ export class SideBySideDiff extends React.Component<
         }
       : {
           label: __DARWIN__
-            ? 'Collapse Expanded Lines'
-            : 'Collapse expanded lines',
+            ? '折叠已展开的行'
+            : '折叠已展开的行',
           action: this.onCollapseExpandedLines,
         }
   }

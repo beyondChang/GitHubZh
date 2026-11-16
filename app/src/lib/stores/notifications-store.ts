@@ -198,7 +198,7 @@ export class NotificationsStore {
       return
     }
 
-    const title = `@${comment.user.login} commented on your pull request`
+    const title = `@${comment.user.login} 评论了您的拉取请求`
     const body = `${pullRequest.title} #${
       pullRequest.pullRequestNumber
     }\n${truncateWithEllipsis(comment.body, 50)}`
@@ -288,7 +288,7 @@ export class NotificationsStore {
     }
 
     const reviewVerb = getVerbForPullRequestReview(review)
-    const title = `@${review.user.login} ${reviewVerb} your pull request`
+    const title = `@${review.user.login} ${reviewVerb}您的拉取请求`
     const body = `${pullRequest.title} #${
       pullRequest.pullRequestNumber
     }\n${truncateWithEllipsis(review.body, 50)}`

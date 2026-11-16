@@ -314,7 +314,7 @@ export class CompareSidebar extends React.Component<
     ) {
       defaultErrorHandler(
         new Error(
-          `Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.`
+          `无法重新排序。重新排序会重放所有提交，直到重新排序所需的最后一个提交。其中不能存在合并提交。`
         ),
         this.props.dispatcher
       )
@@ -694,7 +694,7 @@ export class CompareSidebar extends React.Component<
     ) {
       defaultErrorHandler(
         new Error(
-          `Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.`
+          `无法压缩。压缩会重放所有提交，直到压缩所需的最后一个提交。其中不能存在合并提交。`
         ),
         this.props.dispatcher
       )

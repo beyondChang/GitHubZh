@@ -46,7 +46,7 @@ export class WorktreeListItem extends React.Component<IWorktreeListItemProps> {
         >
           <HighlightText text={name} highlight={matches.title} />
         </TooltippedContent>
-        {isMissing && <div className="missing-indicator">(missing)</div>}
+        {isMissing && <div className="missing-indicator">（缺失）</div>}
         <TooltippedContent
           className="description"
           tooltip={worktree.branch ?? worktree.head}

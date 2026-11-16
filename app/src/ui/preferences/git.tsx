@@ -190,7 +190,7 @@ export class Git extends React.Component<IGitProps> {
           onValueChange={this.props.onDefaultBranchChanged}
           ariaLabelledBy={'default-branch-heading'}
           ariaDescribedBy="default-branch-description"
-          warningMessageVerb="saved"
+          warningMessageVerb="保存"
         />
 
         <p id="default-branch-description" className="settings-description">

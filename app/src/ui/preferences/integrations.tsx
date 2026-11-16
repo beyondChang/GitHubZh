@@ -210,9 +210,9 @@ export class Integrations extends React.Component<
         <div className="select-component no-options-found">
           <label>{label}</label>
           <span>
-            No editors found.{' '}
+            未找到编辑器。{' '}
             <LinkButton uri={suggestedExternalEditor.url}>
-              Install {suggestedExternalEditor.name}?
+              安装 {suggestedExternalEditor.name}？
             </LinkButton>
           </span>
         </div>
@@ -222,7 +222,7 @@ export class Integrations extends React.Component<
     return (
       <Select
         label={enableCustomIntegration() ? undefined : label}
-        aria-label="External editor"
+        aria-label="外部编辑器"
         value={
           useCustomEditor
             ? CustomIntegrationValue
@@ -256,9 +256,9 @@ export class Integrations extends React.Component<
       <Row>
         <div className="no-options-found">
           <span>
-            No other editors found.{' '}
+            未找到其他编辑器。{' '}
             <LinkButton uri={suggestedExternalEditor.url}>
-              Install {suggestedExternalEditor.name}?
+              安装 {suggestedExternalEditor.name}？
             </LinkButton>
           </span>
         </div>

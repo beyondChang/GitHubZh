@@ -211,7 +211,7 @@ export class RepositoriesList extends React.Component<
     const aheadBehindTooltip = this.getAheadBehindTooltip(aheadBehind)
     const hasChanges = changedFilesCount > 0
     const uncommittedChangesTooltip = hasChanges
-      ? `There are uncommitted changes in this repository.`
+      ? `此仓库中存在未提交的更改。`
       : null
 
     const ahead = aheadBehind?.ahead ?? 0
@@ -220,12 +220,12 @@ export class RepositoriesList extends React.Component<
     return (
       <div className="repository-list-item-tooltip list-item-tooltip">
         <div>
-          <div className="label">Full Name: </div>
+          <div className="label">全名：</div>
           {realName}
           {alias && <> ({alias})</>}
         </div>
         <div>
-          <div className="label">Path: </div>
+          <div className="label">路径：</div>
           {repository.path}
         </div>
         {aheadBehindTooltip && (
@@ -392,7 +392,7 @@ export class RepositoriesList extends React.Component<
         ariaExpanded={this.state.newRepositoryMenuExpanded}
         onKeyDown={this.onNewRepositoryButtonKeyDown}
       >
-        Add
+        添加
         <Octicon symbol={octicons.triangleDown} />
       </Button>
     )

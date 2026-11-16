@@ -6,7 +6,7 @@ import { RepositoryWithGitHubRepository } from '../../models/repository'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { SignInResult } from '../../lib/stores'
 
-const okButtonText = __DARWIN__ ? 'Continue in Browser' : 'Continue in browser'
+const okButtonText = '在浏览器中继续'
 
 interface IWorkflowPushRejectedDialogProps {
   readonly rejectedPath: string
@@ -34,7 +34,7 @@ export class WorkflowPushRejectedDialog extends React.Component<
     return (
       <Dialog
         id="workflow-push-rejected"
-        title={__DARWIN__ ? 'Push Rejected' : 'Push rejected'}
+        title="推送被拒绝"
         loading={this.state.loading}
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSignIn}
@@ -42,15 +42,11 @@ export class WorkflowPushRejectedDialog extends React.Component<
       >
         <DialogContent>
           <p>
-            The push was rejected by the server for containing a modification to
-            the workflow file <Ref>{this.props.rejectedPath}</Ref>. In order to
-            be able to push to workflow files GitHub Desktop needs to request
-            additional permissions.
+            推送被服务器拒绝，因为其中包含对工作流文件{' '}
+            <Ref>{this.props.rejectedPath}</Ref> 的修改。要能够推送工作流文件，
+            GitHub Desktop 需要请求额外的权限。
           </p>
-          <p>
-            Would you like to open a browser to grant GitHub Desktop permission
-            to update workflow files?
-          </p>
+          <p>您要打开浏览器以授予 GitHub Desktop 更新工作流文件的权限吗？</p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup okButtonText={okButtonText} />

@@ -184,10 +184,10 @@ export class BranchesContainer extends React.Component<
         <Button
           className="merge-button"
           onClick={this.onMergeClick}
-          tooltip={`Choose a branch to merge into ${currentBranch.name}`}
+          tooltip={`选择要合并到的分支 ${currentBranch.name}`}
         >
           <Octicon className="icon" symbol={octicons.gitMerge} />
-          Choose a branch to merge into <strong>{currentBranch.name}</strong>
+          选择要合并到的分支 <strong>{currentBranch.name}</strong>
         </Button>
       </Row>
     )
@@ -361,7 +361,7 @@ export class BranchesContainer extends React.Component<
     // Thus, it doesn't have to be an actual branch name.
     dragAndDropManager.emitEnterDropTarget({
       type: DropTargetType.Branch,
-      branchName: 'a new branch',
+      branchName: '新分支',
     })
   }
 

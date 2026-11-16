@@ -20,29 +20,28 @@ export class AttributeMismatch extends React.Component<IAttributeMismatchProps> 
         id="lfs-attribute-mismatch"
         title={
           __DARWIN__
-            ? 'Update Existing Git LFS Filters?'
-            : 'Update existing Git LFS filters?'
+            ? '更新现有 Git LFS 筛选器？'
+            : '更新现有 Git LFS 筛选器？'
         }
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSubmit}
       >
         <DialogContent>
           <p>
-            Git LFS filters are already configured in{' '}
+            Git LFS 筛选器已在
             <LinkButton onClick={this.props.onEditGlobalGitConfig}>
-              your global git config
+              您的全局 git 配置
             </LinkButton>{' '}
-            but are not the values it expects. Would you like to update them
-            now?
+            中配置，但不是它所需的值。是否现在更新它们？
           </p>
         </DialogContent>
 
         <DialogFooter>
           <OkCancelButtonGroup
             okButtonText={
-              __DARWIN__ ? 'Update Existing Filters' : 'Update existing filters'
+              __DARWIN__ ? '更新现有筛选器' : '更新现有筛选器'
             }
-            cancelButtonText={__DARWIN__ ? 'Not Now' : 'Not now'}
+            cancelButtonText={__DARWIN__ ? '暂不' : '暂不'}
           />
         </DialogFooter>
       </Dialog>

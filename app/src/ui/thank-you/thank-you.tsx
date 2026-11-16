@@ -91,9 +91,8 @@ export class ThankYou extends React.Component<IThankYouProps, IThankYouState> {
       this.props.latestVersion !== null ? ` ${this.props.latestVersion}` : ''
     const thankYouNote = (
       <>
-        Thanks so much for all your hard work on GitHub Desktop{version}. We're
-        so grateful for your willingness to contribute and make the app better
-        for everyone!
+        非常感谢您为 GitHub Desktop{version} 所付出的辛勤工作。我们
+        由衷感谢您愿意做出贡献，让这款应用对所有人都变得更好！
       </>
     )
 
@@ -101,13 +100,13 @@ export class ThankYou extends React.Component<IThankYouProps, IThankYouState> {
       <Dialog
         id="thank-you-notes"
         onDismissed={this.props.onDismissed}
-        title={`Thank you ${this.props.friendlyName}! 🎉`}
+        title={`谢谢你，${this.props.friendlyName}！🎉`}
         onDialogRef={this.onDialogRef}
       >
         <DialogContent>
           <div className="container">
             <div className="thank-you-note">{thankYouNote}</div>
-            <div className="contributions-heading">You contributed:</div>
+            <div className="contributions-heading">您的贡献：</div>
             <div className="contributions">
               {this.renderList(this.props.userContributions)}
             </div>
