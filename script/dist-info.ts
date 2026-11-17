@@ -136,12 +136,20 @@ export function getDistArchitecture(): 'arm64' | 'x64' {
 }
 
 export function getUpdatesURL() {
-  // It is also possible to use a `x64/` path, but for now we'll leave the
-  // original URL without architecture in it (which will still work for
-  // compatibility reasons) in case anything goes wrong until we have everything
-  // sorted out.
-  const architecturePath = getDistArchitecture() === 'arm64' ? 'arm64/' : ''
-  return `https://central.github.com/api/deployments/desktop/desktop/${architecturePath}latest?version=${version}&env=${getChannel()}`
+  // zh-CN fork: point auto-updates at this fork's own Releases so updating
+  // keeps the localized build instead of replacing it with the official
+  // English one (which would silently discard every translation).
+  //
+  // This URL is compiled into the binary (see app/app-info.ts) and cannot be
+  // changed after the fact, so it uses GitHub's stable "latest download" path:
+  // uploading assets to a new non-prerelease Release automatically supersedes
+  // the previous one without rebuilding clients. The response must be a
+  // Squirrel.Windows RELEASES feed, and its .nupkg entries are resolved
+  // relative to this URL, so those assets must ship in the same Release.
+  //
+  // Only x64 assets are published here; GitHub asset names cannot contain "/",
+  // so there is no per-architecture path segment.
+  return `https://github.com/beyondChang/GitHubZh/releases/latest/download/RELEASES`
 }
 
 export function shouldMakeDelta() {

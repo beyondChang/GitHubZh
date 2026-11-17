@@ -89,6 +89,40 @@ npm start
 | `npx tsc --noEmit -p tsconfig.json` | 类型检查 |
 | `npm test` | 运行单元测试 |
 
+## 自动更新与发版
+
+官方 GitHub Desktop 的更新源是 `central.github.com`（`script/dist-info.ts` 中的 `getUpdatesURL()`）。若不改，汉化版检测到更新后会下载**官方英文版**安装包，导致汉化全部丢失。
+
+本分支已把 `getUpdatesURL()` 指向**本仓库自己的 Release**：
+
+```text
+https://github.com/beyondChang/GitHubZh/releases/latest/download/RELEASES
+```
+
+这样更新到的仍是本仓库的中文版。该地址在编译期注入二进制（`app/app-info.ts` 的 `__UPDATES_URL__`），写进去后无法远程更改，因此使用 GitHub 的 `latest` 稳定路径——每次发布新版本都会自动生效，无需重新构建客户端。
+
+### 发布新版本
+
+1. 构建并生成 Squirrel.Windows 更新包（`electron-winstaller` 产出 `RELEASES` + `*.nupkg` + `*Setup*.exe`）：
+
+```bash
+NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 npm run build:dev
+npm run package
+```
+
+2. 创建 Release，**必须是正式版（非预发布）**，否则 `latest` 不会指向它：
+   - 上传 `RELEASES`
+   - 上传 `RELEASES` 中列出的 `*.nupkg`，**文件名必须与 `RELEASES` 内记录的名字完全一致**，否则 Squirrel 下载会 404。注意 `script/package.ts` 会在 `electron-winstaller` 打包**之后**把 nupkg 重命名加上 `-x64-`，而不会同步改 `RELEASES`，上传时需按 `RELEASES` 中的原名传
+   - 可选：上传 `*Setup*.exe` 供手动下载（Squirrel 更新不依赖它）
+
+3. 递增 `app/package.json` 的版本号、补充 `changelog.json`，再提交。
+
+### 已知限制
+
+- **未签名**：汉化版没有 GitHub 的代码签名证书，Windows SmartScreen 可能对更新安装包告警。
+- **资产不可变**：Release 资产上传后不可改名，`RELEASES` 内容与已上传资产名需持续对齐。
+- 官方 `changelog.json`、遥测等仍指向 GitHub 官方地址，与安装包是否被覆盖无关。
+
 ## 同步上游
 
 汉化改动全部位于工作树文案层，通常可与上游直接合并：
