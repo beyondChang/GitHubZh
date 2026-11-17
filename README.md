@@ -103,19 +103,36 @@ https://github.com/beyondChang/GitHubZh/releases/latest/download/RELEASES
 
 ### 发布新版本
 
-1. 构建并生成 Squirrel.Windows 更新包（`electron-winstaller` 产出 `RELEASES` + `*.nupkg` + `*Setup*.exe`）：
+#### 1. 用 production 构建并生成 Squirrel.Windows 更新包
+
+必须用 `build:prod`：dev 构建的 `__RELEASE_CHANNEL__` 是 `development`，会让 `app/src/ui/app.tsx` **跳过自动更新检查**；且其 `-dev` 后缀的 exe/dist 名与打包脚本不匹配，会报 `File not found: GitHubDesktop.exe`。
+
+`package` 需带两个环境变量：`NODE_ENV=production` 让 exe/dist 名匹配；`RELEASE_CHANNEL=development` 让 `shouldMakeDelta()` 为 false，跳过 `remoteReleases` 拉取（此时还没有历史包可做增量）。
 
 ```bash
-NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 npm run build:dev
-npm run package
+NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 npm run build:prod
+NODE_ENV=production RELEASE_CHANNEL=development npm run package
 ```
 
-2. 创建 Release，**必须是正式版（非预发布）**，否则 `latest` 不会指向它：
-   - 上传 `RELEASES`
-   - 上传 `RELEASES` 中列出的 `*.nupkg`，**文件名必须与 `RELEASES` 内记录的名字完全一致**，否则 Squirrel 下载会 404。注意 `script/package.ts` 会在 `electron-winstaller` 打包**之后**把 nupkg 重命名加上 `-x64-`，而不会同步改 `RELEASES`，上传时需按 `RELEASES` 中的原名传
-   - 可选：上传 `*Setup*.exe` 供手动下载（Squirrel 更新不依赖它）
+产出 `RELEASES`、`*.nupkg`、安装器（`electron-winstaller` 会经 `vendor/` 内置的 nuget/WiX/Squirrel 工具完成，无需额外联网下工具）。
 
-3. 递增 `app/package.json` 的版本号、补充 `changelog.json`，再提交。
+#### 2. 创建 Release
+
+必须是**正式版（非预发布）**，否则 `latest` 不会指向它。
+
+#### 3. 上传资产到 `uploads.github.com`
+
+asset 上传必须走 release 响应里的 `upload_url`，即 `https://uploads.github.com/repos/{owner}/{repo}/releases/{id}/assets?name=X`。**用 `api.github.com` 的 `/releases/{id}/assets` 上传会返回 404**——该域只用于 GET/DELETE 查询资产（`api.github.com` 的其它 POST 端点正常，故这一坑不易被察觉）。
+
+上传内容：
+
+- `RELEASES`
+- `RELEASES` 中列出的 `*.nupkg`，**文件名必须与 `RELEASES` 记录完全一致**，否则 Squirrel 下载会 404。注意 `script/package.ts` 会在 `electron-winstaller` 之后把 nupkg 重命名加上 `-x64-` 却不改 `RELEASES`，需按 `RELEASES` 中的原名传
+- 可选：`*Setup*.exe` 供手动下载（Squirrel 自动更新不依赖它）
+
+#### 4. 递增版本
+
+更新 `app/package.json` 版本号与 `changelog.json`，再提交。
 
 ### 已知限制
 
