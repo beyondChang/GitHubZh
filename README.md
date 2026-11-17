@@ -1,8 +1,13 @@
-# [GitHub Desktop](https://desktop.github.com)
+# GitHub Desktop 中文版
 
-[GitHub Desktop](https://desktop.github.com/) is an open-source [Electron](https://www.electronjs.org/)-based
-GitHub app. It is written in [TypeScript](https://www.typescriptlang.org) and
-uses [React](https://reactjs.org/).
+[GitHub Desktop](https://desktop.github.com/) 是 GitHub 官方开源的 [Electron](https://www.electronjs.org/) 桌面客户端，使用 [TypeScript](https://www.typescriptlang.org) 编写、[React](https://reactjs.org/) 渲染界面。
+
+本仓库是官方 [`desktop/desktop`](https://github.com/desktop/desktop) 的 **简体中文（zh-CN）汉化分支**：界面文案已从英文硬编码改为简体中文，功能与上游保持一致。
+
+- 本仓库：[`beyondChang/GitHubZh`](https://github.com/beyondChang/GitHubZh)
+- 上游：[`desktop/desktop`](https://github.com/desktop/desktop)（`upstream` 远程，`development` 分支）
+
+> 下图为官方英文界面截图。本分支运行时，界面、菜单、弹窗与无障碍文本均为简体中文。
 
 <picture>
   <source
@@ -12,99 +17,112 @@ uses [React](https://reactjs.org/).
   <img
     width="1072"
     src="https://user-images.githubusercontent.com/634063/202742985-bb3b3b94-8aca-404a-8d8a-fd6a6f030672.png"
-    alt="A screenshot of the GitHub Desktop application showing changes being viewed and committed with two attributed co-authors"
+    alt="GitHub Desktop 界面：查看更改并提交，两个共同作者已署名"
   />
 </picture>
 
-## Where can I get it?
+## 与官方版的区别
 
-Download the official installer for your operating system:
+汉化改动集中在界面文案层，不改变任何业务逻辑：
 
- - [macOS](https://central.github.com/deployments/desktop/desktop/latest/darwin)
- - [macOS (Apple silicon)](https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64)
- - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32)
- - [Windows machine-wide install](https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi)
+- **应用界面**：欢迎页、仓库列表、更改/历史侧栏、分支面板、克隆与创建仓库对话框、差异视图、教程页等
+- **设置页**：账号、集成、Git、外观、通知、提示词、Copilot、高级、辅助功能
+- **菜单栏**：文件、编辑、视图、仓库、分支、帮助（含帮助下的开发测试菜单）
+- **各类弹窗**：分支与标签操作、检出/重置、放弃更改、发布仓库、暂存、多提交操作（合并/变基/拣选/冲突解决）、Copilot 相关确认框
+- **无障碍文本**：`aria-label`、`sr-only` 播报、屏幕阅读器提示
+- **对应测试**：`app/test/unit/ui/` 中依赖界面文案的断言已同步为中文
 
-Linux is not officially supported; however, you can find installers created for Linux from a fork of GitHub Desktop in the [Community Releases](https://github.com/desktop/desktop#community-releases) section.
+以下内容**有意保留英文**，以保证可用性与可维护性：
 
-### Beta Channel
+- 品牌与产品名：`GitHub`、`GitHub Desktop`、`GitHub Copilot`、`GitHub Enterprise`、`Git LFS`、`Atom` 等
+- 技术标识：DOM `id`/`className`、API 状态值、分支名示例、URL、占位符、模型名
+- 开发诊断输出：`log.*` 日志、`throw new Error`、`assertNever` 消息
 
-Want to test out new features and get fixes before everyone else? Install the
-beta channel to get access to early builds of Desktop:
+## 如何获取
 
- - [macOS](https://central.github.com/deployments/desktop/desktop/latest/darwin?env=beta)
- - [macOS (Apple silicon)](https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64?env=beta)
- - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32?env=beta)
- - [Windows (ARM64)](https://central.github.com/deployments/desktop/desktop/latest/win32-arm64?env=beta)
+**官方分发的安装包不包含本分支的汉化改动。** 要使用中文版，需要从本仓库源码自行构建（见下文）。
 
-The release notes for the latest beta versions are available [here](https://desktop.github.com/release-notes/?env=beta).
+如果你只需要英文版，可直接使用官方安装包：
 
-### Past Releases
-You can find past releases at https://desktop.githubusercontent.com. After installation of a past version, the auto update functionality will attempt to download the latest version. 
+- [macOS](https://central.github.com/deployments/desktop/desktop/latest/darwin)
+- [macOS (Apple silicon)](https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64)
+- [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32)
+- [Windows 全机安装](https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi)
 
-### Community Releases
+## 构建与运行
 
-There are several community-supported package managers that can be used to
-install GitHub Desktop:
- - Windows users can install using [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/) `c:\> winget install github-desktop` or [Chocolatey](https://chocolatey.org/) `c:\> choco install github-desktop`
- - macOS users can install using [Homebrew](https://brew.sh/) package manager:
-      `$ brew install --cask github`
+### 环境要求
 
-Installers for various Linux distributions can be found on the
-[`shiftkey/desktop`](https://github.com/shiftkey/desktop) fork.
+- Node.js ≥ 22.12.0（推荐 [`.nvmrc`](./.nvmrc) 指定的版本）
+- npm（随 Node 附带）
+- Git
 
-## Is GitHub Desktop right for me? What are the primary areas of focus?
+详细步骤见 [`docs/contributing/setup.md`](./docs/contributing/setup.md)。
 
-[This document](https://github.com/desktop/desktop/blob/development/docs/process/what-is-desktop.md) describes the focus of GitHub Desktop and who the product is most useful for.
+### 安装依赖并构建
 
-## I have a problem with GitHub Desktop
+```bash
+git clone https://github.com/beyondChang/GitHubZh.git
+cd GitHubZh
+npm ci          # 首次安装依赖
+npm run build:dev
+```
 
-Note: The [GitHub Desktop Code of Conduct](https://github.com/desktop/desktop/blob/development/CODE_OF_CONDUCT.md) applies in all interactions relating to the GitHub Desktop project.
+### 开发模式运行（推荐）
 
-First, please search the [open issues](https://github.com/desktop/desktop/issues?q=is%3Aopen)
-and [closed issues](https://github.com/desktop/desktop/issues?q=is%3Aclosed)
-to see if your issue hasn't already been reported (it may also be fixed).
+```bash
+npm start
+```
 
-There is also a list of [known issues](https://github.com/desktop/desktop/blob/development/docs/known-issues.md)
-that are being tracked against Desktop, and some of these issues have workarounds.
+启动本地热更新服务（`http://localhost:3000`）并拉起 Electron 应用，界面为简体中文。
 
-If you can't find an issue that matches what you're seeing, open a [new issue](https://github.com/desktop/desktop/issues/new/choose),
-choose the right template and provide us with enough information to investigate
-further.
+> 本分支对 `script/start.ts` 做了一处小改动：若打包产物 `dist/` 缺失（例如打包阶段因网络原因失败），会自动回退到 `electron + out/` 启动，开发模式仍可正常使用。若 `dist/` 存在，则行为与上游一致。
 
-## The issue I reported isn't fixed yet. What can I do?
+常用命令：
 
-If nobody has responded to your issue in a few days, you're welcome to respond to it with a friendly ping in the issue. Please do not respond more than a second time if nobody has responded. The GitHub Desktop maintainers are constrained in time and resources, and diagnosing individual configurations can be difficult and time consuming. While we'll try to at least get you pointed in the right direction, we can't guarantee we'll be able to dig too deeply into any one person's issue.
+| 命令 | 作用 |
+| --- | --- |
+| `npm ci` | 安装依赖 |
+| `npm run build:dev` | 构建开发版（编译 + 打包） |
+| `npm start` | 开发模式运行（热更新） |
+| `npm run compile:dev` | 仅编译 TypeScript/webpack |
+| `npx tsc --noEmit -p tsconfig.json` | 类型检查 |
+| `npm test` | 运行单元测试 |
 
-## How can I contribute to GitHub Desktop?
+## 同步上游
 
-The [CONTRIBUTING.md](./.github/CONTRIBUTING.md) document will help you get setup and
-familiar with the source. The [documentation](docs/) folder also contains more
-resources relevant to the project.
+汉化改动全部位于工作树文案层，通常可与上游直接合并：
 
-If you're looking for something to work on, check out the [help wanted](https://github.com/desktop/desktop/issues?q=is%3Aissue+is%3Aopen+label%3A%22help%20wanted%22) label.
+```bash
+git remote add upstream https://github.com/desktop/desktop.git   # 已添加可跳过
+git fetch upstream
+git merge upstream/development
+```
 
-## Building Desktop
+若上游改动了同一段界面文案，需重新把新增的英文翻译为中文（按上文「有意保留英文」的规则判断取舍）。
 
-To setup your development environment for building Desktop, check out: [`setup.md`](./docs/contributing/setup.md).
+## 参与翻译
 
-## More Resources
+欢迎补充与修正界面文案：
 
-See [desktop.github.com](https://desktop.github.com) for more product-oriented
-information about GitHub Desktop.
+1. 在 `app/src/` 下将目标英文文案改为简体中文，只改字符串内容，不改代码结构
+2. 若该文案被 `app/test/unit/ui/` 的断言引用，同步更新断言
+3. 保持术语一致，例如：提交、分支、仓库、拉取请求、暂存、变基、拣选、冲突、远程、账号、凭据
+4. 提交信息沿用 `i18n(zh-CN): 翻译……` 风格
+5. 提交前运行 `npx tsc --noEmit -p tsconfig.json` 与 `npx eslint --rulesdir ./eslint-rules <改动文件>`
 
-See our [getting started documentation](https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop) for more information on how to set up, authenticate, and configure GitHub Desktop.
+相关文档：[贡献指南](./.github/CONTRIBUTING.md)、[代码风格](./docs/contributing/styleguide.md)、[工程价值观](./docs/contributing/engineering-values.md)
 
-## License
+## 更多资源
+
+- [desktop.github.com](https://desktop.github.com) — 官方产品页
+- [入门文档](https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop) — 官方使用指南
+- [文档目录](./docs/) — 开发相关文档
+
+## 许可证
 
 **[MIT](LICENSE)**
 
-The MIT license grant is not for GitHub's trademarks, which include the logo
-designs. GitHub reserves all trademark and copyright rights in and to all
-GitHub trademarks. GitHub's logos include, for instance, the stylized
-Invertocat designs that include "logo" in the file title in the following
-folder: [logos](app/static/logos).
+MIT 许可不涵盖 GitHub 的商标，包括徽标设计。GitHub 保留对所有 GitHub 商标的全部商标与版权权利。GitHub 的徽标包括例如「logos」文件夹（[logos](app/static/logos)）中文件名含 "logo" 的 Invertocat 风格化设计。
 
-GitHub® and its stylized versions and the Invertocat mark are GitHub's
-Trademarks or registered Trademarks. When using GitHub's logos, be sure to
-follow the GitHub [logo guidelines](https://github.com/logos).
+GitHub® 及其风格化版本、Invertocat 标记均为 GitHub 的商标或注册商标。使用 GitHub 徽标时，请务必遵循 GitHub [徽标使用规范](https://github.com/logos)。
