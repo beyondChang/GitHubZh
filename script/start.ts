@@ -8,6 +8,8 @@ import configs from '../app/webpack.development'
 
 import { run } from './run'
 import { createServer } from 'http'
+import { spawn } from 'child_process'
+import { join } from 'path'
 
 function getPortOrDefault() {
   const port = process.env.PORT
@@ -23,12 +25,15 @@ function getPortOrDefault() {
 }
 
 function startApp() {
-  const runningApp = run({ stdio: 'inherit' })
+  let runningApp = run({ stdio: 'inherit' })
   if (runningApp == null) {
-    console.error(
-      "Couldn't launch the app. You probably need to build it first. Run `npm run build:dev`."
-    )
-    process.exit(1)
+    const electronPath = join(process.cwd(), 'node_modules', 'electron', 'dist', 'electron.exe')
+    const outPath = join(process.cwd(), 'out')
+    console.log('dist missing, falling back to electron + out: ' + outPath)
+    runningApp = spawn(electronPath, [outPath], {
+      stdio: 'inherit',
+      env: { ...process.env, NODE_ENV: 'development' },
+    })
   }
 
   runningApp.on('close', () => {
